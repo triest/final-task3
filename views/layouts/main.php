@@ -48,6 +48,15 @@ AppAsset::register($this);
                     )
                     . Html::endForm()
                     . '</li>'
+                ),
+                Yii::$app->user->isGuest ? (
+                ['label' => 'Regists', 'url' => ['/site/singup']]
+                ) : (
+                    '<li>'
+                    . Html::beginForm(['/site/logout'], 'post')
+
+                    . Html::endForm()
+                    . '</li>'
                 )
             ],
         ]);

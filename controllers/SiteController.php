@@ -107,7 +107,9 @@ class SiteController extends Controller
         $request = file_get_contents("http://api.sypexgeo.net/json/".$ip);
         $array = json_decode($request);
         //var_dump($array);
-        echo $array->city->name_ru;
+       // echo $array->city->name_ru;
+
+        return $this->render('confirm_city',['city'=>$array->city->name_ru]);
 
     }
 
@@ -231,5 +233,15 @@ class SiteController extends Controller
         $comments=Comment::find()->where(['status'=>2])->orderBy('create_time','ASC')->limit(5)->all();
         //  var_dump($comments);
         return $comments;
+    }
+
+    public function actionConfurm($city){
+        echo $city;
+
+
+    }
+
+    public function actionDenide($city){
+        echo $city;
     }
 }
