@@ -19,7 +19,8 @@ class SignupForm extends Model
             [['email'], 'unique', 'targetClass'=>'app\models\User', 'targetAttribute'=>'email']
         ];
     }
-    
+
+    /*
     public function signup()
     {
         if($this->validate())
@@ -28,5 +29,6 @@ class SignupForm extends Model
             $user->attributes = $this->attributes;
             return $user->create();
         }
-    }
+    }*/
+    
 }

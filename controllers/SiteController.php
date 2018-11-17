@@ -1,6 +1,6 @@
 <?php
 namespace app\controllers;
-use app\models\Post;
+
 use app\models\Tag;
 use app\models\Comment;
 use app\models\CommentForm;

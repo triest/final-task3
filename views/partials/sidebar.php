@@ -7,10 +7,7 @@ use yii\helpers\Url;
         <aside class="widget">
             <h5 class="widget-title text-uppercase text-center">Облако тегов</h5>
 
-          <?   $tags=$this->context->getPoluparTags(); ?>
-            <?php foreach($tags as $tag):?>
-                <a href="<?= Url::toRoute(['site/tag', 'tag'=>$tag->name]);?>"> <?= $tag->name ?> </a>
-            <?php endforeach; ?>
+      
 
         </aside>
 
