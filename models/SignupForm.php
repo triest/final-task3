@@ -6,21 +6,26 @@ use yii\base\Model;
 
 class SignupForm extends Model
 {
-    public $name;
+    public $username;
     public $email;
     public $password;
+    public $fio;
+    public $phone;
     
     public function rules()
     {
         return [
-            [['name','email','password'], 'required'],
-            [['name'], 'string'],
+            [['username','email','password','phone'], 'required'],
+            [['username'], 'string'],
             [['email'], 'email'],
-            [['email'], 'unique', 'targetClass'=>'app\models\User', 'targetAttribute'=>'email']
+            [['email'], 'unique', 'targetClass'=>'app\models\User', 'targetAttribute'=>'email'],
+            [['fio'],'string'],
+            [['phone'],'string'],
+
         ];
     }
 
-    /*
+
     public function signup()
     {
         if($this->validate())
@@ -29,6 +34,6 @@ class SignupForm extends Model
             $user->attributes = $this->attributes;
             return $user->create();
         }
-    }*/
-    
+    }
+
 }

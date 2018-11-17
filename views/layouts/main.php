@@ -50,7 +50,7 @@ AppAsset::register($this);
                     . '</li>'
                 ),
                 Yii::$app->user->isGuest ? (
-                ['label' => 'Regists', 'url' => ['/auth/singup']]
+                ['label' => 'Registr', 'url' => ['/auth/singup']]
                 ) : (
                     '<li>'
                     . Html::beginForm(['/site/logout'], 'post')
