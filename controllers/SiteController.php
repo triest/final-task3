@@ -55,6 +55,27 @@ class SiteController extends Controller
             ],
         ];
     }
+
+
+    function getRealIpAddr()
+    {
+        if (!empty($_SERVER['HTTP_CLIENT_IP']))
+        {
+            $ip=$_SERVER['HTTP_CLIENT_IP'];
+        }
+        elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR']))
+            //to check ip is pass from proxy
+        {
+            $ip=$_SERVER['HTTP_X_FORWARDED_FOR'];
+        }
+        else
+        {
+            $ip=$_SERVER['REMOTE_ADDR'];
+        }
+        return $ip;
+    }
+
+
     /**
      * Displays homepage.
      *
@@ -63,29 +84,31 @@ class SiteController extends Controller
     public function actionIndex()
     {
 
-       // $ip=Yii::$app->request->remoteIp;
-       // echo $ip;
-       // die();
-        // $data=Post::find();
-        $query = Post::find()->where(['status'=>2]);
-        $countQuery = clone $query;
-        $count=$query->count();
-        //   $query = Post::find();
-        // get the total number of articles (but do not fetch the article data yet)
-        $count = $query->count();
-        $pageSize=10;
-        $pagination = new Pagination(['totalCount' => $count, 'pageSize'=>$pageSize]);
-        $posts = $query->offset($pagination->offset)
-            ->limit($pagination->limit)
-            ->all();
-        $commentForm = new CommentForm();
-        //die();
-        return $this->render('index',
-            [
-                'post'=>$posts,
-                'pagination'=>$pagination,
-                'commentForm'=>$commentForm
-            ]);
+     //   return $this->render('index2');
+       $ip=$this->getRealIpAddr();
+       echo $ip;
+
+     //   die();
+        if (!empty($_SERVER['HTTP_CLIENT_IP'])) $ip=$_SERVER['HTTP_CLIENT_IP'];
+        elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) $ip=$_SERVER['HTTP_X_FORWARDED_FOR'];
+        else $ip=$_SERVER['REMOTE_ADDR'];
+        echo "<br>";
+        echo $ip;echo "<br>";
+
+        echo Yii::$app->request->userIP;echo "<br>";
+
+        $query = @unserialize(file_get_contents('http://ip-api.com/php/'.$ip));
+        if($query && $query['status'] == 'success') {
+            echo 'My IP: '.$query['query'].', '.$query['isp'].', '.$query['org'].', '.$query ['country'].', '.$query['regionName'].', '.$query['city'].'!';
+        } else {
+            echo 'Unable to get location';
+        }
+
+        $request = file_get_contents("http://api.sypexgeo.net/json/".$ip);
+        $array = json_decode($request);
+        var_dump($array);
+        echo $array->city->name_ru;
+
     }
 
 
