@@ -62,6 +62,10 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
+
+       // $ip=Yii::$app->request->remoteIp;
+       // echo $ip;
+       // die();
         // $data=Post::find();
         $query = Post::find()->where(['status'=>2]);
         $countQuery = clone $query;
