@@ -24,6 +24,12 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'isAdmin')->textInput() ?>
 
+    <?= $form->field($model, 'fio')->textInput() ?>
+
+    <?= $form->field($model, 'phone')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'create_time')->textInput() ?>
+
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
     </div>
