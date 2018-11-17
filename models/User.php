@@ -3,21 +3,39 @@
 namespace app\models;
 
 use Yii;
+use app\models\Post;
+use app\models\Tag;
+use app\models\Comment;
+use app\models\CommentForm;
+//use Codeception\Step\Comment;
+
+use yii\data\Pagination;
+use yii\filters\AccessControl;
+use yii\web\Controller;
+use yii\web\Response;
+use yii\filters\VerbFilter;
+use app\models\LoginForm;
+use app\models\ContactForm;
 use yii\web\IdentityInterface;
 
 /**
  * This is the model class for table "user".
  *
- * @property integer $id
- * @property string $name
+ * @property int $id
+ * @property string $username
  * @property string $email
  * @property string $password
- * @property integer $isAdmin
- * @property string $photo
+ * @property int $salt
+ * @property string $profile
+ * @property int $isAdmin
+ * @property int $fio
+ * @property string $phone
+ * @property string $create_time
  *
- * @property Comment[] $comments
+ * @property Post[] $posts
+ * @property Reviews[] $reviews
  */
-class User  extends \yii\db\ActiveRecord implements IdentityInterface
+class User extends \yii\db\ActiveRecord implements IdentityInterface
 {
     /**
      * {@inheritdoc}
@@ -33,8 +51,9 @@ class User  extends \yii\db\ActiveRecord implements IdentityInterface
     public function rules()
     {
         return [
-            [['salt'], 'integer'],
-            [['username', 'email', 'password', 'profile'], 'string', 'max' => 255],
+            [['salt', 'isAdmin', 'fio'], 'integer'],
+            [['create_time'], 'safe'],
+            [['username', 'email', 'password', 'profile', 'phone'], 'string', 'max' => 255],
         ];
     }
 
@@ -50,6 +69,10 @@ class User  extends \yii\db\ActiveRecord implements IdentityInterface
             'password' => 'Password',
             'salt' => 'Salt',
             'profile' => 'Profile',
+            'isAdmin' => 'Is Admin',
+            'fio' => 'Fio',
+            'phone' => 'Phone',
+            'create_time' => 'Create Time',
         ];
     }
 
@@ -62,29 +85,11 @@ class User  extends \yii\db\ActiveRecord implements IdentityInterface
     }
 
     /**
-     * Finds an identity by the given ID.
-     * @param string|int $id the ID to be looked for
-     * @return IdentityInterface the identity object that matches the given ID.
-     * Null should be returned if such an identity cannot be found
-     * or the identity is not in an active state (disabled, deleted, etc.)
+     * @return \yii\db\ActiveQuery
      */
-    public static function findIdentity($id)
+    public function getReviews()
     {
-        return User::findOne($id);
-    }
-
-    /**
-     * Finds an identity by the given token.
-     * @param mixed $token the token to be looked for
-     * @param mixed $type the type of the token. The value of this parameter depends on the implementation.
-     * For example, [[\yii\filters\auth\HttpBearerAuth]] will set this parameter to be `yii\filters\auth\HttpBearerAuth`.
-     * @return IdentityInterface the identity object that matches the given token.
-     * Null should be returned if such an identity cannot be found
-     * or the identity is not in an active state (disabled, deleted, etc.)
-     */
-    public static function findIdentityByAccessToken($token, $type = null)
-    {
-        // TODO: Implement findIdentityByAccessToken() method.
+        return $this->hasMany(Reviews::className(), ['id_autor' => 'id']);
     }
 
     /**
@@ -93,7 +98,7 @@ class User  extends \yii\db\ActiveRecord implements IdentityInterface
      */
     public function getId()
     {
-       return $this->id;
+        return $this->id;
     }
 
     /**
@@ -135,6 +140,33 @@ class User  extends \yii\db\ActiveRecord implements IdentityInterface
     {
         return ($this->password == $password) ? true : false;
     }
+
+   
+    /**
+     * Finds an identity by the given ID.
+     * @param string|int $id the ID to be looked for
+     * @return IdentityInterface the identity object that matches the given ID.
+     * Null should be returned if such an identity cannot be found
+     * or the identity is not in an active state (disabled, deleted, etc.)
+     */
+    public static function findIdentity($id)
+    {
+        return User::findOne($id);
+    }
+    /**
+     * Finds an identity by the given token.
+     * @param mixed $token the token to be looked for
+     * @param mixed $type the type of the token. The value of this parameter depends on the implementation.
+     * For example, [[\yii\filters\auth\HttpBearerAuth]] will set this parameter to be `yii\filters\auth\HttpBearerAuth`.
+     * @return IdentityInterface the identity object that matches the given token.
+     * Null should be returned if such an identity cannot be found
+     * or the identity is not in an active state (disabled, deleted, etc.)
+     */
+    public static function findIdentityByAccessToken($token, $type = null)
+    {
+        // TODO: Implement findIdentityByAccessToken() method.
+    }
+
 
 
 

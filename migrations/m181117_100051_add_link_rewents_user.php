@@ -12,7 +12,7 @@ class m181117_100051_add_link_rewents_user extends Migration
      */
     public function safeUp()
     {
-        
+
         // add foreign key for table `city`
         $this->addForeignKey(
             'fk-city-id_autor',
