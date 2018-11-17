@@ -35,6 +35,10 @@ use yii\widgets\ActiveForm;
 
     <?php // echo $form->field($model, 'create_time') ?>
 
+    <?php // echo $form->field($model, 'emailConfurm') ?>
+
+    <?php // echo $form->field($model, 'emailToken') ?>
+
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>
         <?= Html::resetButton('Reset', ['class' => 'btn btn-default']) ?>

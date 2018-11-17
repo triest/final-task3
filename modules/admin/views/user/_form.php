@@ -24,11 +24,15 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'isAdmin')->textInput() ?>
 
-    <?= $form->field($model, 'fio')->textInput() ?>
+    <?= $form->field($model, 'fio')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'phone')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'create_time')->textInput() ?>
+
+    <?= $form->field($model, 'emailConfurm')->textInput() ?>
+
+    <?= $form->field($model, 'emailToken')->textInput(['maxlength' => true]) ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

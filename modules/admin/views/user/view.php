@@ -38,6 +38,8 @@ $this->params['breadcrumbs'][] = $this->title;
             'fio',
             'phone',
             'create_time',
+            'emailConfurm:email',
+            'emailToken:email',
         ],
     ]) ?>
 

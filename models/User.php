@@ -18,6 +18,7 @@ use app\models\LoginForm;
 use app\models\ContactForm;
 use yii\web\IdentityInterface;
 
+
 /**
  * This is the model class for table "user".
  *
@@ -28,9 +29,11 @@ use yii\web\IdentityInterface;
  * @property int $salt
  * @property string $profile
  * @property int $isAdmin
- * @property int $fio
+ * @property string $fio
  * @property string $phone
  * @property string $create_time
+ * @property int $emailConfurm
+ * @property string $emailToken
  *
  * @property Post[] $posts
  * @property Reviews[] $reviews
@@ -51,9 +54,9 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
     public function rules()
     {
         return [
-            [['salt', 'isAdmin', 'fio'], 'integer'],
+            [['salt', 'isAdmin', 'emailConfurm'], 'integer'],
             [['create_time'], 'safe'],
-            [['username', 'email', 'password', 'profile', 'phone'], 'string', 'max' => 255],
+            [['username', 'email', 'password', 'profile', 'fio', 'phone', 'emailToken'], 'string', 'max' => 255],
         ];
     }
 
@@ -73,6 +76,8 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
             'fio' => 'Fio',
             'phone' => 'Phone',
             'create_time' => 'Create Time',
+            'emailConfurm' => 'Email Confurm',
+            'emailToken' => 'Email Token',
         ];
     }
 
@@ -91,6 +96,9 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
     {
         return $this->hasMany(Reviews::className(), ['id_autor' => 'id']);
     }
+
+
+
 
     /**
      * Returns an ID that can uniquely identify a user identity.
