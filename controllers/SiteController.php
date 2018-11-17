@@ -86,27 +86,27 @@ class SiteController extends Controller
 
      //   return $this->render('index2');
        $ip=$this->getRealIpAddr();
-       echo $ip;
+     //  echo $ip;
 
      //   die();
         if (!empty($_SERVER['HTTP_CLIENT_IP'])) $ip=$_SERVER['HTTP_CLIENT_IP'];
         elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) $ip=$_SERVER['HTTP_X_FORWARDED_FOR'];
         else $ip=$_SERVER['REMOTE_ADDR'];
-        echo "<br>";
-        echo $ip;echo "<br>";
+     //   echo "<br>";
+       // echo $ip;echo "<br>";
 
-        echo Yii::$app->request->userIP;echo "<br>";
+      //  echo Yii::$app->request->userIP;echo "<br>";
 
         $query = @unserialize(file_get_contents('http://ip-api.com/php/'.$ip));
         if($query && $query['status'] == 'success') {
-            echo 'My IP: '.$query['query'].', '.$query['isp'].', '.$query['org'].', '.$query ['country'].', '.$query['regionName'].', '.$query['city'].'!';
+         //   echo 'My IP: '.$query['query'].', '.$query['isp'].', '.$query['org'].', '.$query ['country'].', '.$query['regionName'].', '.$query['city'].'!'."<br>";
         } else {
             echo 'Unable to get location';
         }
 
         $request = file_get_contents("http://api.sypexgeo.net/json/".$ip);
         $array = json_decode($request);
-        var_dump($array);
+        //var_dump($array);
         echo $array->city->name_ru;
 
     }
