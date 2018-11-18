@@ -38,6 +38,7 @@ class Reviews extends \yii\db\ActiveRecord
             [['id_city', 'rating', 'id_autor'], 'integer'],
             [['title'], 'string'],
             [['date_create'], 'safe'],
+            [['date_create'], 'default', 'value' => date('Y-m-d H:i:s')],
             [['img'], 'string', 'max' => 255],
             [['id_autor'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['id_autor' => 'id']],
             [['id_city'], 'exist', 'skipOnError' => true, 'targetClass' => City::className(), 'targetAttribute' => ['id_city' => 'id']],
