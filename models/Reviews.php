@@ -36,6 +36,7 @@ class Reviews extends \yii\db\ActiveRecord
         return [
             [['id_city', 'title'], 'required'],
             [['id_city', 'rating', 'id_autor'], 'integer'],
+            [['rating'], 'integer', 'max' => 5,'min'=>1],
             [['title'], 'string'],
             [['date_create'], 'safe'],
             [['date_create'], 'default', 'value' => date('Y-m-d H:i:s')],
@@ -51,7 +52,7 @@ class Reviews extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
+           /* 'id' => 'ID',*/
             'id_city' => 'Id City',
             'title' => 'Title',
             'rating' => 'Rating',

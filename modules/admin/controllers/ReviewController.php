@@ -66,9 +66,9 @@ class ReviewController extends Controller
     {
         $model = new Reviews();
 
-        if ($model->load(Yii::$app->request->post())/* && $model->save()*/) {
-            var_dump(Yii::$app->request->post());
-            die();
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+           // var_dump(Yii::$app->request->post());
+          //  die();
             return $this->redirect(['view', 'id' => $model->id]);
         }
 

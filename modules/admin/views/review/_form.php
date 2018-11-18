@@ -27,9 +27,7 @@ $params = [
 
     <?= $form->field($model, 'rating')->textInput() ?>
 
-    <?= $form->field($model, 'img')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'id_autor')->textInput() ?>
+    <?= $form->field($model, 'img')->fileInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'id_city')->dropDownList($items,$params); ?>
 
