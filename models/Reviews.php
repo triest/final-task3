@@ -3,6 +3,8 @@
 namespace app\models;
 
 use Yii;
+use Yii\base\Model;
+use yii\web\UploadedFile;
 
 /**
  * This is the model class for table "reviews".
@@ -21,6 +23,9 @@ use Yii;
  */
 class Reviews extends \yii\db\ActiveRecord
 {
+
+    public $image;
+
     /**
      * {@inheritdoc}
      */
@@ -77,4 +82,49 @@ class Reviews extends \yii\db\ActiveRecord
     {
         return $this->hasOne(City::className(), ['id' => 'id_city']);
     }
+
+    public function uploadFile(UploadedFile $file)
+    {
+      //  $this->image = $file;
+        $file->saveAs(Yii::getAlias('@webroot').'/uploads/'.$file->name);
+       // var_dump($file);
+     //    die();
+    }
+
+
+    private function generateFilename()
+    {
+        return strtolower(md5(uniqid($this->image->baseName)) . '.' . $this->image->extension);
+    }
+
+    private function getFolder()
+    {
+        return Yii::getAlias('@web') . 'uploads/';
+    }
+
+    public function deleteCurrentImage($currentImage)
+    {
+        if($this->fileExists($currentImage))
+        {
+            unlink($this->getFolder() . $currentImage);
+        }
+    }
+    public function fileExists($currentImage)
+    {
+        if(!empty($currentImage) && $currentImage != null)
+        {
+            return file_exists($this->getFolder() . $currentImage);
+        }
+    }
+
+    public function saveImage()
+    {
+        $filename = $this->generateFilename();
+        $this->image->saveAs($this->getFolder() . $filename);
+        return $filename;
+    }
+
+
+
+
 }
