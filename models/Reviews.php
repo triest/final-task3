@@ -85,8 +85,13 @@ class Reviews extends \yii\db\ActiveRecord
 
     public function uploadFile(UploadedFile $file)
     {
-      //  $this->image = $file;
-        $file->saveAs(Yii::getAlias('@webroot').'/uploads/'.$file->name);
+        $this->image = $file;
+        $filename=strtolower(md5(uniqid($file->baseName)).'.'.$file->extension);
+        $file->saveAs(Yii::getAlias('@webroot').'/uploads/'.$filename);
+        $this->img=$filename;
+        $this->save();
+        return $filename;
+     //   return $file;
        // var_dump($file);
      //    die();
     }
@@ -100,6 +105,7 @@ class Reviews extends \yii\db\ActiveRecord
     private function getFolder()
     {
         return Yii::getAlias('@web') . 'uploads/';
+
     }
 
     public function deleteCurrentImage($currentImage)
@@ -121,6 +127,7 @@ class Reviews extends \yii\db\ActiveRecord
     {
         $filename = $this->generateFilename();
         $this->image->saveAs($this->getFolder() . $filename);
+        $this->img->save(false);
         return $filename;
     }
 

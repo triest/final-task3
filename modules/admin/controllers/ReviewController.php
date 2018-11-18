@@ -70,7 +70,11 @@ class ReviewController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
              $file=UploadedFile::getInstance($model,'img');
            //  var_dump($file);die();
-             $model->uploadFile($file);
+             $file=$model->uploadFile($file);
+            // $model->img=$file->name;
+            // $model->save();
+            // var_dump($file);
+            // die();
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -93,7 +97,8 @@ class ReviewController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
 
             $file=UploadedFile::getInstance($model,'img');
-            //var_dump($file);die;
+
+            var_dump($file);die;
           //  $model->
 
             return $this->redirect(['view', 'id' => $model->id]);
