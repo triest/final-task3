@@ -19,7 +19,7 @@ class ReviewsSearch extends Reviews
     {
         return [
             [['id', 'id_city', 'rating', 'id_autor'], 'integer'],
-            [['title', 'img', 'date_create'], 'safe'],
+            [['title', 'img', 'date_create', 'description'], 'safe'],
         ];
     }
 
@@ -67,7 +67,8 @@ class ReviewsSearch extends Reviews
         ]);
 
         $query->andFilterWhere(['like', 'title', $this->title])
-            ->andFilterWhere(['like', 'img', $this->img]);
+            ->andFilterWhere(['like', 'img', $this->img])
+            ->andFilterWhere(['like', 'description', $this->description]);
 
         return $dataProvider;
     }

@@ -14,6 +14,7 @@ use Yii;
  * @property string $img
  * @property int $id_autor
  * @property string $date_create
+ * @property string $description
  *
  * @property User $autor
  * @property City $city
@@ -34,11 +35,9 @@ class Reviews extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id_city', 'title'], 'required'],
+            [['id_city', 'title', 'description'], 'required'],
             [['id_city', 'rating', 'id_autor'], 'integer'],
-            [['rating'], 'integer', 'max' => 5,'min'=>1],
-            [['title'], 'string'],
-            [['date_create'], 'safe'],
+            [['title', 'description'], 'string'],
             [['date_create'], 'default', 'value' => date('Y-m-d H:i:s')],
             [['img'], 'string', 'max' => 255],
             [['id_autor'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['id_autor' => 'id']],
@@ -52,13 +51,14 @@ class Reviews extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-           /* 'id' => 'ID',*/
+            'id' => 'ID',
             'id_city' => 'Id City',
             'title' => 'Title',
             'rating' => 'Rating',
             'img' => 'Img',
             'id_autor' => 'Id Autor',
             'date_create' => 'Date Create',
+            'description' => 'Description',
         ];
     }
 

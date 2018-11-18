@@ -16,7 +16,6 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p>
         <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('SetImage', ['setImage', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
         <?= Html::a('Delete', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
@@ -36,6 +35,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'img',
             'id_autor',
             'date_create',
+            'description:ntext',
         ],
     ]) ?>
 
