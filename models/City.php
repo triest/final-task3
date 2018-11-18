@@ -31,6 +31,7 @@ class City extends \yii\db\ActiveRecord
         return [
             [['name'], 'required'],
             [['date_create'], 'safe'],
+            [['date_create'], 'default', 'value' => date('Y-m-d H:i:s')],
             [['name'], 'string', 'max' => 255],
         ];
     }
