@@ -135,7 +135,6 @@ class Reviews extends \yii\db\ActiveRecord
         $city=$this->getCity()->one();
         $name=$city->name;
         return $name;
-
     }
 
     public function getImage()
@@ -148,6 +147,12 @@ class Reviews extends \yii\db\ActiveRecord
         } else {
             return '/no-image.png';
         }
+    }
+
+    public function getAuthor(){
+        $user=$this->getAutor()->one();
+        $name=$user->fio;
+        return $name;
     }
 
 

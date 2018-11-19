@@ -23,7 +23,7 @@ $this->title = "Список городов";
                                     <h6>Рейтинг: <?= $review->rating ?> </h4>
                                   Картинка:  <img src="<?= $review->getImage();?>" alt="">
                                     <div class="entry-content">
-                                                          
+
                                                           </div>
                             </header>
 
@@ -51,10 +51,10 @@ $this->title = "Список городов";
                                     <h6>Рейтинг: <?= $review->rating ?> </h4>
                                   Картинка:  <img src="<?= $review->getImage();?>" alt="">
                                     <div class="entry-content">
-                                                              <?= $review->description ?>
+                                                          <?= $review->description ?>
                                                           </div>
                             </header>
-
+                            Автор:   <b> <?= $review->getAuthor() ?></b>
 
                             <div class="entry-content">
                                <img src="<?= $review->getImage();?>" alt=""></a>
