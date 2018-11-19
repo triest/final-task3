@@ -21,10 +21,15 @@ $this->title = "Список городов";
                                 <h4><b> <?= $review->title ?></b></h6>
                                    <h5><?= $review->getCityName() ?> </h5>
                                     <h6>Рейтинг: <?= $review->rating ?> </h4>
+                                  Картинка:  <img src="<?= $review->getImage();?>" alt="">
+                                    <div class="entry-content">
+                                                          
+                                                          </div>
                             </header>
-                            <b>Content:
-                            <?= $review->title ?></b>
+
+
                             <div class="entry-content">
+                               <img src="<?= $review->getImage();?>" alt=""></a>
                             </div>
 
                         </div>
@@ -34,6 +39,30 @@ $this->title = "Список городов";
                  <?php
                    }
                    else{ ?>
+       <?php foreach($reviews as $review):?>
+                    <article class="post">
+                        <div class="post-thumb">
+
+                        </div>
+                        <div class="post-content">
+                            <header class="entry-header text-center text-uppercase">
+                                <h4><b> <?= $review->title ?></b></h6>
+                                   <h5><?= $review->getCityName() ?> </h5>
+                                    <h6>Рейтинг: <?= $review->rating ?> </h4>
+                                  Картинка:  <img src="<?= $review->getImage();?>" alt="">
+                                    <div class="entry-content">
+                                                              <?= $review->description ?>
+                                                          </div>
+                            </header>
+
+
+                            <div class="entry-content">
+                               <img src="<?= $review->getImage();?>" alt=""></a>
+                            </div>
+
+                        </div>
+                    </article>
+                <?php endforeach; ?>
 
                      <?php
                    }
