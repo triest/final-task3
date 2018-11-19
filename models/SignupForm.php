@@ -20,6 +20,7 @@ class SignupForm extends Model
             [['email'], 'email'],
             [['email'], 'unique', 'targetClass'=>'app\models\User', 'targetAttribute'=>'email'],
             [['fio'],'string'],
+            [['fio'],'required'],
             [['phone'],'string'],
 
         ];
