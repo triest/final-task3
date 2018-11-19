@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use Yii\base\Model;
 
 /**
  * This is the model class for table "city".
@@ -53,6 +54,13 @@ class City extends \yii\db\ActiveRecord
      */
     public function getReviews()
     {
-        return $this->hasMany(Reviews::className(), ['id_city' => 'id']);
+        /*  public function getPosts()
+    {
+        return $this->hasMany(Post::className(), ['id' => 'post_id'])
+            ->viaTable('post_tag',['tag_id'=>'id']);
+    }*/
+      //  return $this->hasMany(Reviews::className(), ['id_city' => 'id']);
+
+        return $this->hasMany(Reviews::className(),['id_city'=>'id']);
     }
 }

@@ -131,6 +131,13 @@ class Reviews extends \yii\db\ActiveRecord
         return $filename;
     }
 
+    public function getCityName(){
+        $city=$this->getCity()->one();
+        $name=$city->name;
+        return $name;
+
+    }
+
 
 
 

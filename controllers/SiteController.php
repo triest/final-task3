@@ -4,6 +4,8 @@ namespace app\controllers;
 use app\models\Tag;
 use app\models\Comment;
 use app\models\CommentForm;
+use app\models\City;
+use app\models\Reviews;
 //use Codeception\Step\Comment;
 use Yii;
 use yii\data\Pagination;
@@ -208,7 +210,15 @@ class SiteController extends Controller
     }
 
     public function actionConfurm($city){
-        echo $city;
+        $city2=City::find()->where(['name'=>$city])->one();
+         //  echo $city2->name;
+      //  die();
+
+        $reviews=$city2->getReviews()->all();
+     //   var_dump($reviews);
+
+
+        return $this->render('reviews_to_city',['reviews'=>$reviews]);
 
 
     }

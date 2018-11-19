@@ -8,12 +8,11 @@ use app\models\ReviewsSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use yii\web\UploadedFile;
 
 /**
- * ReviewController implements the CRUD actions for Reviews model.
+ * ReviewsController implements the CRUD actions for Reviews model.
  */
-class ReviewController extends Controller
+class ReviewsController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -68,10 +67,6 @@ class ReviewController extends Controller
         $model = new Reviews();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-             $file=UploadedFile::getInstance($model,'img');
-
-             $file=$model->uploadFile($file);
-
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -92,10 +87,6 @@ class ReviewController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-
-            $file=UploadedFile::getInstance($model,'img');
-            $file=$model->uploadFile($file);
-
             return $this->redirect(['view', 'id' => $model->id]);
         }
 

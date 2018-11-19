@@ -71,7 +71,7 @@ AppAsset::register($this);
                 <?= Alert::widget() ?>
                 <?= $content ?>
             </div>
-            <?= $this->render('/partials/sidebar');?>
+     
 
         </div>
     </div>
