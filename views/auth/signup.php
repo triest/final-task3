@@ -12,7 +12,7 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="leave-comment mr0"><!--leave comment-->
     <div class="row">
-        <div class="col-md-8 col-md-offset-2">
+        <div class="col-md-12 ">
             <div class="site-login">
                 <h1><?= Html::encode($this->title) ?></h1>
 
@@ -26,11 +26,13 @@ $this->params['breadcrumbs'][] = $this->title;
                     ],
                 ]); ?>
 
-                <?= $form->field($model, 'username')->textInput(['autofocus' => true]) ?>
+                <?= $form->field($model, 'username')->textInput(['autofocus' => true])->label("name") ?>
 
                 <?= $form->field($model, 'email')->textInput() ?>
 
-                <?= $form->field($model, 'password')->passwordInput() ?>
+                <?= $form->field($model, 'password')->passwordInput()->label("pass") ?>
+
+                <?= $form->field($model, 'password_repeat')->passwordInput()->label("pass") ?>
 
                 <?= $form->field($model, 'fio')->textInput() ?>
 

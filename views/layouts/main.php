@@ -63,15 +63,22 @@ AppAsset::register($this);
         NavBar::end();
         ?>
 
+        <!-- Главное -->
         <div class="container">
-            <div class="col-md-8">
+            <div class="col-xs-12 col-sm-9">
                 <?= Breadcrumbs::widget([
                     'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
                 ]) ?>
                 <?= Alert::widget() ?>
                 <?= $content ?>
             </div>
-     
+
+            <!--Боковая панель -->
+            <div class="col-xs-6 col-sm-3 sidebar-offcanvas">
+                <?php if (Yii::$app->user->isGuest==false): ?>
+                    <?= Html::a('Создать отзыв', ['/site/create'], ['class'=>'btn btn-primary']) ?>
+                <?php endif; ?>
+            </div>
 
         </div>
     </div>

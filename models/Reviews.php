@@ -40,8 +40,9 @@ class Reviews extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id_city', 'title', 'description'], 'required'],
+            [['id_city', 'title', 'description','rating'], 'required'],
             [['id_city', 'rating', 'id_autor'], 'integer'],
+           [['rating'],'integer','min'=>1,'max'=>5],
             [['title', 'description'], 'string'],
             [['date_create'], 'default', 'value' => date('Y-m-d H:i:s')],
             [['img'], 'string', 'max' => 255],
