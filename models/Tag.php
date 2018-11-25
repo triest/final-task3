@@ -24,7 +24,6 @@ class Tag extends \yii\db\ActiveRecord
     }
 
 
-
     /**
      * {@inheritdoc}
      */
@@ -60,10 +59,11 @@ class Tag extends \yii\db\ActiveRecord
     public function getPosts()
     {
         return $this->hasMany(Post::className(), ['id' => 'post_id'])
-            ->viaTable('post_tag',['tag_id'=>'id']);
+            ->viaTable('post_tag', ['tag_id' => 'id']);
     }
 
-    public function getName(){
+    public function getName()
+    {
 
     }
 }

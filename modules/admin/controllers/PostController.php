@@ -2,7 +2,6 @@
 
 namespace app\modules\admin\controllers;
 
-
 use Yii;
 use app\models\Post;
 use app\models\PostSearch;
@@ -35,6 +34,7 @@ class PostController extends Controller
 
     /**
      * Lists all Post models.
+     *
      * @return mixed
      */
     public function actionIndex()
@@ -50,6 +50,7 @@ class PostController extends Controller
 
     /**
      * Displays a single Post model.
+     *
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -64,6 +65,7 @@ class PostController extends Controller
     /**
      * Creates a new Post model.
      * If creation is successful, the browser will be redirected to the 'view' page.
+     *
      * @return mixed
      */
     public function actionCreate()
@@ -82,6 +84,7 @@ class PostController extends Controller
     /**
      * Updates an existing Post model.
      * If update is successful, the browser will be redirected to the 'view' page.
+     *
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -102,6 +105,7 @@ class PostController extends Controller
     /**
      * Deletes an existing Post model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
+     *
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -116,6 +120,7 @@ class PostController extends Controller
     /**
      * Finds the Post model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
+     *
      * @param integer $id
      * @return Post the loaded model
      * @throws NotFoundHttpException if the model cannot be found
@@ -129,15 +134,16 @@ class PostController extends Controller
         throw new NotFoundHttpException('The requested page does not exist.');
     }
 
-    public function actionSetTags($id){
-        $post=$this->findModel($id);
-        $selectedTags=[];
-        $selectedTags=$post->getSelectedTags();
+    public function actionSetTags($id)
+    {
+        $post = $this->findModel($id);
+        $selectedTags = [];
+        $selectedTags = $post->getSelectedTags();
         //   var_dump($selectedTags);
-        $tags=ArrayHelper::map(Tag::find()->all(),'id','name');
-        if(Yii::$app->request->isPost){
+        $tags = ArrayHelper::map(Tag::find()->all(), 'id', 'name');
+        if (Yii::$app->request->isPost) {
             //   echo 'ispost';
-            $tags=Yii::$app->request->post('tags');
+            $tags = Yii::$app->request->post('tags');
             //  var_dump($tags);
             $post->saveTags($tags);
             //  echo 'tags saved';
@@ -145,25 +151,27 @@ class PostController extends Controller
             return $this->actionView($id);
             //  return $this->render(['view','id'=>$post->id]);
         }
-        return $this->render('tags',['post'=>$post,'tags'=>$tags,'selectedTags'=>$selectedTags]);
+        return $this->render('tags', ['post' => $post, 'tags' => $tags, 'selectedTags' => $selectedTags]);
         //var_dump($post);
         //var_dump($tag->post);
     }
-    public function actionSetStatus($id){
+
+    public function actionSetStatus($id)
+    {
         //  var_dump($id);
         //  die();
-        $post=$this->findModel($id);
-        $selectedTags=[];
-        $selectedTags=$post->getSelectedTags();
+        $post = $this->findModel($id);
+        $selectedTags = [];
+        $selectedTags = $post->getSelectedTags();
         //   var_dump($selectedTags);
-        $tags=ArrayHelper::map(Tag::find()->all(),'id','name');
-        if(Yii::$app->request->isPost){
+        $tags = ArrayHelper::map(Tag::find()->all(), 'id', 'name');
+        if (Yii::$app->request->isPost) {
             //   echo 'ispost';
             //var_dump(Yii::$app->request);
             // die();
             //  $tags=Yii::$app->request->post('tags');
             //    var_dump(Yii::$app->request->post());
-            $status=Yii::$app->request->post("status");
+            $status = Yii::$app->request->post("status");
             var_dump($status);
             //  var_dump($tags);
             $post->saveStatus($status);
@@ -173,8 +181,8 @@ class PostController extends Controller
             return $this->actionView($id);
             //  return $this->render(['view','id'=>$post->id]);
         }
-        $status=[];
-        return $this->render('status',['post'=>$post]);
+        $status = [];
+        return $this->render('status', ['post' => $post]);
         //var_dump($post);
         //var_dump($tag->post);
     }

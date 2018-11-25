@@ -40,14 +40,26 @@ class Reviews extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id_city', 'title', 'description','rating'], 'required'],
+            [['id_city', 'title', 'description', 'rating'], 'required'],
             [['id_city', 'rating', 'id_autor'], 'integer'],
-           [['rating'],'integer','min'=>1,'max'=>5],
+            [['rating'], 'integer', 'min' => 1, 'max' => 5],
             [['title', 'description'], 'string'],
             [['date_create'], 'default', 'value' => date('Y-m-d H:i:s')],
             [['img'], 'string', 'max' => 255],
-            [['id_autor'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['id_autor' => 'id']],
-            [['id_city'], 'exist', 'skipOnError' => true, 'targetClass' => City::className(), 'targetAttribute' => ['id_city' => 'id']],
+            [
+                ['id_autor'],
+                'exist',
+                'skipOnError' => true,
+                'targetClass' => User::className(),
+                'targetAttribute' => ['id_autor' => 'id']
+            ],
+            [
+                ['id_city'],
+                'exist',
+                'skipOnError' => true,
+                'targetClass' => City::className(),
+                'targetAttribute' => ['id_city' => 'id']
+            ],
         ];
     }
 
@@ -87,14 +99,14 @@ class Reviews extends \yii\db\ActiveRecord
     public function uploadFile(UploadedFile $file)
     {
         $this->image = $file;
-        $filename=strtolower(md5(uniqid($file->baseName)).'.'.$file->extension);
-        $file->saveAs(Yii::getAlias('@webroot').'/uploads/'.$filename);
-        $this->img=$filename;
+        $filename = strtolower(md5(uniqid($file->baseName)) . '.' . $file->extension);
+        $file->saveAs(Yii::getAlias('@webroot') . '/uploads/' . $filename);
+        $this->img = $filename;
         $this->save();
         return $filename;
-     //   return $file;
-       // var_dump($file);
-     //    die();
+        //   return $file;
+        // var_dump($file);
+        //    die();
     }
 
 
@@ -111,15 +123,14 @@ class Reviews extends \yii\db\ActiveRecord
 
     public function deleteCurrentImage($currentImage)
     {
-        if($this->fileExists($currentImage))
-        {
+        if ($this->fileExists($currentImage)) {
             unlink($this->getFolder() . $currentImage);
         }
     }
+
     public function fileExists($currentImage)
     {
-        if(!empty($currentImage) && $currentImage != null)
-        {
+        if (!empty($currentImage) && $currentImage != null) {
             return file_exists($this->getFolder() . $currentImage);
         }
     }
@@ -132,9 +143,10 @@ class Reviews extends \yii\db\ActiveRecord
         return $filename;
     }
 
-    public function getCityName(){
-        $city=$this->getCity()->one();
-        $name=$city->name;
+    public function getCityName()
+    {
+        $city = $this->getCity()->one();
+        $name = $city->name;
         return $name;
     }
 
@@ -150,9 +162,10 @@ class Reviews extends \yii\db\ActiveRecord
         }
     }
 
-    public function getAuthor(){
-        $user=$this->getAutor()->one();
-        $name=$user->fio;
+    public function getAuthor()
+    {
+        $user = $this->getAutor()->one();
+        $name = $user->fio;
         return $name;
     }
 

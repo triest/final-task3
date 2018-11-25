@@ -31,6 +31,7 @@ class CommentController extends Controller
 
     /**
      * Lists all Comment models.
+     *
      * @return mixed
      */
     public function actionIndex()
@@ -46,6 +47,7 @@ class CommentController extends Controller
 
     /**
      * Displays a single Comment model.
+     *
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -60,6 +62,7 @@ class CommentController extends Controller
     /**
      * Creates a new Comment model.
      * If creation is successful, the browser will be redirected to the 'view' page.
+     *
      * @return mixed
      */
     public function actionCreate()
@@ -78,6 +81,7 @@ class CommentController extends Controller
     /**
      * Updates an existing Comment model.
      * If update is successful, the browser will be redirected to the 'view' page.
+     *
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -98,6 +102,7 @@ class CommentController extends Controller
     /**
      * Deletes an existing Comment model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
+     *
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -112,6 +117,7 @@ class CommentController extends Controller
     /**
      * Finds the Comment model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
+     *
      * @param integer $id
      * @return Comment the loaded model
      * @throws NotFoundHttpException if the model cannot be found
@@ -126,22 +132,23 @@ class CommentController extends Controller
     }
 
 
-    public function actionSetStatus($id){
-         // var_dump($id);
-         // die();
-        $comment=$this->findModel($id);
-        $selectedTags=[];
-      //  $selectedTags=$post->getSelectedTags();
+    public function actionSetStatus($id)
+    {
+        // var_dump($id);
+        // die();
+        $comment = $this->findModel($id);
+        $selectedTags = [];
+        //  $selectedTags=$post->getSelectedTags();
         //   var_dump($selectedTags);
-      //  $tags=ArrayHelper::map(Tag::find()->all(),'id','name');
-        if(Yii::$app->request->isPost){
+        //  $tags=ArrayHelper::map(Tag::find()->all(),'id','name');
+        if (Yii::$app->request->isPost) {
             //   echo 'ispost';
             //var_dump(Yii::$app->request);
             // die();
             //  $tags=Yii::$app->request->post('tags');
             //    var_dump(Yii::$app->request->post());
-            $status=Yii::$app->request->post("status");
-          //  var_dump($status);
+            $status = Yii::$app->request->post("status");
+            //  var_dump($status);
             //  var_dump($tags);
             $comment->saveStatus($status);
             //    die();
@@ -150,8 +157,8 @@ class CommentController extends Controller
             return $this->actionView($id);
             //  return $this->render(['view','id'=>$post->id]);
         }
-        $status=[];
-        return $this->render('status',['comment'=>$comment]);
+        $status = [];
+        return $this->render('status', ['comment' => $comment]);
         //var_dump($post);
         //var_dump($tag->post);
     }

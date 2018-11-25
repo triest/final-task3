@@ -9,7 +9,7 @@
 namespace app\models;
 
 
-class PostForm  extends Model
+class PostForm extends Model
 {
     public $title;
     public $content;

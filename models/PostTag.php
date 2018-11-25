@@ -31,8 +31,20 @@ class PostTag extends \yii\db\ActiveRecord
     {
         return [
             [['post_id', 'tag_id'], 'integer'],
-            [['tag_id'], 'exist', 'skipOnError' => true, 'targetClass' => Tag::className(), 'targetAttribute' => ['tag_id' => 'id']],
-            [['post_id'], 'exist', 'skipOnError' => true, 'targetClass' => Post::className(), 'targetAttribute' => ['post_id' => 'id']],
+            [
+                ['tag_id'],
+                'exist',
+                'skipOnError' => true,
+                'targetClass' => Tag::className(),
+                'targetAttribute' => ['tag_id' => 'id']
+            ],
+            [
+                ['post_id'],
+                'exist',
+                'skipOnError' => true,
+                'targetClass' => Post::className(),
+                'targetAttribute' => ['post_id' => 'id']
+            ],
         ];
     }
 

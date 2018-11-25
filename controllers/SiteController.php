@@ -7,6 +7,7 @@ use app\models\CommentForm;
 use app\models\City;
 use app\models\Reviews;
 //use Codeception\Step\Comment;
+//use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Yii;
 use yii\data\Pagination;
 use yii\filters\AccessControl;
@@ -15,6 +16,8 @@ use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
+use yii\web\UploadedFile;
+
 class SiteController extends Controller
 {
     /**
@@ -119,17 +122,9 @@ class SiteController extends Controller
 
     public function actionView($id){
         $post = Post::findOne($id);
-        $tags=$post->tags;
-        //  var_dump($tags);
-        //  die();
         $selectedTags=$post->getSelectedTags();
-        // $comments=$post->comments;
         $comments=$post->getArticleComments();
-
-        //  var_dump($comments);
         $commentForm=new CommentForm();
-        //  var_dump($selectedTags);
-        //   die();
         return $this->render('single',[
             'post'=>$post,
             'tags'=>$selectedTags,
@@ -266,7 +261,8 @@ class SiteController extends Controller
 
             $file=$model->uploadFile($file);
 
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->actionConfurm($model->city);
+
         }
 
         return $this->render('create', [

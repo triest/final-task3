@@ -31,6 +31,7 @@ class CityController extends Controller
 
     /**
      * Lists all City models.
+     *
      * @return mixed
      */
     public function actionIndex()
@@ -46,6 +47,7 @@ class CityController extends Controller
 
     /**
      * Displays a single City model.
+     *
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -60,6 +62,7 @@ class CityController extends Controller
     /**
      * Creates a new City model.
      * If creation is successful, the browser will be redirected to the 'view' page.
+     *
      * @return mixed
      */
     public function actionCreate()
@@ -78,6 +81,7 @@ class CityController extends Controller
     /**
      * Updates an existing City model.
      * If update is successful, the browser will be redirected to the 'view' page.
+     *
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -98,6 +102,7 @@ class CityController extends Controller
     /**
      * Deletes an existing City model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
+     *
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -112,6 +117,7 @@ class CityController extends Controller
     /**
      * Finds the City model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
+     *
      * @param integer $id
      * @return City the loaded model
      * @throws NotFoundHttpException if the model cannot be found

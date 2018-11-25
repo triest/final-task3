@@ -31,6 +31,7 @@ class ReviewsController extends Controller
 
     /**
      * Lists all Reviews models.
+     *
      * @return mixed
      */
     public function actionIndex()
@@ -46,6 +47,7 @@ class ReviewsController extends Controller
 
     /**
      * Displays a single Reviews model.
+     *
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -60,6 +62,7 @@ class ReviewsController extends Controller
     /**
      * Creates a new Reviews model.
      * If creation is successful, the browser will be redirected to the 'view' page.
+     *
      * @return mixed
      */
     public function actionCreate()
@@ -78,6 +81,7 @@ class ReviewsController extends Controller
     /**
      * Updates an existing Reviews model.
      * If update is successful, the browser will be redirected to the 'view' page.
+     *
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -98,6 +102,7 @@ class ReviewsController extends Controller
     /**
      * Deletes an existing Reviews model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
+     *
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -112,6 +117,7 @@ class ReviewsController extends Controller
     /**
      * Finds the Reviews model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
+     *
      * @param integer $id
      * @return Reviews the loaded model
      * @throws NotFoundHttpException if the model cannot be found

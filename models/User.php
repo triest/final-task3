@@ -98,10 +98,9 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
     }
 
 
-
-
     /**
      * Returns an ID that can uniquely identify a user identity.
+     *
      * @return string|int an ID that uniquely identifies a user identity.
      */
     public function getId()
@@ -118,6 +117,7 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
      * The space of such keys should be big enough to defeat potential identity attacks.
      *
      * This is required if [[User::enableAutoLogin]] is enabled.
+     *
      * @return string a key that is used to check the validity of a given identity ID.
      * @see validateAuthKey()
      */
@@ -130,6 +130,7 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
      * Validates the given auth key.
      *
      * This is required if [[User::enableAutoLogin]] is enabled.
+     *
      * @param string $authKey the given auth key
      * @return bool whether the given auth key is valid.
      * @see getAuthKey()
@@ -141,7 +142,7 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
 
     public static function findByUsername($username)
     {
-        return User::find()->where(['username'=>$username])->one();
+        return User::find()->where(['username' => $username])->one();
     }
 
     public function validatePassword($password)
@@ -152,6 +153,7 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
 
     /**
      * Finds an identity by the given ID.
+     *
      * @param string|int $id the ID to be looked for
      * @return IdentityInterface the identity object that matches the given ID.
      * Null should be returned if such an identity cannot be found
@@ -161,8 +163,10 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
     {
         return User::findOne($id);
     }
+
     /**
      * Finds an identity by the given token.
+     *
      * @param mixed $token the token to be looked for
      * @param mixed $type the type of the token. The value of this parameter depends on the implementation.
      * For example, [[\yii\filters\auth\HttpBearerAuth]] will set this parameter to be `yii\filters\auth\HttpBearerAuth`.
@@ -176,12 +180,10 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
     }
 
 
-
     public function create()
     {
         return $this->save(false);
     }
-
 
 
 }
