@@ -257,8 +257,17 @@ class SiteController extends Controller
         return $this->goHome();
     }
 
-    public function actionCreate(){
+    public function actionCreate()
+    {
         $model = new Reviews();
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            $file=UploadedFile::getInstance($model,'img');
+
+            $file=$model->uploadFile($file);
+
+            return $this->redirect(['view', 'id' => $model->id]);
+        }
 
         return $this->render('create', [
             'model' => $model,
