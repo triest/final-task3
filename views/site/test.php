@@ -46,17 +46,19 @@ $this->title = "Список городов";
                             <div class="post-content">
                                 <header class="entry-header text-center text-uppercase">
                                     <h4><b> <?= $review->title ?></b></h6>
-                                        <h5><?= $review->getCityName() ?> </h5>
+                                        <h5><?= $review->getCityName() ?> +</h5>
                                         <h6>Рейтинг: <?= $review->rating ?> </h4>
-                                    Картинка:  <img src="<?= $review->getImage();?>" alt="">
+                                    Картинка: <?= $review->getImage(); ?>
                                     <div class="entry-content">
-                                        <?= $review->description ?>
+
                                     </div>
                                 </header>
                                 Автор:   <b> <?= $review->getAuthor() ?></b>
-                                <?= $review->description ?>
+
+
                                 <div class="entry-content">
                                     <br>
+                                    <b>Отзыв:<br></b>
                                     <?= $review->description ?>
                                     <img src="<?= $review->getImage();?>" alt=""></a>
                                 </div>

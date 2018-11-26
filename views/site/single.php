@@ -22,7 +22,7 @@ use yii\widgets\LinkPager;
                         <header class="entry-header text-center text-uppercase">
                             <h1 class="entry-title"><?= $post->title?></h1>
                             <div class="entry-content">
-                                <b>By <?= $post->author->username?> On <?= $post->getDate();?></b>
+                                <b>By <?= $post->author->username?> On <?= $post->getDate();?></b> <br>
                             </div>
                         </header>
                         <div class="entry-content">

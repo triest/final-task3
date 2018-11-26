@@ -73,14 +73,12 @@ AppAsset::register($this);
                 <?= $content ?>
 
             </div>
-            <div class="list-group">
+            <div class="col-xs-1">
                 <?php if (Yii::$app->user->isGuest==false): ?>
                     <?= Html::a('Создать отзыв', ['/site/create'], ['class'=>'btn btn-primary']) ?>
-                <?php endif; ?>
+                 <?php endif; ?>
             </div>
         </div>
-
-
 
     </div>
 

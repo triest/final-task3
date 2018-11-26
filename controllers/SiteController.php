@@ -256,7 +256,7 @@ class SiteController extends Controller
     {
         $model = new Reviews();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post()) && $model->saveReview()) {
             $file=UploadedFile::getInstance($model,'img');
 
            if ($file!=null) {

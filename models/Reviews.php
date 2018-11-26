@@ -169,6 +169,12 @@ class Reviews extends \yii\db\ActiveRecord
         return $name;
     }
 
+    public function saveReview()
+    {
+        $this->id_autor = Yii::$app->user->id;
+        return $this->save(false);
+    }
+
 
 
 
