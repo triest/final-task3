@@ -158,7 +158,7 @@ class Reviews extends \yii\db\ActiveRecord
             return ($this->img) ? '/uploads/' . $this->img : '/no-image.png';
             //  return  Yii::getAlias('@web') . 'uploads/'.$this->image;
         } else {
-            return '/no-image.png';
+            return null;
         }
     }
 
