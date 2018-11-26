@@ -1,4 +1,5 @@
 <?php
+
 namespace app\controllers;
 
 use app\models\Post;
@@ -24,18 +25,16 @@ class AuthController extends Controller
     {
         $model = new SignupForm();
 
-        if(Yii::$app->request->isPost)
-        {
+        if (Yii::$app->request->isPost) {
             $model->load(Yii::$app->request->post());
-            if($model->signup())
-            {
-              //  return $this->redirect(['auth/login']);
-             //   $this->actionLogin();
+            if ($model->signup()) {
+                //  return $this->redirect(['auth/login']);
+                //   $this->actionLogin();
                 return $this->redirect(['site/index']);
             }
         }
 
-        return $this->render('signup', ['model'=>$model]);
+        return $this->render('signup', ['model' => $model]);
     }
 
     /**
@@ -57,6 +56,7 @@ class AuthController extends Controller
             'model' => $model,
         ]);
     }
+
     /**
      * Logout action.
      *
