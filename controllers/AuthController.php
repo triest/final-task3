@@ -29,7 +29,9 @@ class AuthController extends Controller
             $model->load(Yii::$app->request->post());
             if($model->signup())
             {
-                return $this->redirect(['auth/login']);
+              //  return $this->redirect(['auth/login']);
+             //   $this->actionLogin();
+                return $this->redirect(['site/index']);
             }
         }
 
@@ -48,7 +50,7 @@ class AuthController extends Controller
         }
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->goBack();
+            return $this->redirect(['site/index']);
         }
         $model->password = '';
         return $this->render('login', [

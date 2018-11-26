@@ -6,13 +6,14 @@
 
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
+use yii\captcha\Captcha;
 
 $this->title = 'Registr';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="leave-comment mr0"><!--leave comment-->
-    <div class="row">
-        <div class="col-md-12 ">
+
+        <div class="col-md-20 ">
             <div class="site-login">
                 <h1><?= Html::encode($this->title) ?></h1>
 
@@ -21,7 +22,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'id' => 'login-form',
                     'layout' => 'horizontal',
                     'fieldConfig' => [
-                        'template' => "{label}\n<div class=\"col-lg-3\">{input}</div>\n<div class=\"col-lg-8\">{error}</div>",
+                        'template' => "{label}\n<div class=\"col-lg-7\">{input}</div>\n<div class=\"col-lg-8\">{error}</div>",
                         'labelOptions' => ['class' => 'col-lg-1 control-label'],
                     ],
                 ]); ?>
@@ -38,6 +39,10 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 <?= $form->field($model, 'phone')->textInput() ?>
 
+                <?= $form->field($model, 'verifyCode')->widget(Captcha::className(), [
+                    'template' => '<div class="row"><div class="col-lg-3">{image}</div><div class="col-lg-6">{input}</div></div>',
+                ]) ?>
+
                 <div class="form-group">
                     <div class="col-lg-offset-1 col-lg-11">
                         <?= Html::submitButton('Reristr', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
@@ -52,6 +57,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 </div>
             </div>
         </div>
-    </div>
+
 </div>
 

@@ -12,6 +12,7 @@ class SignupForm extends Model
     public $fio;
     public $phone;
     public $password_repeat;
+    public $verifyCode;
 
     public function rules()
     {
@@ -25,7 +26,17 @@ class SignupForm extends Model
             [['fio'], 'string'],
             [['fio'], 'required'],
             [['phone'], 'string'],
+            ['verifyCode', 'captcha'],
+        ];
+    }
 
+    /**
+     * @return array customized attribute labels
+     */
+    public function attributeLabels()
+    {
+        return [
+            'verifyCode' => 'Verification Code',
         ];
     }
 

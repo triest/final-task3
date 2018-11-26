@@ -146,7 +146,7 @@ class SiteController extends Controller
             return $this->refresh();
         }
         return $this->render('contact', [
-            'model' => $model,
+            'model' => $model
         ]);
     }
     /**
