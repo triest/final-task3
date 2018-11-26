@@ -48,7 +48,8 @@ $this->title = "Список городов";
                                     <h4><b> <?= $review->title ?></b></h6>
                                         <h5><?= $review->getCityName() ?> +</h5>
                                         <h6>Рейтинг: <?= $review->rating ?> </h4>
-                                    Картинка: <?= $review->getImage(); ?>
+                                    Картинка: <img src="<?= $review->getImage();?>" alt="">
+                                    <img src="<?= Yii::$app->request->baseUrl .   $review->getImage() ?>" class=" img-responsive" >
                                     <div class="entry-content">
 
                                     </div>
