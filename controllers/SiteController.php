@@ -213,7 +213,7 @@ class SiteController extends Controller
      //   var_dump($reviews);
 
 
-        return $this->render('reviews_to_city',['reviews'=>$reviews]);
+        return $this->render('test',['reviews'=>$reviews]);
 
 
     }
@@ -259,7 +259,9 @@ class SiteController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             $file=UploadedFile::getInstance($model,'img');
 
-            $file=$model->uploadFile($file);
+           if ($file!=null) {
+               $file = $model->uploadFile($file);
+           }
 
             return $this->actionConfurm($model->city);
 

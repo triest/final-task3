@@ -54,6 +54,6 @@ class City extends \yii\db\ActiveRecord
      */
     public function getReviews()
     {
-         return $this->hasMany(Reviews::className(), ['id_city' => 'id']);
+        return $this->hasMany(Reviews::className(), ['id_city' => 'id']);
     }
 }
