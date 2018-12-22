@@ -1,4 +1,5 @@
 <?php
+
 namespace app\controllers;
 
 use app\models\Tag;
@@ -6,6 +7,7 @@ use app\models\Comment;
 use app\models\CommentForm;
 use app\models\City;
 use app\models\Reviews;
+
 //use Codeception\Step\Comment;
 //use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Yii;
@@ -45,6 +47,7 @@ class SiteController extends Controller
             ],
         ];
     }
+
     /**
      * {@inheritdoc}
      */
@@ -64,18 +67,13 @@ class SiteController extends Controller
 
     function getRealIpAddr()
     {
-        if (!empty($_SERVER['HTTP_CLIENT_IP']))
+        if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
+            $ip = $_SERVER['HTTP_CLIENT_IP'];
+        } elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) //to check ip is pass from proxy
         {
-            $ip=$_SERVER['HTTP_CLIENT_IP'];
-        }
-        elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR']))
-            //to check ip is pass from proxy
-        {
-            $ip=$_SERVER['HTTP_X_FORWARDED_FOR'];
-        }
-        else
-        {
-            $ip=$_SERVER['REMOTE_ADDR'];
+            $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+        } else {
+            $ip = $_SERVER['REMOTE_ADDR'];
         }
         return $ip;
     }
@@ -89,50 +87,44 @@ class SiteController extends Controller
     public function actionIndex()
     {
 
-     //   return $this->render('index2');
-       $ip=$this->getRealIpAddr();
-     //  echo $ip;
-
-     //   die();
-        if (!empty($_SERVER['HTTP_CLIENT_IP'])) $ip=$_SERVER['HTTP_CLIENT_IP'];
-        elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) $ip=$_SERVER['HTTP_X_FORWARDED_FOR'];
-        else $ip=$_SERVER['REMOTE_ADDR'];
-     //   echo "<br>";
-       // echo $ip;echo "<br>";
-
-      //  echo Yii::$app->request->userIP;echo "<br>";
-
-        $query = @unserialize(file_get_contents('http://ip-api.com/php/'.$ip));
-        if($query && $query['status'] == 'success') {
-         //   echo 'My IP: '.$query['query'].', '.$query['isp'].', '.$query['org'].', '.$query ['country'].', '.$query['regionName'].', '.$query['city'].'!'."<br>";
+        if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
+            $ip = $_SERVER['HTTP_CLIENT_IP'];
+        } elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+            $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+        } else {
+            $ip = $_SERVER['REMOTE_ADDR'];
+        }
+        $query = @unserialize(file_get_contents('http://ip-api.com/php/' . $ip));
+        if ($query && $query['status'] == 'success') {
+            //   echo 'My IP: '.$query['query'].', '.$query['isp'].', '.$query['org'].', '.$query ['country'].', '.$query['regionName'].', '.$query['city'].'!'."<br>";
         } else {
             echo 'Unable to get location';
         }
 
-        $request = file_get_contents("http://api.sypexgeo.net/json/".$ip);
+        $request = file_get_contents("http://api.sypexgeo.net/json/" . $ip);
         $array = json_decode($request);
         //var_dump($array);
-       // echo $array->city->name_ru;
+        // echo $array->city->name_ru;
 
-        return $this->render('confirm_city',['city'=>$array->city->name_ru]);
+        return $this->render('confirm_city', ['city' => $array->city->name_ru]);
 
     }
 
 
-
-    public function actionView($id){
+    public function actionView($id)
+    {
         $post = Post::findOne($id);
-        $selectedTags=$post->getSelectedTags();
-        $comments=$post->getArticleComments();
-        $commentForm=new CommentForm();
-        return $this->render('single',[
-            'post'=>$post,
-            'tags'=>$selectedTags,
-            'comments'=>$comments,
-            'commentForm'=>$commentForm
+        $selectedTags = $post->getSelectedTags();
+        $comments = $post->getArticleComments();
+        $commentForm = new CommentForm();
+        return $this->render('single', [
+            'post' => $post,
+            'tags' => $selectedTags,
+            'comments' => $comments,
+            'commentForm' => $commentForm
         ]);
     }
-   
+
     /**
      * Displays contact page.
      *
@@ -149,6 +141,7 @@ class SiteController extends Controller
             'model' => $model
         ]);
     }
+
     /**
      * Displays about page.
      *
@@ -158,68 +151,36 @@ class SiteController extends Controller
     {
         return $this->render('about');
     }
-    public function actionTag($tag){
-        // var_dump($tag);
-        $tags2=Tag::find()
-            ->where(['name'=>$tag])
-            ->one();
-        //   $tags2=Tag::find()->where(['name'=>$tag])->andWhere(['status'=>2])->one();
-        //  var_dump($tags2);
-        $posts=$tags2->getPosts()->select(['id','title','create_time'])
-            ->where(['status'=>2])
-            ->all();
-        $count = 10;
-        // var_dump($posts);
-        $pageSize=10;
-        $pagination = new Pagination(['totalCount' => $count, 'pageSize'=>$pageSize]);
-        //die();
-        return $this->render('index',
-            [
-                'post'=>$posts,
-                'pagination'=>$pagination,
-            ]);
+
+
+    public function actionConfurm($city)
+    {
+        $city2 = City::find()->where(['name' => $city])->one();
+        $reviews = $city2->getReviews()->all();
+        return $this->render('test', ['reviews' => $reviews]);
     }
-    public function  actionComment($id){
-        //die($id);
-        $model = new CommentForm();
-        if(Yii::$app->request->isPost)
-        {
-            $model->load(Yii::$app->request->post());
-            if($model->saveComment($id))
-            {
-                Yii::$app->getSession()->setFlash('comment', 'Your comment will be added soon!');
-                return $this->redirect(['site/view','id'=>$id]);
-            }
+
+    public function actionDenide($city)
+    {
+        //  echo $city;
+        $cityes = City::find()->all();
+        //   echo '<br>';
+        //  var_dump($cityes);
+        foreach ($cityes as $city) {
+            echo $city->name;
+            echo '<br>';
         }
-    }
-    public function getPoluparTags(){
-        //   return 'hello word';
-        $tags=Tag::find()->limit(10)->all();
-        return $tags;
-    }
-    public function getLastComments(){
+        $reciews = Reviews::find()->all();
+        $city=Reviews::find()->select('city_id')->distinct();
+        var_dump($city);
 
-        $comments=Comment::find()->where(['status'=>2])->orderBy('create_time','ASC')->limit(5)->all();
-        //  var_dump($comments);
-        return $comments;
-    }
-
-    public function actionConfurm($city){
-        $city2=City::find()->where(['name'=>$city])->one();
-         //  echo $city2->name;
-      //  die();
-
-        $reviews=$city2->getReviews()->all();
-     //   var_dump($reviews);
-
-
-        return $this->render('test',['reviews'=>$reviews]);
-
-
-    }
-
-    public function actionDenide($city){
-        echo $city;
+        $count=0;
+        foreach ($city as $c) {
+            $count++;
+            echo $count;
+            echo '<br>';
+        }
+        die();
     }
 
     /**
@@ -241,6 +202,7 @@ class SiteController extends Controller
             'model' => $model,
         ]);
     }
+
     /**
      * Logout action.
      *
@@ -257,11 +219,11 @@ class SiteController extends Controller
         $model = new Reviews();
 
         if ($model->load(Yii::$app->request->post()) && $model->saveReview()) {
-            $file=UploadedFile::getInstance($model,'img');
+            $file = UploadedFile::getInstance($model, 'img');
 
-           if ($file!=null) {
-               $file = $model->uploadFile($file);
-           }
+            if ($file != null) {
+                $file = $model->uploadFile($file);
+            }
 
             return $this->actionConfurm($model->city);
 
