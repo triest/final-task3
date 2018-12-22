@@ -12,6 +12,8 @@ use app\models\Reviews;
 //use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Yii;
 use yii\data\Pagination;
+use yii\db\Exception;
+use yii\db\Query;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\Response;
@@ -19,6 +21,7 @@ use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
 use yii\web\UploadedFile;
+use yii\helpers\VarDumper;
 
 class SiteController extends Controller
 {
@@ -157,30 +160,36 @@ class SiteController extends Controller
     {
         $city2 = City::find()->where(['name' => $city])->one();
         $reviews = $city2->getReviews()->all();
-        return $this->render('test', ['reviews' => $reviews]);
+
+        return $this->render('test', ['reviews' => $reviews, 'city' => $city2]);
     }
 
     public function actionDenide($city)
     {
-        //  echo $city;
-        $cityes = City::find()->all();
-        //   echo '<br>';
-        //  var_dump($cityes);
-        foreach ($cityes as $city) {
-            echo $city->name;
-            echo '<br>';
-        }
-        $reciews = Reviews::find()->all();
-        $city=Reviews::find()->select('city_id')->distinct();
-        var_dump($city);
-
-        $count=0;
+        $count = 0;
         foreach ($city as $c) {
             $count++;
             echo $count;
             echo '<br>';
         }
-        die();
+        $query = new Query;
+        $query->select([
+                'city.name AS name'
+            ]
+        )
+            ->from('city')
+            ->join('RIGHT  JOIN', 'city_review',
+                'city_review.city_id =city.id')
+            ->distinct()
+            ->orderBy('name')
+            ->LIMIT(5);
+
+
+        $command = $query->createCommand();
+        $data = $command->queryAll();
+        // var_dump($data);
+        // die();
+        return $this->render('cityList', ['cityes' => $data]);
     }
 
     /**

@@ -70,7 +70,6 @@ class Reviews extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'id_city' => 'Id City',
             'title' => 'Title',
             'rating' => 'Rating',
             'img' => 'Img',
@@ -93,7 +92,10 @@ class Reviews extends \yii\db\ActiveRecord
      */
     public function getCity()
     {
-        return $this->hasOne(City::className(), ['id' => 'id_city']);
+        //  return $this->hasMany(City::className(), ['review_id'=>'id']);
+        return $this->hasMany(City::className(), ['id' => 'city_id'])
+            ->select(['id', 'name'])
+            ->viaTable('city_review', ['review_id' => 'id']);
     }
 
     public function uploadFile(UploadedFile $file)
@@ -104,9 +106,6 @@ class Reviews extends \yii\db\ActiveRecord
         $this->img = $filename;
         $this->save();
         return $filename;
-        //   return $file;
-        // var_dump($file);
-        //    die();
     }
 
 
@@ -174,8 +173,6 @@ class Reviews extends \yii\db\ActiveRecord
         $this->id_autor = Yii::$app->user->id;
         return $this->save(false);
     }
-
-
 
 
 }

@@ -1,8 +1,10 @@
-
 <?php
+
 use yii\helpers\Url;
 use yii\widgets\LinkPager;
-$this->title = "Список городов";
+use yii\helpers\Html;
+
+$this->title = $city->name ;
 ?>
 
 
@@ -10,9 +12,20 @@ $this->title = "Список городов";
     <div class="container">
         <div class="row">
             <div class="col-md-8">
+                <H2><?= $city->name ?></H2>
                 <?php
-                if(Yii::$app->user->isGuest){ ?>
-                    <?php foreach($reviews as $review):?>
+                if ($reviews == null) {
+                    ?>
+                    <h3>Нет отзывов.
+                        Хотите создать?
+                        <?= Html::a('Создать отзыв', ['/site/create'], ['class' => 'btn btn-primary']) ?>
+                    </h3>
+                    <?
+                }
+                ?>
+                <?php
+                if (Yii::$app->user->isGuest) { ?>
+                    <?php foreach ($reviews as $review): ?>
                         <article class="post">
                             <div class="post-thumb">
 
@@ -21,14 +34,14 @@ $this->title = "Список городов";
                                 <header class="entry-header text-center text-uppercase">
                                     <h4><b> <?= $review->title ?></b></h6>
                                         <h5><?= $review->getCityName() ?> </h5>
-                                        <h6>Рейтинг: <?= $review->rating ?> </h4>
-                                    Картинка:  <img src="<?= $review->getImage();?>" alt="">
+                                        <h6>Рейтинг: <?= $review->rating ?></h4>
+                                    Картинка: <img src="<?= $review->getImage(); ?>" alt="">
                                     <div class="entry-content">
                                     </div>
                                 </header>
 
                                 <div class="entry-content">
-                                    <img src="<?= $review->getImage();?>" alt=""></a>
+                                    <img src="<?= $review->getImage(); ?>" alt=""></a>
                                 </div>
 
                             </div>
@@ -36,9 +49,8 @@ $this->title = "Список городов";
                     <?php endforeach; ?>
 
                     <?php
-                }
-                else{ ?>
-                    <?php foreach($reviews as $review):?>
+                } else { ?>
+                    <?php foreach ($reviews as $review): ?>
                         <article class="post">
                             <div class="post-thumb">
 
@@ -47,23 +59,24 @@ $this->title = "Список городов";
                                 <header class="entry-header text-center text-uppercase">
                                     <h4><b> <?= $review->title ?></b></h6>
                                         <h5><?= $review->getCityName() ?> +</h5>
-                                        <h6>Рейтинг: <?= $review->rating ?> </h4>
-                                    Картинка: <img src="<?= $review->getImage();?>" alt="">
-                                    <?php if($review->getImage()!=null){ ?>
-                                    <img src="<?= Yii::$app->request->baseUrl .  $review->getImage() ?>" class=" img-responsive" >
+                                        <h6>Рейтинг: <?= $review->rating ?></h4>
+                                    Картинка: <img src="<?= $review->getImage(); ?>" alt="">
+                                    <?php if ($review->getImage() != null) { ?>
+                                        <img src="<?= Yii::$app->request->baseUrl . $review->getImage() ?>"
+                                             class=" img-responsive">
                                     <?php } ?>
                                     <div class="entry-content">
 
                                     </div>
                                 </header>
-                                Автор:   <b> <?= $review->getAuthor() ?></b>
+                                Автор: <b> <?= $review->getAuthor() ?></b>
 
 
                                 <div class="entry-content">
                                     <br>
                                     <b>Отзыв:<br></b>
                                     <?= $review->description ?>
-                                    <img src="<?= $review->getImage();?>" alt=""></a>
+                                    <img src="<?= $review->getImage(); ?>" alt=""></a>
                                 </div>
 
 

@@ -14,8 +14,8 @@ class m181222_141616_create_city_review_table extends Migration
     {
         $this->createTable('city_review', [
             'id' => $this->primaryKey(),
-            'city_id'=>$this->integer(),
-            'review_id'=>$this->integer()
+            'city_id' => $this->integer(),
+            'review_id' => $this->integer()
         ]);
         // creates index for column `user_id`
         $this->createIndex(
@@ -48,6 +48,7 @@ class m181222_141616_create_city_review_table extends Migration
             'CASCADE'
         );
     }
+
     /**
      * @inheritdoc
      */
