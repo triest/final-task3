@@ -159,8 +159,9 @@ class SiteController extends Controller
     public function actionConfurm($city)
     {
         $city2 = City::find()->where(['name' => $city])->one();
-        $reviews = $city2->getReviews()->all();
-
+        if ($city2 != null) {
+            $reviews = $city2->getReviews()->all();
+        }
         return $this->render('test', ['reviews' => $reviews, 'city' => $city2]);
     }
 
@@ -223,23 +224,6 @@ class SiteController extends Controller
         return $this->goHome();
     }
 
-    public function actionCreate()
-    {
-        $model = new Reviews();
 
-        if ($model->load(Yii::$app->request->post()) && $model->saveReview()) {
-            $file = UploadedFile::getInstance($model, 'img');
 
-            if ($file != null) {
-                $file = $model->uploadFile($file);
-            }
-
-            return $this->actionConfurm($model->city);
-
-        }
-
-        return $this->render('create', [
-            'model' => $model,
-        ]);
-    }
 }

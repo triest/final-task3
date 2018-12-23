@@ -18,7 +18,7 @@ $this->title = $city->name ;
                     ?>
                     <h3>Нет отзывов.
                         Хотите создать?
-                        <?= Html::a('Создать отзыв', ['/site/create'], ['class' => 'btn btn-primary']) ?>
+                        <?= Html::a('Создать отзыв', ['/review/create'], ['class' => 'btn btn-primary']) ?>
                     </h3>
                     <?
                 }
