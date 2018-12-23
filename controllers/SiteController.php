@@ -7,7 +7,7 @@ use app\models\Comment;
 use app\models\CommentForm;
 use app\models\City;
 use app\models\Reviews;
-use http\Env\Response;
+use Response;
 use yii\helpers\Url;
 
 //use Codeception\Step\Comment;
@@ -23,6 +23,7 @@ use app\models\LoginForm;
 use app\models\ContactForm;
 use yii\web\UploadedFile;
 use yii\helpers\VarDumper;
+use yii\httpclient\Client;
 
 class SiteController extends Controller
 {
@@ -227,8 +228,7 @@ class SiteController extends Controller
 
     public function actionList()
     {
-        $request = Yii::$app->request;
-        $name = $request->post('name');
+        
         \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
 
         return $name;

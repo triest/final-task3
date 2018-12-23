@@ -85,9 +85,11 @@ class ReviewController extends \yii\web\Controller
     public function actionList()
     {
         $request = Yii::$app->request;
-        $name = $request->post('name');
+        $name = $request->get('name');
 
-        return Response::json($name);
+
+
+        return $this->asJson($name);
     }
 
 }

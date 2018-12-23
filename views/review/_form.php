@@ -33,8 +33,8 @@ $params = [
         [
             'prompt' => 'Выбрать страну...',
             'oninput' => 'console.log(\'change\')
-                                                                $.post(
-                                                                 "'.Url::toRoute('site/list').'",
+                                                                $.get(
+                                                                 "'.Url::toRoute('review/list').'",
                                                                  {name : $(this).val()},
                                                                  function(data){
                                                                      console.log(data);
