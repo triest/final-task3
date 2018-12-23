@@ -2,6 +2,7 @@
 
 use yii\helpers\Url;
 use yii\widgets\LinkPager;
+use yii\helpers\Html;
 
 ?>
 <!--main content start-->
@@ -14,7 +15,10 @@ use yii\widgets\LinkPager;
                     <div class="post-thumb">
 
                         <?php foreach ($cityes as $item): ?>
-                            <?= $item["name"] ?>
+                            <h4><?= $item["name"] ?>
+                                <a href="<?= Url::toRoute(['site/confurm', 'city' => $item["name"]]); ?>"
+                                   class="more-link">Выбрать</a>
+                            </h4>
                         <?php endforeach; ?>
 
                     </div>

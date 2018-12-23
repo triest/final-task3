@@ -14,12 +14,12 @@ class m181113_174208_reviews extends Migration
     {
         $this->createTable('reviews', [
             'id' => $this->primaryKey(),
-            'id_city'=>$this->integer()->notNull(),
-            'title'=>$this->text()->notNull(),
-            'rating'=>$this->integer(),
-             'img'=>$this->string(),
-             'id_autor'=>$this->integer(),
-            'date_create'=>$this->dateTime('Y-m-d H:i:s'),
+            'id_city' => $this->integer()->notNull(),
+            'title' => $this->text()->notNull(),
+            'rating' => $this->integer(),
+            'img' => $this->string(),
+            'id_autor' => $this->integer()->notNull(),
+            'date_create' => $this->dateTime('Y-m-d H:i:s'),
         ]);
 
         // creates index for column `id_city`
@@ -49,12 +49,11 @@ class m181113_174208_reviews extends Migration
             'fk-city-id_autor',
             'reviews',
             'id_autor',
-            'users',
+            'user',
             'id',
             'CASCADE'
         );
     }
-
 
 
     /**

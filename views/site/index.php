@@ -28,6 +28,7 @@ use yii\widgets\LinkPager;
 
                                 <div class="btn-continue-reading text-center text-uppercase">
                                     <a href="<?= Url::toRoute(['site/view', 'id'=>$article->id]);?>" class="more-link">Detail</a>
+                                    
                                 </div>
                             </div>
 

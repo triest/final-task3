@@ -15,7 +15,7 @@ class m181113_175913_user extends Migration
 
         $this->addColumn('user', 'fio', $this->integer()->defaultValue(null));
         $this->addColumn('user', 'phone', $this->string()->defaultValue(null));
-        $this->addColumn('user', 'create_time',$this->dateTime()->defaultValue(null));
+        $this->addColumn('user', 'create_time',$this->timestamp()->defaultValue(null));
     }
 
 
