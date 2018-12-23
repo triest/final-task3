@@ -4,6 +4,7 @@ use yii\widgets\ActiveForm;
 use app\models\City;
 use app\models\CitySearch;
 use yii\helpers\ArrayHelper;
+use yii\helpers\Url;
 /* @var $this yii\web\View */
 /* @var $model app\models\Reviews */
 /* @var $form yii\widgets\ActiveForm */
@@ -28,12 +29,31 @@ $params = [
 
     <?= $form->field($model, 'id_city')->dropDownList($items,$params); ?>
 
+    <?= $form->field($model, 'id_city')->textInput(
+        [
+            'prompt' => 'Выбрать страну...',
+            'oninput' => 'console.log(\'change\')
+                                                                $.post(
+                                                                 "'.Url::toRoute('site/list').'",
+                                                                 {name : $(this).val()},
+                                                                 function(data){
+                                                                     console.log(data);
+                                                                 }
+                                                                )
+                                                             '
+        ]
 
+    ) ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>
+
+    <script>
+
+
+    </script>
 
 </div>

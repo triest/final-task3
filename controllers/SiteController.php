@@ -7,6 +7,8 @@ use app\models\Comment;
 use app\models\CommentForm;
 use app\models\City;
 use app\models\Reviews;
+use http\Env\Response;
+use yii\helpers\Url;
 
 //use Codeception\Step\Comment;
 //use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -16,7 +18,6 @@ use yii\db\Exception;
 use yii\db\Query;
 use yii\filters\AccessControl;
 use yii\web\Controller;
-use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
@@ -224,6 +225,14 @@ class SiteController extends Controller
         return $this->goHome();
     }
 
+    public function actionList()
+    {
+        $request = Yii::$app->request;
+        $name = $request->post('name');
+        \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+
+        return $name;
+    }
 
 
 }

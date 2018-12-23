@@ -10,13 +10,14 @@ use app\models\Reviews;
 
 //use Codeception\Step\Comment;
 //use Symfony\Component\HttpFoundation\File\UploadedFile;
+use http\Env\Response;
 use Yii;
 use yii\data\Pagination;
 use yii\db\Exception;
 use yii\db\Query;
 use yii\filters\AccessControl;
 use yii\web\Controller;
-use yii\web\Response;
+
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
@@ -79,6 +80,14 @@ class ReviewController extends \yii\web\Controller
         return $this->render('create', [
             'model' => $model,
         ]);
+    }
+
+    public function actionList()
+    {
+        $request = Yii::$app->request;
+        $name = $request->post('name');
+
+        return Response::json($name);
     }
 
 }
