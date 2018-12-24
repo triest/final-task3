@@ -66,25 +66,32 @@ $params = [
                oninput="findCity()" required>
     </div>
 
+    <select style="width: 200px" class="new_city_select" name="new_city_select" class="form-control input-sm" id="new_city_select">
+        <option value="-">-</option>
+    </select>
     <script>
         function findCity() {
             console.log('xhange');
             var input = document.getElementById("new_city").value;
             console.log(input);
             $.get(
-                "http://geohelper.info/api/v1/cities?apiKey=YxI8Q1NUptbUA15xS0drYEROSPki8Mq8&locale[lang]=uk&filter[name]="+input,
-                {
-                  //  filter[name]: input,
-                },
+                "http://geohelper.info/api/v1/cities?apiKey=YxI8Q1NUptbUA15xS0drYEROSPki8Mq8&locale[lang]=uk&filter[name]=" + input,
+                function (data, status) {
+                    // console.log(data.result)
+                    $('#new_city_select').empty();
+                    $.each(data.result, function (index, subcatObj) {
+                            console.log("item")
+                            console.log(subcatObj.name);
 
+                            $('#new_city_select').append('<option value="' + subcatObj.name + '">' + subcatObj.name + '</option>');
+
+                        }
+                    )
+                }
             )
         }
     </script>
 
-    <select id="new_city" class="city" style="width: 200px" ">
-    <option value="-">-</option>
-    <option value=""></option>
-    </select>
 
 </div>
  
