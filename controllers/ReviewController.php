@@ -68,8 +68,12 @@ class ReviewController extends \yii\web\Controller
 
     public function actionCreate()
     {
+
         $model = new Reviews();
+        $this->vardump(Yii::$app->request->post());
+       //die();
         if ($model->load(Yii::$app->request->post()) && $model->saveReview()) {
+
             $file = UploadedFile::getInstance($model, 'img');
             if ($file != null) {
                 $file = $model->uploadFile($file);
@@ -102,4 +106,19 @@ class ReviewController extends \yii\web\Controller
         return $this->asJson($name);
     }
 
+    function vardump($var) {
+        echo '<br>';echo '<br>';echo '<br>';
+        echo '<pre>';
+        var_dump($var);
+        echo '</pre>';
+    }
+
+    public function actionConfurm($city)
+    {
+        $city2 = City::find()->where(['name' => $city])->one();
+        if ($city2 != null) {
+            $reviews = $city2->getReviews()->all();
+        }
+        return $this->render('index', ['reviews' => $reviews, 'city' => $city2]);
+    }
 }

@@ -31,8 +31,34 @@ $params = [
 
     <?= $form->field($model, 'img')->fileInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'id_city')->dropDownList($items, $params); ?>
+    <div class="form-check">
+        <label class="form-check-label" for="radio1">
+            <input type="radio" class="form-check-input" id="radioList" name="optradio" onclick="selectList()"
+                   value="option1" checked>Список
+        </label>
+    </div>
+    <div class="form-check">
+        <label class="form-check-label" for="radio2">
+            <input type="radio" class="form-check-input" id="radioNew" name="optradio" onclick="selectNew()"
+                   value="option2">Новый город
+        </label>
+    </div>
 
+    <?= $form->field($model, 'id_city')->dropDownList([$items, $params], ['disabled' => false]);
+    gc_disable() ?>
+
+    <div class="form-group">
+        <label for="new_city">New city:</label>
+        <input type="text" class="form-control" name="new_city" id="new_city" placeholder="Введите "
+               oninput="findCity()">
+    </div>
+
+
+    <select style="width: 200px" class="new_city_select" name="new_city_select" id="new_city_select"
+            class="form-control input-sm" col="10" disabled="true"
+    >
+        <option value="-">-</option>
+    </select>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
@@ -40,55 +66,36 @@ $params = [
 
     <?php ActiveForm::end(); ?>
 
-    <div class="form-group">
-        <label for="title">Title:</label>
-        <input type="text" class="form-control" id="title" name="title" required>
-    </div>
 
-    <div class="form-group">
-        <label for="exampleInputFile">Текст отзывы</label> <br>
-        <textarea name="description" id="description" rows=11 cols=93 maxlength=250
-                  required></textarea>
-    </div>
-
-    <div class="form-group">
-        <label for="title">Рейтинг:</label>
-        <input type="number" class="form-control" id="rating" name="rating" min="1" max="10" col="10" required>
-    </div>
-
-    <input type="file" id="img" accept="image/*" name="img" value="{{ old('file')}}" required>
-
-    <?= $form->field($model, 'id_city')->dropDownList($items, $params); ?>
-
-    <div class="form-group">
-        <label for="new_city">New city:</label>
-        <input type="text" class="form-control" id="new_city" name="new_city" placeholder="Введите "
-               oninput="findCity()" required>
-    </div>
-
-    <select style="width: 200px" class="new_city_select" name="new_city_select" class="form-control input-sm" id="new_city_select">
-        <option value="-">-</option>
-    </select>
     <script>
         function findCity() {
-            console.log('xhange');
             var input = document.getElementById("new_city").value;
-            console.log(input);
             $.get(
                 "http://geohelper.info/api/v1/cities?apiKey=YxI8Q1NUptbUA15xS0drYEROSPki8Mq8&locale[lang]=uk&filter[name]=" + input,
                 function (data, status) {
-                    // console.log(data.result)
                     $('#new_city_select').empty();
                     $.each(data.result, function (index, subcatObj) {
-                            console.log("item")
-                            console.log(subcatObj.name);
-
                             $('#new_city_select').append('<option value="' + subcatObj.name + '">' + subcatObj.name + '</option>');
-
                         }
                     )
                 }
             )
+        }
+
+        function selectNew() {
+            console.log('new');
+            document.getElementById(['new_city']).disabled = true;
+            document.getElementById(['new_city_select']).disabled = true;
+            //     $('#id_city').disabled = true;
+            //   $('#new_city_select').disabled = false;
+        }
+
+        function selectList() {
+            console.log('list');
+            document.getElementById(['new_city']).disabled = false;
+            document.getElementById(['new_city_select']).disabled = false;
+            //  $('#id_city').disabled = false;
+            //$('#new_city_select').disabled = true;
         }
     </script>
 
