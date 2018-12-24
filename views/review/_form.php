@@ -1,16 +1,20 @@
 <?php
+
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use app\models\City;
 use app\models\CitySearch;
 use yii\helpers\ArrayHelper;
-use yii\helpers\Url;
+
+
 /* @var $this yii\web\View */
 /* @var $model app\models\Reviews */
 /* @var $form yii\widgets\ActiveForm */
-$cityes=City::find()->all();
-$items=ArrayHelper::map($cityes,'id','name');
+
+$cityes = City::find()->all();
+$items = ArrayHelper::map($cityes, 'id', 'name');
 $params = [
+
 ];
 ?>
 
@@ -27,23 +31,8 @@ $params = [
 
     <?= $form->field($model, 'img')->fileInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'id_city')->dropDownList($items,$params); ?>
+    <?= $form->field($model, 'id_city')->dropDownList($items, $params); ?>
 
-    <?= $form->field($model, 'id_city')->textInput(
-        [
-            'prompt' => 'Выбрать страну...',
-            'oninput' => 'console.log(\'change\')
-                                                                $.get(
-                                                                 "'.Url::toRoute('review/list').'",
-                                                                 {name : $(this).val()},
-                                                                 function(data){
-                                                                     console.log(data);
-                                                                 }
-                                                                )
-                                                             '
-        ]
-
-    ) ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
@@ -51,9 +40,51 @@ $params = [
 
     <?php ActiveForm::end(); ?>
 
+    <div class="form-group">
+        <label for="title">Title:</label>
+        <input type="text" class="form-control" id="title" name="title" required>
+    </div>
+
+    <div class="form-group">
+        <label for="exampleInputFile">Текст отзывы</label> <br>
+        <textarea name="description" id="description" rows=11 cols=93 maxlength=250
+                  required></textarea>
+    </div>
+
+    <div class="form-group">
+        <label for="title">Рейтинг:</label>
+        <input type="number" class="form-control" id="rating" name="rating" min="1" max="10" col="10" required>
+    </div>
+
+    <input type="file" id="img" accept="image/*" name="img" value="{{ old('file')}}" required>
+
+    <?= $form->field($model, 'id_city')->dropDownList($items, $params); ?>
+
+    <div class="form-group">
+        <label for="new_city">New city:</label>
+        <input type="text" class="form-control" id="new_city" name="new_city" placeholder="Введите "
+               oninput="findCity()" required>
+    </div>
+
     <script>
+        function findCity() {
+            console.log('xhange');
+            var input = document.getElementById("new_city").value;
+            console.log(input);
+            $.get(
+                "http://geohelper.info/api/v1/cities?apiKey=YxI8Q1NUptbUA15xS0drYEROSPki8Mq8&locale[lang]=uk&filter[name]="+input,
+                {
+                  //  filter[name]: input,
+                },
 
-
+            )
+        }
     </script>
 
+    <select id="new_city" class="city" style="width: 200px" ">
+    <option value="-">-</option>
+    <option value=""></option>
+    </select>
+
 </div>
+ 

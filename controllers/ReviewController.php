@@ -17,7 +17,7 @@ use yii\db\Exception;
 use yii\db\Query;
 use yii\filters\AccessControl;
 use yii\web\Controller;
-
+use yii\httpclient\Client;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
@@ -87,8 +87,18 @@ class ReviewController extends \yii\web\Controller
         $request = Yii::$app->request;
         $name = $request->get('name');
 
-
-
+/*
+        $client = new Client();
+        $response = $client->createRequest()
+            ->setMethod('POST')
+            ->setUrl('http://example.com/api/1.0/users')
+            ->setData(['name' => 'John Doe', 'email' => 'johndoe@example.com'])
+            ->send();
+        if ($response->isOk) {
+            $newUserId = $response->data['id'];
+            var_dump($newUserId);
+        }
+*/
         return $this->asJson($name);
     }
 
