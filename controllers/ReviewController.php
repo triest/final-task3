@@ -71,34 +71,37 @@ class ReviewController extends \yii\web\Controller
 
         $model = new Reviews();
         $this->vardump(Yii::$app->request->post());
-        //   die();
+
         $request = Yii::$app->request;
         // $radio=$request->optradio;
         $radio = $request->post("optradio");
-        $this->vardump($radio);
 
-        if ($request->post() and $radio == "new") {
-            $new_city = $request->post("new_city_select");
-            $this->vardump($new_city);
-            $city = City::find()
-                ->where(['=', 'name', $new_city])
-                ->one();;
-            $this->vardump($city);
-            if ($city == null) {
-                $city = new City;
-                $city->name=$new_city;
-                $city->save(false);
-            }
-            //die("d");
-        }
+
+
 
      //   die();
         if ($model->load($request->post()) && $model->saveReview()) {
-
             $file = UploadedFile::getInstance($model, 'img');
             if ($file != null) {
                 $file = $model->uploadFile($file);
             }
+            if ($request->post() and $radio == "new") {
+                $new_city = $request->post("new_city_select");
+                $this->vardump($new_city);
+                $city = City::find()
+                    ->where(['=', 'name', $new_city])
+                    ->one();;
+                $this->vardump($city);
+                if ($city == null) {
+                    $city = new City;
+                    $city->name=$new_city;
+                    $city->save(false);
+                    $model->id_city=$city->id;
+                    $model->save(false);
+                }
+
+            }
+
             return $this->actionConfurm($model->city);
         }
 
