@@ -71,8 +71,29 @@ class ReviewController extends \yii\web\Controller
 
         $model = new Reviews();
         $this->vardump(Yii::$app->request->post());
-       //die();
-        if ($model->load(Yii::$app->request->post()) && $model->saveReview()) {
+        //   die();
+        $request = Yii::$app->request;
+        // $radio=$request->optradio;
+        $radio = $request->post("optradio");
+        $this->vardump($radio);
+
+        if ($request->post() and $radio == "new") {
+            $new_city = $request->post("new_city_select");
+            $this->vardump($new_city);
+            $city = City::find()
+                ->where(['=', 'name', $new_city])
+                ->one();;
+            $this->vardump($city);
+            if ($city == null) {
+                $city = new City;
+                $city->name=$new_city;
+                $city->save(false);
+            }
+            //die("d");
+        }
+
+     //   die();
+        if ($model->load($request->post()) && $model->saveReview()) {
 
             $file = UploadedFile::getInstance($model, 'img');
             if ($file != null) {
@@ -91,23 +112,26 @@ class ReviewController extends \yii\web\Controller
         $request = Yii::$app->request;
         $name = $request->get('name');
 
-/*
-        $client = new Client();
-        $response = $client->createRequest()
-            ->setMethod('POST')
-            ->setUrl('http://example.com/api/1.0/users')
-            ->setData(['name' => 'John Doe', 'email' => 'johndoe@example.com'])
-            ->send();
-        if ($response->isOk) {
-            $newUserId = $response->data['id'];
-            var_dump($newUserId);
-        }
-*/
+        /*
+                $client = new Client();
+                $response = $client->createRequest()
+                    ->setMethod('POST')
+                    ->setUrl('http://example.com/api/1.0/users')
+                    ->setData(['name' => 'John Doe', 'email' => 'johndoe@example.com'])
+                    ->send();
+                if ($response->isOk) {
+                    $newUserId = $response->data['id'];
+                    var_dump($newUserId);
+                }
+        */
         return $this->asJson($name);
     }
 
-    function vardump($var) {
-        echo '<br>';echo '<br>';echo '<br>';
+    function vardump($var)
+    {
+        echo '<br>';
+        echo '<br>';
+        echo '<br>';
         echo '<pre>';
         var_dump($var);
         echo '</pre>';

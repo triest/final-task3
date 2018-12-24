@@ -34,13 +34,13 @@ $params = [
     <div class="form-check">
         <label class="form-check-label" for="radio1">
             <input type="radio" class="form-check-input" id="radioList" name="optradio" onclick="selectList()"
-                   value="option1" checked>Список
+                   value="list" checked>Список
         </label>
     </div>
     <div class="form-check">
         <label class="form-check-label" for="radio2">
             <input type="radio" class="form-check-input" id="radioNew" name="optradio" onclick="selectNew()"
-                   value="option2">Новый город
+                   value="new">Новый город
         </label>
     </div>
 
@@ -84,16 +84,18 @@ $params = [
 
         function selectNew() {
             console.log('new');
-            document.getElementById(['new_city']).disabled = true;
-            document.getElementById(['new_city_select']).disabled = true;
+            document.getElementById(['new_city']).disabled = false;
+            document.getElementById(['new_city_select']).disabled = false;
+            document.getElementById(['id_city']).readonly = true
             //     $('#id_city').disabled = true;
             //   $('#new_city_select').disabled = false;
         }
 
         function selectList() {
             console.log('list');
-            document.getElementById(['new_city']).disabled = false;
-            document.getElementById(['new_city_select']).disabled = false;
+            document.getElementById(['new_city']).disabled = true;
+            document.getElementById(['new_city_select']).disabled = true;
+            document.getElementById(['id_city']).readonly = false;
             //  $('#id_city').disabled = false;
             //$('#new_city_select').disabled = true;
         }
