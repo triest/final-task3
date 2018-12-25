@@ -27,10 +27,11 @@ class AuthController extends Controller
         if(Yii::$app->request->isPost)
         {
             $model->load(Yii::$app->request->post());
-            if($model->signup())
+            if($user=$model->signup())
             {
               //  return $this->redirect(['auth/login']);
              //   $this->actionLogin();
+                $model->sendConfurmEmail($user->email,$user->token);
                 return $this->redirect(['site/index']);
             }
         }

@@ -2,7 +2,10 @@
 
 namespace app\models;
 
+use Yii;
 use yii\base\Model;
+use yii\base\Security;
+use yii\base\CSecurityManager;
 
 class SignupForm extends Model
 {
@@ -46,8 +49,17 @@ class SignupForm extends Model
         if ($this->validate()) {
             $user = new User();
             $user->attributes = $this->attributes;
+
+            $user->emailToken = Yii::$app->security->generateRandomString(32);
+           //
+
             return $user->create();
         }
+    }
+
+    public function sendConfurmEmail($email,$token)
+    {
+       die('sendEmail');
     }
 
 }

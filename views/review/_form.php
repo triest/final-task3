@@ -87,8 +87,6 @@ $params = [
             document.getElementById(['new_city']).disabled = false;
             document.getElementById(['new_city_select']).disabled = false;
             document.getElementById(['id_city']).readonly = true
-            //     $('#id_city').disabled = true;
-            //   $('#new_city_select').disabled = false;
         }
 
         function selectList() {
@@ -96,8 +94,6 @@ $params = [
             document.getElementById(['new_city']).disabled = true;
             document.getElementById(['new_city_select']).disabled = true;
             document.getElementById(['id_city']).readonly = false;
-            //  $('#id_city').disabled = false;
-            //$('#new_city_select').disabled = true;
         }
     </script>
 
