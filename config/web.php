@@ -30,10 +30,18 @@ $config = [
         ],
         'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',
+            'transport' => [
+                'class' => 'Swift_SmtpTransport',
+                'host' => 'sakura-city.info',  // e.g. smtp.mandrillapp.com or smtp.gmail.com
+                'username' => 'sakura-testmail@sakura-city.info',
+                'password' => 'testmail',
+                'port' => '25', // Port 25 is a very common port too
+                'encryption' => '', // It is often used, check your provider or mail server specs
+            ],
             // send all mails to a file by default. You have to set
             // 'useFileTransport' to false and configure a transport
             // for the mailer to send real emails.
-            'useFileTransport' => true,
+            'useFileTransport' => false,
         ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,

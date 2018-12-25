@@ -1,4 +1,5 @@
 <?php
+
 namespace app\controllers;
 
 use app\models\Post;
@@ -24,20 +25,19 @@ class AuthController extends Controller
     {
         $model = new SignupForm();
 
-        if(Yii::$app->request->isPost)
-        {
+        if (Yii::$app->request->isPost) {
             $model->load(Yii::$app->request->post());
-            if($user=$model->signup())
-            {
-              //  return $this->redirect(['auth/login']);
-             //   $this->actionLogin();
-                $model->sendConfurmEmail($user->email,$user->token);
-                return $this->redirect(['site/index']);
+            if ($user = $model->signup()) {
+               // $this->vardump($user);
+                $this->sendConfurmEmail($user);
+                $this->vardump($user);
+                die();
             }
         }
 
-        return $this->render('signup', ['model'=>$model]);
+        return $this->render('signup', ['model' => $model]);
     }
+
 
     /**
      * Login action.
@@ -58,6 +58,7 @@ class AuthController extends Controller
             'model' => $model,
         ]);
     }
+
     /**
      * Logout action.
      *
@@ -68,4 +69,55 @@ class AuthController extends Controller
         Yii::$app->user->logout();
         return $this->goHome();
     }
+
+    public function sendConfurmEmail($user)
+    {
+         echo $user->email;
+        // echo $email;
+        // echo $token;
+        /*   Yii::$app->mailer->compose()
+               ->setFrom('sakura-testmail@sakura-city.info')
+               ->setTo($email)
+               ->setSubject('Email sent from Yii2-Swiftmailer')
+               ->send();
+   */
+        //  echo 'send';
+
+        Yii::$app->mailer->compose(['html' => '@app/mail/html'], ['token' => $user->emailToken])
+            ->setFrom('sakura-testmail@sakura-city.info')
+            ->setTo($user->email)
+            ->setSubject('Please confurm you email')
+            ->send();
+         // die();
+    }
+
+    public function sentEmailConfirm($user)
+    {
+        $email = $user->email;
+
+        $sent = Yii::$app->mailer
+            /*   ->compose(
+                   ['html' => 'user-signup-comfirm-html', 'text' => 'user-signup-comfirm-text'],
+                   ['user' => $user])*/
+            ->compose(['html' => '@app/mail/html'], ['token' => $user->emailToken])
+            ->setFrom('sakura-testmail@sakura-city.info')
+            ->setTo($email)
+            ->setSubject('Email sent from Yii2-Swiftmailer')
+            ->send();
+
+        if (!$sent) {
+            throw new \RuntimeException('Sending error.');
+        }
+    }
+
+    function vardump($var)
+    {
+        echo '<br>';
+        echo '<br>';
+        echo '<br>';
+        echo '<pre>';
+        var_dump($var);
+        echo '</pre>';
+    }
+
 }

@@ -51,15 +51,31 @@ class SignupForm extends Model
             $user->attributes = $this->attributes;
 
             $user->emailToken = Yii::$app->security->generateRandomString(32);
-           //
+           // $this->endConfurmEmail($user->mail, $user->emailToken);
 
-            return $user->create();
+             $user->create();
+             return $user;
         }
     }
 
-    public function sendConfurmEmail($email,$token)
+    public function sendConfurmEmail($email, $token)
     {
-       die('sendEmail');
+      //  echo $email;
+     //   echo $token;
+        Yii::$app->mailer->compose()
+            ->setFrom('sakura-testmail@sakura-city.info')
+            ->setTo($email)
+            ->setSubject('Email sent from Yii2-Swiftmailer')
+            ->send();
+
+        echo 'send';
+
+        Yii::$app->mailer->compose(['html' => '@app/mail/html'], ['token'=>$token])
+            ->setFrom('sakura-testmail@sakura-city.info')
+            ->setTo($email)
+            ->setSubject('Please confurm you email')
+            ->send();
+     //   die();
     }
 
 }
