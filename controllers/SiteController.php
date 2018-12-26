@@ -160,7 +160,9 @@ class SiteController extends Controller
 
     public function actionConfurm($city)
     {
+        $this->vardump($city);
         $city2 = City::find()->where(['name' => $city])->one();
+        $this->vardump($city2);
         if ($city2 != null) {
             $reviews = $city2->getReviews()->all();
         }
