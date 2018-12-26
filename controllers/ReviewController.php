@@ -156,6 +156,7 @@ class ReviewController extends \yii\web\Controller
     public function actionView($id)
     {
         $review = Reviews::find($id)->one();
-        $this->vardump($review);
+       // $this->vardump($review);
+        return $this->render('single',['review'=>$review]);
     }
 }
