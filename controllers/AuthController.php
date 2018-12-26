@@ -121,6 +121,6 @@ class AuthController extends Controller
       //  $this->vardump($user);
         $user->emailConfurm=1;
         $user->save();
-        
+        $this->redirect('web/site/login',302);
     }
 }
