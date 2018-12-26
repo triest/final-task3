@@ -13,6 +13,6 @@ $this->title = $city;
 
       <button type="button" class="btn btn-secondary">Нет</button>
   -->
-    <?= Html::a('Да', ['confurm', 'city' => $city], ['class' => 'btn btn-primary']) ?>
+    <?= Html::a('Да', ['review/confurm', 'city' => $city], ['class' => 'btn btn-primary']) ?>
     <?= Html::a('Нет', ['denide', 'city' => $city], ['class' => 'btn btn-danger']) ?>
 </div>

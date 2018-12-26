@@ -69,25 +69,18 @@ class ReviewController extends \yii\web\Controller
 
     public function actionCreate()
     {
-
         $model = new Reviews();
-        $this->vardump(Yii::$app->request->post());
-
         $request = Yii::$app->request;
-        // $radio=$request->optradio;
         $radio = $request->post("optradio");
 
-
-
-
-     //   die();
         if ($model->load($request->post()) && $model->saveReview()) {
             $file = UploadedFile::getInstance($model, 'img');
             if ($file != null) {
                 $file = $model->uploadFile($file);
             }
-            $cities=Yii::$app->request->post('cities');
-            if($cities!=null){
+
+            $cities = Yii::$app->request->post('cities'); //забирем города из запроса
+            if ($cities != null) {
                 $model->saveCities($cities);
             }
 
@@ -100,24 +93,23 @@ class ReviewController extends \yii\web\Controller
                 $this->vardump($city);
                 if ($city == null) {
                     $city = new City;
-                    $city->name=$new_city;
+                    $city->name = $new_city;
                     $city->save(false);
-                    $model->id_city=$city->id;
+                    $model->id_city = $city->id;
                     $model->save(false);
                 }
 
             }
 
 
-
             return $this->actionConfurm($model->city);
         }
 
-        $cities=ArrayHelper::map(City::find()->all(),'id','name');
+        $cities = ArrayHelper::map(City::find()->all(), 'id', 'name');
 
         return $this->render('create', [
             'model' => $model,
-            'cities'=>$cities
+            'cities' => $cities
         ]);
     }
 
@@ -156,12 +148,14 @@ class ReviewController extends \yii\web\Controller
         $city2 = City::find()->where(['name' => $city])->one();
         if ($city2 != null) {
             $reviews = $city2->getReviews()->all();
+            return $this->render('test', ['reviews' => $reviews, 'city' => $city2]);
         }
-        return $this->render('index', ['reviews' => $reviews, 'city' => $city2]);
+        return $this->render('test');
     }
 
-    public function actionView($id){
-            $review=Reviews::find($id)->one();
-            $this->vardump($review);
+    public function actionView($id)
+    {
+        $review = Reviews::find($id)->one();
+        $this->vardump($review);
     }
 }

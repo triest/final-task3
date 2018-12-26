@@ -160,6 +160,7 @@ class SiteController extends Controller
 
     public function actionConfurm($city)
     {
+        /*
         $this->vardump($city);
         $city2 = City::find()->where(['name' => $city])->one();
         $this->vardump($city2);
@@ -167,6 +168,7 @@ class SiteController extends Controller
             $reviews = $city2->getReviews()->all();
         }
         return $this->render('test', ['reviews' => $reviews, 'city' => $city2]);
+        */
     }
 
     public function actionDenide($city)

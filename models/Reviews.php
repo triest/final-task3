@@ -175,10 +175,10 @@ class Reviews extends \yii\db\ActiveRecord
     }
 
     public function saveCities($cities){
-        if(is_array($cities)){
+        if(is_array($cities)){ //ишим города по запросу
             foreach ($cities as $city_id){
                 $city=City::findOne($city_id);
-                $this->link('city',$city);
+                $this->link('city',$city); //соединяем 
             }
         }
     }
