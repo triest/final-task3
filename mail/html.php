@@ -1,22 +1,41 @@
 <?php
-use yii\helpers\Html;
 
-/* @var $this \yii\web\View view component instance */
-/* @var $message \yii\mail\MessageInterface the message being composed */
-/* @var $content string main view render result */
+use yii\helpers\Html;
+use yii\helpers\Url;
+use yii\widgets\LinkPager;
+use Yii;
+use app\models\Post;
+use app\models\Tag;
+use app\models\Comment;
+use app\models\CommentForm;
+//use Codeception\Step\Comment;
+use yii\data\Pagination;
+use yii\filters\AccessControl;
+use yii\web\Controller;
+use yii\web\Response;
+use yii\filters\VerbFilter;
+use app\models\LoginForm;
+use app\models\ContactForm;
+use app\models\SignupForm;
+use app\models\User;
+
+?>
+
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=<?= Yii::$app->charset ?>" />
+
     <title> Подтвердите email</title>
 
 </head>
 <body>
-    <?php $this->beginBody() ?>
-     Для подтверждения регистрации перейдите по ссылке: http://city.ru.xsph.ru/web/auth/confurm/<?= $token?>
-    <?php $this->endBody() ?>
+
+Для подтверждения регистрации перейдите по ссылке: <br>
+
+<?= 'http://city.ru.xsph.ru'.Url::toRoute(['auth/confurm2', 'token' => $token]); ?> <br>
+
 </body>
 </html>
 <?php $this->endPage() ?>

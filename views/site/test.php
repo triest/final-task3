@@ -4,7 +4,7 @@ use yii\helpers\Url;
 use yii\widgets\LinkPager;
 use yii\helpers\Html;
 
-$this->title = $city->name ;
+$this->title = $city->name;
 ?>
 
 
@@ -39,6 +39,7 @@ $this->title = $city->name ;
                                     <div class="entry-content">
                                     </div>
                                 </header>
+                                <a href="<?= Url::toRoute(['review/view', 'id' => $review->id]); ?>" class="more-link">Detail</a>
 
                                 <div class="entry-content">
                                     <img src="<?= $review->getImage(); ?>" alt=""></a>
@@ -70,14 +71,8 @@ $this->title = $city->name ;
                                     </div>
                                 </header>
                                 Автор: <b> <?= $review->getAuthor() ?></b>
-
-
-                                <div class="entry-content">
-                                    <br>
-                                    <b>Отзыв:<br></b>
-                                    <?= $review->description ?>
-                                    <img src="<?= $review->getImage(); ?>" alt=""></a>
-                                </div>
+                                <br>
+                                <a href="<?= Url::toRoute(['review/view', 'id' => $review->id]); ?>" class="more-link">Отзыв</a>
 
 
                             </div>

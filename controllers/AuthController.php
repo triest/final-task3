@@ -28,10 +28,8 @@ class AuthController extends Controller
         if (Yii::$app->request->isPost) {
             $model->load(Yii::$app->request->post());
             if ($user = $model->signup()) {
-               // $this->vardump($user);
                 $this->sendConfurmEmail($user);
-                $this->vardump($user);
-                die();
+
             }
         }
 
@@ -72,7 +70,7 @@ class AuthController extends Controller
 
     public function sendConfurmEmail($user)
     {
-         echo $user->email;
+        echo $user->email;
         // echo $email;
         // echo $token;
         /*   Yii::$app->mailer->compose()
@@ -88,7 +86,7 @@ class AuthController extends Controller
             ->setTo($user->email)
             ->setSubject('Please confurm you email')
             ->send();
-         // die();
+        // die();
     }
 
     public function sentEmailConfirm($user)
@@ -120,4 +118,13 @@ class AuthController extends Controller
         echo '</pre>';
     }
 
+    function actionEmail($token)
+    {
+        $this->vardump($token);
+
+    }
+
+    function actionConfurm2($token){
+            echo  $token;
+    }
 }

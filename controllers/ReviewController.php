@@ -148,4 +148,9 @@ class ReviewController extends \yii\web\Controller
         }
         return $this->render('index', ['reviews' => $reviews, 'city' => $city2]);
     }
+
+    public function actionView($id){
+            $review=Reviews::find($id)->one();
+            $this->vardump($review);
+    }
 }
