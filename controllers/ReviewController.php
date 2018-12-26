@@ -23,6 +23,7 @@ use app\models\LoginForm;
 use app\models\ContactForm;
 use yii\web\UploadedFile;
 use yii\helpers\VarDumper;
+use yii\helpers\ArrayHelper;
 
 class ReviewController extends \yii\web\Controller
 {
@@ -85,6 +86,11 @@ class ReviewController extends \yii\web\Controller
             if ($file != null) {
                 $file = $model->uploadFile($file);
             }
+            $cities=Yii::$app->request->post('cities');
+            if($cities!=null){
+                $model->saveCities($cities);
+            }
+
             if ($request->post() and $radio == "new") {
                 $new_city = $request->post("new_city_select");
                 $this->vardump($new_city);
@@ -102,11 +108,16 @@ class ReviewController extends \yii\web\Controller
 
             }
 
+
+
             return $this->actionConfurm($model->city);
         }
 
+        $cities=ArrayHelper::map(City::find()->all(),'id','name');
+
         return $this->render('create', [
             'model' => $model,
+            'cities'=>$cities
         ]);
     }
 

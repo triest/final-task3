@@ -40,8 +40,8 @@ class Reviews extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id_city', 'title', 'description', 'rating'], 'required'],
-            [['id_city', 'rating', 'id_autor'], 'integer'],
+            [[/*'id_city',*/ 'title', 'description', 'rating'], 'required'],
+            [[/*'id_city',*/ 'rating', 'id_autor'], 'integer'],
             [['rating'], 'integer', 'min' => 1, 'max' => 5],
             [['title', 'description'], 'string'],
             [['date_create'], 'default', 'value' => date('Y-m-d H:i:s')],
@@ -53,13 +53,13 @@ class Reviews extends \yii\db\ActiveRecord
                 'targetClass' => User::className(),
                 'targetAttribute' => ['id_autor' => 'id']
             ],
-            [
-                ['id_city'],
+          /*  [
+               ['id_city'],
                 'exist',
                 'skipOnError' => true,
                 'targetClass' => City::className(),
                 'targetAttribute' => ['id_city' => 'id']
-            ],
+            ],*/
         ];
     }
 
@@ -172,6 +172,15 @@ class Reviews extends \yii\db\ActiveRecord
     {
         $this->id_autor = Yii::$app->user->id;
         return $this->save(false);
+    }
+
+    public function saveCities($cities){
+        if(is_array($cities)){
+            foreach ($cities as $city_id){
+                $city=City::findOne($city_id);
+                $this->link('city',$city);
+            }
+        }
     }
 
 

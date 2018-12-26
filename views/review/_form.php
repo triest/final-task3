@@ -37,6 +37,9 @@ $params = [
                    value="list" checked>Список
         </label>
     </div>
+
+    <?= Html::dropDownList('cities', [], $items, ['class' => 'form-control', 'multiple' => true]) ?>
+
     <div class="form-check">
         <label class="form-check-label" for="radio2">
             <input type="radio" class="form-check-input" id="radioNew" name="optradio" onclick="selectNew()"
@@ -44,8 +47,6 @@ $params = [
         </label>
     </div>
 
-    <?= $form->field($model, 'id_city')->dropDownList([$items, $params], ['disabled' => false]);
-    gc_disable() ?>
 
     <div class="form-group">
         <label for="new_city">New city:</label>
