@@ -70,16 +70,6 @@ class AuthController extends Controller
 
     public function sendConfurmEmail($user)
     {
-        echo $user->email;
-        // echo $email;
-        // echo $token;
-        /*   Yii::$app->mailer->compose()
-               ->setFrom('sakura-testmail@sakura-city.info')
-               ->setTo($email)
-               ->setSubject('Email sent from Yii2-Swiftmailer')
-               ->send();
-   */
-        //  echo 'send';
 
         Yii::$app->mailer->compose(['html' => '@app/mail/html'], ['token' => $user->emailToken])
             ->setFrom('sakura-testmail@sakura-city.info')
@@ -124,7 +114,13 @@ class AuthController extends Controller
 
     }
 
-    function actionConfurm2($token){
-            echo  $token;
+    function actionConfurm2($token)
+    {
+       // echo $token;
+        $user=User::find()->where(['emailToken'=>$token])->one();
+      //  $this->vardump($user);
+        $user->emailConfurm=1;
+        $user->save();
+        
     }
 }
