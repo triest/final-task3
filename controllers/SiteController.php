@@ -269,13 +269,5 @@ class SiteController extends Controller
         echo '</pre>';
     }
 
-    function actionConfurm2($token)
-    {
-        // echo $token;
-        $user=User::find()->where(['emailToken'=>$token])->one();
-        //  $this->vardump($user);
-        $user->emailConfurm=1;
-        $user->save();
-        $this->redirect('/login',302);
-    }
+
 }

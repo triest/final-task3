@@ -84,7 +84,7 @@ class AuthController extends Controller
     public function sentEmailConfirm($user)
     {
         $email = $user->email;
-
+        $this->vardump($user);
         $sent = Yii::$app->mailer
             /*   ->compose(
                    ['html' => 'user-signup-comfirm-html', 'text' => 'user-signup-comfirm-text'],
@@ -118,10 +118,26 @@ class AuthController extends Controller
     public function actionResent()
     {
         $model = new ResentForm();
-
+        if ($model->load(Yii::$app->request->post())) {
+            $result = Yii::$app->request->post();
+            $this->vardump($result);
+            $user = User::find()->where(['email' => $result->email])->one();
+            $this->vardump($user);
+            $this->sentEmailConfirm($user);
+        }
         return $this->render('resent', [
             'model' => $model,
         ]);
+    }
+
+    function actionConfurm2($token)
+    {
+        // echo $token;
+        $user = User::find()->where(['emailToken' => $token])->one();
+        //  $this->vardump($user);
+        $user->emailConfurm = 1;
+        $user->save();
+        $this->redirect('site/login', 302);
     }
 
 
