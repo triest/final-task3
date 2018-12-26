@@ -170,19 +170,26 @@ class SiteController extends Controller
     public function actionDenide($city)
     {
         $count = 0;
-        foreach ($city as $c) {
+        $this->vardump($city);
+
+     /*   $city_in_base=City::find()
+            ->where(['name'=>$city])
+            ->one();
+        $this->vardump($city_in_base);*/
+      //  $this->vardump($city_in_base);
+      /*  foreach ($city as $c) {
             $count++;
             echo $count;
             echo '<br>';
-        }
+        }*/
         $query = new Query;
         $query->select([
                 'city.name AS name'
             ]
         )
             ->from('city')
-            ->join('RIGHT  JOIN', 'city_review',
-                'city_review.city_id =city.id')
+            ->join('RIGHT  JOIN', 'reviews',
+                'reviews.id_city =city.id')
             ->distinct()
             ->orderBy('name')
             ->LIMIT(5);
@@ -190,7 +197,7 @@ class SiteController extends Controller
 
         $command = $query->createCommand();
         $data = $command->queryAll();
-        // var_dump($data);
+        $this->vardump($data);
         // die();
         return $this->render('cityList', ['cityes' => $data]);
     }
@@ -250,5 +257,13 @@ class SiteController extends Controller
         echo 'send';
     }
 
-
+    function vardump($var)
+    {
+        echo '<br>';
+        echo '<br>';
+        echo '<br>';
+        echo '<pre>';
+        var_dump($var);
+        echo '</pre>';
+    }
 }
