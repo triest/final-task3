@@ -6,6 +6,7 @@ use app\models\Post;
 use app\models\Tag;
 use app\models\Comment;
 use app\models\CommentForm;
+use app\models\ResentForm;
 //use Codeception\Step\Comment;
 use Yii;
 use yii\data\Pagination;
@@ -29,7 +30,7 @@ class AuthController extends Controller
             $model->load(Yii::$app->request->post());
             if ($user = $model->signup()) {
                 $this->sendConfurmEmail($user);
-
+                return $this->redirect(['auch/login']);
             }
         }
 
@@ -76,6 +77,7 @@ class AuthController extends Controller
             ->setTo($user->email)
             ->setSubject('Please confurm you email')
             ->send();
+
         // die();
     }
 
@@ -98,7 +100,7 @@ class AuthController extends Controller
         }
     }
 
-    function vardump($var)
+    public function vardump($var)
     {
         echo '<br>';
         echo '<br>';
@@ -108,19 +110,19 @@ class AuthController extends Controller
         echo '</pre>';
     }
 
-    function actionEmail($token)
+    public function actionEmail($token)
     {
         $this->vardump($token);
-
     }
 
-    function actionConfurm2($token)
+    public function actionResent()
     {
-       // echo $token;
-        $user=User::find()->where(['emailToken'=>$token])->one();
-      //  $this->vardump($user);
-        $user->emailConfurm=1;
-        $user->save();
-        $this->redirect('web/site/login',302);
+        $model = new ResentForm();
+
+        return $this->render('resent', [
+            'model' => $model,
+        ]);
     }
+
+
 }

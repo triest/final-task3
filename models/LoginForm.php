@@ -4,6 +4,26 @@ namespace app\models;
 
 use Yii;
 use yii\base\Model;
+use app\models\Tag;
+use app\models\Comment;
+use app\models\CommentForm;
+use app\models\City;
+use app\models\Reviews;
+use Response;
+use yii\helpers\Url;
+
+//use Codeception\Step\Comment;
+//use Symfony\Component\HttpFoundation\File\UploadedFile;
+use yii\db\Exception;
+use yii\db\Query;
+use yii\filters\AccessControl;
+use yii\web\Controller;
+use yii\filters\VerbFilter;
+use app\models\LoginForm;
+use app\models\ContactForm;
+use yii\web\UploadedFile;
+use yii\helpers\VarDumper;
+use yii\httpclient\Client;
 
 /**
  * LoginForm is the model behind the login form.
@@ -56,12 +76,18 @@ class LoginForm extends Model
 
     /**
      * Logs in a user using the provided email and password.
+     *
      * @return bool whether the user is logged in successfully
      */
     public function login()
     {
         if ($this->validate()) {
-            return Yii::$app->user->login($this->getUser(), $this->rememberMe ? 3600*24*30 : 0);
+            $user = $this->getUser();
+            if ($user->emailConfurm == 1) {  //проверка, что электронная почт подтвержденап, если нет, то перенаправляем на страницу ошибки
+                return Yii::$app->user->login($this->getUser(), $this->rememberMe ? 3600 * 24 * 30 : 0);
+            } else {
+               return  Yii::$app->response->redirect(['auth/resent'])->send(); //онтроллер еще раз отправляет письмо
+            }
         }
         return false;
     }
