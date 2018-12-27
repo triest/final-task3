@@ -1,6 +1,7 @@
 <?php
 
 /* @var $this \yii\web\View */
+
 /* @var $content string */
 
 use app\widgets\Alert;
@@ -22,6 +23,35 @@ AppAsset::register($this);
     <?= Html::csrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
+    <style>
+
+        .modal .close-button {
+            position: absolute;
+            z-index: 1;
+            top: 10px;
+            right: 20px;
+
+            border: 0;
+            background: black;
+            color: white;
+            padding: 5px 10px;
+            font-size: 1.3rem;
+        }
+
+        .open-button {
+            border: 0;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: lightgreen;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-size: 21px;
+        }
+
+    </style>
 </head>
 <body>
 <?php $this->beginBody() ?>

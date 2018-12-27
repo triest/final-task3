@@ -156,7 +156,13 @@ class ReviewController extends \yii\web\Controller
     public function actionView($id)
     {
         $review = Reviews::find($id)->one();
-       // $this->vardump($review);
-        return $this->render('single',['review'=>$review]);
+        // $this->vardump($review);
+        return $this->render('single', ['review' => $review]);
+    }
+
+    //возвращает на предудущию страницк
+    public function actionBack()
+    {
+        return $this->redirect(Yii::$app->request->referrer ?: Yii::$app->homeUrl);
     }
 }

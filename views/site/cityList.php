@@ -16,7 +16,7 @@ use yii\helpers\Html;
 
                         <?php foreach ($cityes as $item): ?>
                             <h4><?= $item["name"] ?>
-                                <a href="<?= Url::toRoute(['site/confurm', 'city' => $item["name"]]); ?>"
+                                <a href="<?= Url::toRoute(['review/confurm', 'city' => $item["name"]]); ?>"
                                    class="more-link">Выбрать</a>
                             </h4>
                         <?php endforeach; ?>

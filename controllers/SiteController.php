@@ -171,38 +171,27 @@ class SiteController extends Controller
         */
     }
 
+    //
     public function actionDenide($city)
     {
-        $count = 0;
-        $this->vardump($city);
-
-     /*   $city_in_base=City::find()
-            ->where(['name'=>$city])
-            ->one();
-        $this->vardump($city_in_base);*/
-      //  $this->vardump($city_in_base);
-      /*  foreach ($city as $c) {
-            $count++;
-            echo $count;
-            echo '<br>';
-        }*/
+        $city = City::find()->where(['name' => $city])->one();
+      //  $this->vardump($city);
         $query = new Query;
         $query->select([
                 'city.name AS name'
             ]
         )
+            //       $city__id=
+
             ->from('city')
-            ->join('RIGHT  JOIN', 'reviews',
-                'reviews.id_city =city.id')
+            ->join('RIGHT  JOIN', 'city_review',
+                'city_review.city_id =city.id')
             ->distinct()
             ->orderBy('name')
             ->LIMIT(5);
-
-
+      //  $reviews = Reviews::find()->all();
         $command = $query->createCommand();
         $data = $command->queryAll();
-        $this->vardump($data);
-        // die();
         return $this->render('cityList', ['cityes' => $data]);
     }
 
@@ -218,7 +207,7 @@ class SiteController extends Controller
         }
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->goBack();
+            $this->redirect('index', 302);
         }
         $model->password = '';
         return $this->render('login', [
