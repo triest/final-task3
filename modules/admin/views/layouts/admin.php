@@ -25,30 +25,44 @@ AppAsset::register($this);
     <?php $this->head() ?>
     <style>
 
-        .modal .close-button {
-            position: absolute;
-            z-index: 1;
-            top: 10px;
-            right: 20px;
 
-            border: 0;
-            background: black;
-            color: white;
-            padding: 5px 10px;
-            font-size: 1.3rem;
+        /* The Modal (background) */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 100; /* Sit on top */
+            padding-top: 100px; /* Location of the box */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgb(0,0,0); /* Fallback color */
+            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
         }
 
-        .open-button {
-            border: 0;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: lightgreen;
-            color: white;
-            padding: 10px 20px;
-            border-radius: 10px;
-            font-size: 21px;
+        /* Modal Content */
+        .modal-content {
+            background-color: #fefefe;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+        }
+
+        /* The Close Button */
+        .close {
+            color: #aaaaaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
         }
 
     </style>

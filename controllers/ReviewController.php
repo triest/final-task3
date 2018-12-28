@@ -165,4 +165,11 @@ class ReviewController extends \yii\web\Controller
     {
         return $this->redirect(Yii::$app->request->referrer ?: Yii::$app->homeUrl);
     }
+
+    public function actionAuthordata($id){
+
+        \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        $items = ['some', 'array', 'of', 'data' => ['associative', 'array']];
+        return $items;
+    }
 }
