@@ -2,14 +2,14 @@
 
 namespace app\controllers;
 
-use app\models\Tag;
-use app\models\Comment;
-use app\models\CommentForm;
+
 use app\models\City;
 use app\models\Reviews;
+use app\models\User;
 
 //use Codeception\Step\Comment;
 //use Symfony\Component\HttpFoundation\File\UploadedFile;
+//use App\User;
 use http\Env\Response;
 use Yii;
 use yii\data\Pagination;
@@ -169,7 +169,13 @@ class ReviewController extends \yii\web\Controller
     public function actionAuthordata($id){
 
         \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-        $items = ['some', 'array', 'of', 'data' => ['associative', 'array']];
+        $user=User::find($id)->one();
+     //   $this->vardump($user);
+        $id=$user->id;
+        $email=$user->email;
+        $phone=$user->phone;
+        \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        $items = ['id' => $id,'email'=>$email,'phone'=>$phone];
         return $items;
     }
 }
