@@ -33,8 +33,10 @@ class ReviewController extends \yii\web\Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
+                'only' => ['logout'],
                 'rules' => [
                     [
+                        'actions' => ['logout'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -69,6 +71,10 @@ class ReviewController extends \yii\web\Controller
 
     public function actionCreate()
     {
+        if (\Yii::$app->user->isGuest) {
+            $this->goHome();
+        }
+
         $model = new Reviews();
         $request = Yii::$app->request;
         $radio = $request->post("optradio");
