@@ -91,25 +91,30 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-
-        if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
-            $ip = $_SERVER['HTTP_CLIENT_IP'];
-        } elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
-            $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+        $session = Yii::$app->session; // получаем сессию
+        if ($session->has('city')) {  //если есть переменая города, то сразу вонзращаем страницу с отзывами для него
+            $array = [];
+            $city= $session['city'];
+         //   $this->vardump($city);
+          return  Yii::$app->runAction('review/confurm', ['city' =>$city]);
         } else {
-            $ip = $_SERVER['REMOTE_ADDR'];
-        }
-        $query = @unserialize(file_get_contents('http://ip-api.com/php/' . $ip));
-        if ($query && $query['status'] == 'success') {
-            //   echo 'My IP: '.$query['query'].', '.$query['isp'].', '.$query['org'].', '.$query ['country'].', '.$query['regionName'].', '.$query['city'].'!'."<br>";
-        } else {
-            echo 'Unable to get location';
-        }
+            if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
+                $ip = $_SERVER['HTTP_CLIENT_IP'];
+            } elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+                $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+            } else {
+                $ip = $_SERVER['REMOTE_ADDR'];
+            }
+            $query = @unserialize(file_get_contents('http://ip-api.com/php/' . $ip));
+            if ($query && $query['status'] == 'success') {
+            } else {
+                echo 'Unable to get location';
+            }
 
-        $request = file_get_contents("http://api.sypexgeo.net/json/" . $ip);
-        $array = json_decode($request);
-        //var_dump($array);
-        // echo $array->city->name_ru;
+            $request = file_get_contents("http://api.sypexgeo.net/json/" . $ip);
+            $array = json_decode($request);
+            $session['city'] = $array->city->name_ru;
+        }
 
         return $this->render('confirm_city', ['city' => $array->city->name_ru]);
 
@@ -175,7 +180,7 @@ class SiteController extends Controller
     public function actionDenide($city)
     {
         $city = City::find()->where(['name' => $city])->one();
-      //  $this->vardump($city);
+        //  $this->vardump($city);
         $query = new Query;
         $query->select([
                 'city.name AS name'
@@ -189,7 +194,7 @@ class SiteController extends Controller
             ->distinct()
             ->orderBy('name')
             ->LIMIT(5);
-      //  $reviews = Reviews::find()->all();
+        //  $reviews = Reviews::find()->all();
         $command = $query->createCommand();
         $data = $command->queryAll();
         return $this->render('cityList', ['cityes' => $data]);
