@@ -98,15 +98,10 @@ class ReviewController extends \yii\web\Controller
                     $model->id_city = $city->id;
                     $model->save(false);
                 }
-
             }
-
-
             return $this->actionConfurm($model->city);
         }
-
         $cities = ArrayHelper::map(City::find()->all(), 'id', 'name');
-
         return $this->render('create', [
             'model' => $model,
             'cities' => $cities
@@ -177,7 +172,19 @@ class ReviewController extends \yii\web\Controller
         $email = $user->email;
         $phone = $user->phone;
         \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-        $items = ['id' => $id,'fio'=>$fio ,'email' => $email, 'phone' => $phone];
+        $items = ['id' => $id, 'fio' => $fio, 'email' => $email, 'phone' => $phone];
         return $items;
     }
+
+    //поимк всех отзывов автора
+    public function actionGetreviewsbyautor($id)
+    {
+        $user = User::find($id)->one();
+        if ($user != null) {
+            $reviews = $user->getReviews()->all();
+            return $this->render('test', ['reviews' => $reviews]);
+        }
+        return $this->render('test');
+    }
+
 }

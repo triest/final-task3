@@ -96,7 +96,7 @@ $this->title = $city->name;
         <p name="fio" id="fio"></p>
         <p name="email" id="email"></p>
         <p name="phone" id="phone"></p>
-        <a name="link" id="link">Ссыслка</a>
+        <a name="link" id="link">Отзывы автора</a>
 
     </div>
 
@@ -111,6 +111,7 @@ $this->title = $city->name;
     }
     function getAuthorData(id) {
         console.log('het ' + id);
+        var id2=id;
         $.get("authordata",
             {id: id},
             function (data, status) {
@@ -118,8 +119,10 @@ $this->title = $city->name;
                 $(".modal-content #fio").text(data.fio);
                 $(".modal-content #email").text("Email: "+data.email);
                 $(".modal-content #phone").text("Телефон:"+data.phone);
-                $(".modal-content #link").attr("href", "http://www.google.com/")
-            });
+                 var id2=data.id;
+                console.log('id '+id2);
+                $(".modal-content #link").attr("href",
+                    "<?= Url::toRoute(['review/getreviewsbyautor']);?>" + "?id=" + id2);      });
     }
     // Get the modal
     var modal = document.getElementById('myModal');
