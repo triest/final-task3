@@ -94,8 +94,8 @@ class SiteController extends Controller
         $session = Yii::$app->session; // получаем сессию
         if ($session->has('city')) {  //если есть переменая города, то сразу вонзращаем страницу с отзывами для него
             $array = [];
-            $city= $session['city'];
-         //   $this->vardump($city);
+            $city= $session['city']['name'];
+
           return  Yii::$app->runAction('review/confurm', ['city' =>$city]);
         } else {
             if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
@@ -113,7 +113,8 @@ class SiteController extends Controller
 
             $request = file_get_contents("http://api.sypexgeo.net/json/" . $ip);
             $array = json_decode($request);
-            $session['city'] = $array->city->name_ru;
+            $session['city']['name'] = $array->city->name_ru;
+            $session['city']['lifetime'] = 60*60*2;
         }
 
         return $this->render('confirm_city', ['city' => $array->city->name_ru]);
