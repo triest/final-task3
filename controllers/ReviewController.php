@@ -112,19 +112,6 @@ class ReviewController extends \yii\web\Controller
     {
         $request = Yii::$app->request;
         $name = $request->get('name');
-
-        /*
-                $client = new Client();
-                $response = $client->createRequest()
-                    ->setMethod('POST')
-                    ->setUrl('http://example.com/api/1.0/users')
-                    ->setData(['name' => 'John Doe', 'email' => 'johndoe@example.com'])
-                    ->send();
-                if ($response->isOk) {
-                    $newUserId = $response->data['id'];
-                    var_dump($newUserId);
-                }
-        */
         return $this->asJson($name);
     }
 
@@ -151,7 +138,6 @@ class ReviewController extends \yii\web\Controller
     public function actionView($id)
     {
         $review = Reviews::find($id)->one();
-        // $this->vardump($review);
         return $this->render('single', ['review' => $review]);
     }
 
@@ -163,10 +149,8 @@ class ReviewController extends \yii\web\Controller
 
     public function actionAuthordata($id)
     {
-
         \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
         $user = User::find($id)->one();
-        //   $this->vardump($user);
         $id = $user->id;
         $fio = $user->fio;
         $email = $user->email;
@@ -179,18 +163,11 @@ class ReviewController extends \yii\web\Controller
     //поимк всех отзывов автора
     public function actionGetreviewsbyautor($id)
     {
-        $this->vardump($id);
         $user = User::find()->where(['id' => $id])->one();
-        $this->vardump($user);
-        $user = User::find($id)->one();
-        //   $city = City::find()->where(['name' => $city])->one();
-        //
         if ($user != null) {
-            $this->vardump($user);
             $reviews = $user->getReviews()->all();
             return $this->render('test', ['reviews' => $reviews]);
         }
-        //    return $this->render('test');
         throw new \yii\web\NotFoundHttpException("Your Error Message.");
     }
 

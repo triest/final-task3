@@ -26,6 +26,7 @@ class SignupForm extends Model
             [['username'], 'string'],
             [['email'], 'email'],
             [['email'], 'unique', 'targetClass' => 'app\models\User', 'targetAttribute' => 'email'],
+            [['username'], 'unique', 'targetClass' => 'app\models\User', 'targetAttribute' => 'username'],
             [['fio'], 'string'],
             [['fio'], 'required'],
             [['phone'], 'string'],
@@ -49,7 +50,8 @@ class SignupForm extends Model
         if ($this->validate()) {
             $user = new User();
             $user->attributes = $this->attributes;
-
+            $hash = Yii::$app->getSecurity()->generatePasswordHash($user->password);
+            $user->password=$hash;
             $user->emailToken = Yii::$app->security->generateRandomString(32);
            // $this->endConfurmEmail($user->mail, $user->emailToken);
 

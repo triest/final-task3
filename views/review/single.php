@@ -37,8 +37,7 @@ $this->title = $review->title
                             <img src="<?= $review->getImage(); ?>" alt="">
                             <br>
                             <?= $review->description ?> <br>
-                            <a href="<?= Url::toRoute(['review/back']); ?>"
-                               class="more-link">Назад</a>
+                        
                             <? echo \yii\helpers\Html::a('Назад',Yii::$app->request->referrer)?>
                         </div>
                     </article>
