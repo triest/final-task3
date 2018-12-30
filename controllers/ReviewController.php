@@ -179,12 +179,19 @@ class ReviewController extends \yii\web\Controller
     //поимк всех отзывов автора
     public function actionGetreviewsbyautor($id)
     {
+        $this->vardump($id);
+        $user = User::find()->where(['id' => $id])->one();
+        $this->vardump($user);
         $user = User::find($id)->one();
+        //   $city = City::find()->where(['name' => $city])->one();
+        //
         if ($user != null) {
+            $this->vardump($user);
             $reviews = $user->getReviews()->all();
             return $this->render('test', ['reviews' => $reviews]);
         }
-        return $this->render('test');
+        //    return $this->render('test');
+        throw new \yii\web\NotFoundHttpException("Your Error Message.");
     }
 
 }
