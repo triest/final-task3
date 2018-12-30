@@ -166,16 +166,18 @@ class ReviewController extends \yii\web\Controller
         return $this->redirect(Yii::$app->request->referrer ?: Yii::$app->homeUrl);
     }
 
-    public function actionAuthordata($id){
+    public function actionAuthordata($id)
+    {
 
         \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-        $user=User::find($id)->one();
-     //   $this->vardump($user);
-        $id=$user->id;
-        $email=$user->email;
-        $phone=$user->phone;
+        $user = User::find($id)->one();
+        //   $this->vardump($user);
+        $id = $user->id;
+        $fio = $user->fio;
+        $email = $user->email;
+        $phone = $user->phone;
         \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-        $items = ['id' => $id,'email'=>$email,'phone'=>$phone];
+        $items = ['id' => $id,'fio'=>$fio ,'email' => $email, 'phone' => $phone];
         return $items;
     }
 }

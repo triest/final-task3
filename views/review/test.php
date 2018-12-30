@@ -94,6 +94,9 @@ $this->title = $city->name;
         <span id="close1" class="close">&times;</span>
 
         <p name="fio" id="fio"></p>
+        <p name="email" id="email"></p>
+        <p name="phone" id="phone"></p>
+        <a name="link" id="link">Ссыслка</a>
 
     </div>
 
@@ -103,7 +106,7 @@ $this->title = $city->name;
     function showAuthor(id) {
         //console.log(id);
         getAuthorData(id);
-        $(".modal-content #fio").text(id.toString());
+      //  $(".modal-content #fio").text(id.toString());
         modal.style.display = "block";
     }
     function getAuthorData(id) {
@@ -112,6 +115,10 @@ $this->title = $city->name;
             {id: id},
             function (data, status) {
             console.log(data)
+                $(".modal-content #fio").text(data.fio);
+                $(".modal-content #email").text("Email: "+data.email);
+                $(".modal-content #phone").text("Телефон:"+data.phone);
+                $(".modal-content #link").attr("href", "http://www.google.com/")
             });
     }
     // Get the modal
