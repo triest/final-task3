@@ -5,6 +5,7 @@ namespace app\models;
 use Yii;
 use Yii\base\Model;
 use yii\web\UploadedFile;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "reviews".
@@ -108,9 +109,18 @@ class Reviews extends \yii\db\ActiveRecord
     public function getCity()
     {
         //  return $this->hasMany(City::className(), ['review_id'=>'id']);
-        return $this->hasMany(City::className(), ['id' => 'city_id'])
+        $city = $this->hasMany(City::className(), ['id' => 'city_id'])
             ->select(['id', 'name'])
             ->viaTable('city_review', ['review_id' => 'id']);
+        //   $this->vardump($city);
+        return $city;
+    }
+
+    public function getCityForEdit()
+    {
+        $city = $this->getCity()->all();
+        $city = ArrayHelper::getColumn($city, 'id');
+        return $city;
     }
 
     public function uploadFile(UploadedFile $file)
@@ -199,5 +209,17 @@ class Reviews extends \yii\db\ActiveRecord
         }
     }
 
+    //
+
+
+    function vardump($var)
+    {
+        echo '<br>';
+        echo '<br>';
+        echo '<br>';
+        echo '<pre>';
+        var_dump($var);
+        echo '</pre>';
+    }
 
 }

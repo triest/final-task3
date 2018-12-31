@@ -12,10 +12,14 @@ use yii\helpers\ArrayHelper;
 /* @var $form yii\widgets\ActiveForm */
 
 $cityes = City::find()->all();
-$items = ArrayHelper::map($cityes, 'id', 'name');
-$params = [
+$items = ArrayHelper::map($cityes, "id", "name");
 
-];
+$SelectedItems=$model->getCityForEdit();
+
+//$SelectedItems=[2];
+//$model->vardump($selectedItems);
+//$Items2=ArrayHelper::map($selectedItems, "id");
+
 ?>
 
 <div class="reviews-form">
@@ -38,7 +42,7 @@ $params = [
         </label>
     </div>
 
-    <?= Html::dropDownList('cities', [], $items, ['class' => 'form-control', 'multiple' => true]) ?>
+    <?= Html::dropDownList('cities', $SelectedItems, $items, ['class' => 'form-control', 'multiple' => true,['options' => ['selected'=>true]] ]) ?>
 
     <div class="form-check">
         <label class="form-check-label" for="radio2">
