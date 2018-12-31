@@ -1,7 +1,9 @@
 <?php
+
 use yii\helpers\Url;
 use yii\widgets\LinkPager;
 use yii\helpers\Html;
+
 $this->title = $city->name;
 ?>
 
@@ -71,8 +73,6 @@ $this->title = $city->name;
                                              onclick="showAuthor(<?= $review->id_autor ?>)"> <?= $review->getAuthor() ?></a></b>
                                 <br>
                                 <a href="<?= Url::toRoute(['review/view', 'id' => $review->id]); ?>" class="more-link">Отзыв</a>
-
-
                             </div>
                         </article>
                     <?php endforeach; ?>
@@ -80,8 +80,6 @@ $this->title = $city->name;
                 }
                 ?>
             </div>
-
-
         </div>
     </div>
 </div>
@@ -113,7 +111,7 @@ $this->title = $city->name;
     function getAuthorData(id) {
         console.log('het ' + id);
         var id2 = id;
-        $.get("review/authordata",
+        $.get("authordata",
             {id: id},
             function (data, status) {
                 console.log(data)

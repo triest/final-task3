@@ -16,10 +16,6 @@ $items = ArrayHelper::map($cityes, "id", "name");
 
 $SelectedItems=$model->getCityForEdit(); //список выьранных городов
 
-//$SelectedItems=[2];
-//$model->vardump($selectedItems);
-//$Items2=ArrayHelper::map($selectedItems, "id");
-
 ?>
 
 <div class="reviews-form">

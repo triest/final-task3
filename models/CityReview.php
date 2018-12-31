@@ -64,5 +64,5 @@ class CityReview extends \yii\db\ActiveRecord
         return $this->hasOne(Reviews::className(), ['id' => 'review_id']);
     }
 
- 
+
 }
