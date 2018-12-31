@@ -84,14 +84,12 @@ $params = [
         }
 
         function selectNew() {
-            console.log('new');
             document.getElementById(['new_city']).disabled = false;
             document.getElementById(['new_city_select']).disabled = false;
             document.getElementById(['id_city']).readonly = true
         }
 
         function selectList() {
-            console.log('list');
             document.getElementById(['new_city']).disabled = true;
             document.getElementById(['new_city_select']).disabled = true;
             document.getElementById(['id_city']).readonly = false;
