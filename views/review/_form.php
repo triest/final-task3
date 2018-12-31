@@ -11,10 +11,10 @@ use yii\helpers\ArrayHelper;
 /* @var $model app\models\Reviews */
 /* @var $form yii\widgets\ActiveForm */
 
-$cityes = City::find()->all();
+$cityes = City::find()->all(); //все города
 $items = ArrayHelper::map($cityes, "id", "name");
 
-$SelectedItems=$model->getCityForEdit();
+$SelectedItems=$model->getCityForEdit(); //список выьранных городов
 
 //$SelectedItems=[2];
 //$model->vardump($selectedItems);

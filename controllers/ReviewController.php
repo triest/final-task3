@@ -181,11 +181,25 @@ class ReviewController extends \yii\web\Controller
     public function actionEdit($id)
     {
         $review = Reviews::find($id)->one();
+
+        //если отправка формы
+        $post  = Yii::$app->request->post();
+
+        if ($review->load($post))
+        {
+            //die("is post");
+            if ($review->load($post) && $review->saveReview()) {
+               
+            }
+        }
+
         if ($review == null) {
             return $this->redirect(Yii::$app->request->referrer ?: Yii::$app->homeUrl);
         } else {
             return $this->render('edit', ['model' => $review]);
         }
+
+
 
     }
 
