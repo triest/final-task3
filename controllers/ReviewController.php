@@ -199,4 +199,15 @@ class ReviewController extends \yii\web\Controller
         }
     }
 
+    public function actionMyreview()
+    {
+        $user = Yii::$app->user->identity;
+        if ($user == null) {
+            return $this->redirect(['site/login']);
+        } else {
+            $reviews = $user->getReviews()->all();
+            return $this->render('reviewsByAuthor', ['reviews' => $reviews, 'user' => $user]);
+        }
+    }
+
 }

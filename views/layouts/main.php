@@ -39,6 +39,7 @@ AppAsset::register($this);
             'items' => [
                 ['label' => 'Home', 'url' => ['/site/index']],
                 ['label' => 'Admin', 'url' => ['/admin/post/index']],
+                ['label' => 'Мои отзывы', 'url' => ['/review/myreview']],
                 Yii::$app->user->isGuest ? (
                 ['label' => 'Login', 'url' => ['/site/login']]
                 ) : (
