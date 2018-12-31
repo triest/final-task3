@@ -91,17 +91,18 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        $request=Yii::$app->request;
-       // $this->vardump($request);
-        $headers = Yii::$app->request->headers;
-     //   $this->vardump($headers);
-        $ip=$headers["forwarded"];
-        $ip=substr($ip,4,strlen($ip));
-   
-        $request = file_get_contents("http://api.sypexgeo.net/json/" . $ip);
-        $array = json_decode($request);
-        $session['city'] = $array->city->name_ru;
-
+        $session = Yii::$app->session; // получаем сессию
+        if ($session->has('city')) {  //если есть переменая города, то сразу вонзращаем страницу с отзывами для него
+            $city = $session['city'];
+            return Yii::$app->runAction('review/confurm', ['city' => $city]);
+        } else {
+            $headers = Yii::$app->request->headers; //получем заголовки
+            $ip = $headers["forwarded"];
+            $ip = substr($ip, 4, strlen($ip)); //обрезаем ip
+            $request = file_get_contents("http://api.sypexgeo.net/json/" . $ip); //запрашиваем местоположение
+            $array = json_decode($request);
+            $session['city'] = $array->city->name_ru;
+        }
         return $this->render('confirm_city', ['city' => $array->city->name_ru]);
     }
 
@@ -175,7 +176,7 @@ class SiteController extends Controller
             ->join('RIGHT  JOIN', 'city_review',
                 'city_review.city_id =city.id')
             ->distinct()
-            ->orderBy('name','ASC')
+            ->orderBy('name', 'ASC')
             ->LIMIT(5);
         //  $reviews = Reviews::find()->all();
         $command = $query->createCommand();
