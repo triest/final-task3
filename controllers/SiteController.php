@@ -91,29 +91,17 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        $session = Yii::$app->session; // получаем сессию
-        if ($session->has('city')) {  //если есть переменая города, то сразу вонзращаем страницу с отзывами для него
-            $array = [];
-            $city = $session['city'];
-            //   $this->vardump($city);
-            return Yii::$app->runAction('review/confurm', ['city' => $city]);
-        } else {
-            if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
-                $ip = $_SERVER['HTTP_CLIENT_IP'];
-            } elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
-                $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
-            } else {
-                $ip = $_SERVER['REMOTE_ADDR'];
-            }
-            $query = @unserialize(file_get_contents('http://ip-api.com/php/' . $ip));
-            if ($query && $query['status'] == 'success') {
-            } else {
-                echo 'Unable to get location';
-            }
-            $request = file_get_contents("http://api.sypexgeo.net/json/" . $ip);
-            $array = json_decode($request);
-            $session['city'] = $array->city->name_ru;
-        }
+        $request=Yii::$app->request;
+       // $this->vardump($request);
+        $headers = Yii::$app->request->headers;
+     //   $this->vardump($headers);
+        $ip=$headers["forwarded"];
+        $ip=substr($ip,4,strlen($ip));
+   
+        $request = file_get_contents("http://api.sypexgeo.net/json/" . $ip);
+        $array = json_decode($request);
+        $session['city'] = $array->city->name_ru;
+
         return $this->render('confirm_city', ['city' => $array->city->name_ru]);
     }
 
@@ -183,13 +171,11 @@ class SiteController extends Controller
                 'city.name AS name'
             ]
         )
-            //       $city__id=
-
             ->from('city')
             ->join('RIGHT  JOIN', 'city_review',
                 'city_review.city_id =city.id')
             ->distinct()
-            ->orderBy('name')
+            ->orderBy('name','ASC')
             ->LIMIT(5);
         //  $reviews = Reviews::find()->all();
         $command = $query->createCommand();

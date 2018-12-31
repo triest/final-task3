@@ -34,7 +34,7 @@ use app\models\User;
 
 Для подтверждения регистрации перейдите по ссылке: <br>
 
-<?= 'http://city.ru.xsph.ru'.Url::toRoute(['auth/confurm2', 'token' => $token]); ?> <br>
+<?= 'http://city.ru.xsph.ru'.Url::toRoute(['/confurm2', 'token' => $token]); ?> <br>
 
 </body>
 </html>

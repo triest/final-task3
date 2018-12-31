@@ -30,7 +30,7 @@ class AuthController extends Controller
             $model->load(Yii::$app->request->post());
             if ($user = $model->signup()) {
                 $this->sendConfurmEmail($user);
-                return $this->redirect(['auch/login']);
+                return $this->redirect(['site/login']);
             }
         }
 
