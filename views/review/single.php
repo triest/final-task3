@@ -4,7 +4,7 @@ use yii\helpers\Url;
 use yii\widgets\LinkPager;
 use yii\helpers\Html;
 
-$this->title = $city->name;
+$this->title = $review->title;
 ?>
 
 
@@ -49,7 +49,15 @@ $this->title = $city->name;
                                 <h4><b> <?= $review->title ?></b></h6>
                                     <h5><?= $review->getCityName() ?> +</h5>
                                     <h6>Рейтинг: <?= $review->rating ?></h4>
+                                <? $user = Yii::$app->user->identity ?>
+                                <? if ($user->id = $review->id_autor) { ?>
+                                    <br>
+                                    <?= Html::a('Редактировать', ['review/edit', 'id' => $review->id], ['class' => 'btn btn-primary']) ?>
+                                    <br>
+                                <? } ?>
                                 Картинка: <img src="<?= $review->getImage(); ?>" alt="">
+
+
                                 <?php if ($review->getImage() != null) { ?>
                                     <img src="<?= Yii::$app->request->baseUrl . $review->getImage() ?>"
                                          class=" img-responsive">
@@ -61,7 +69,7 @@ $this->title = $city->name;
                             Автор: <b><a id="open-button"
                                          onclick="showAuthor(<?= $review->id_autor ?>)"> <?= $review->getAuthor() ?></a></b>
                             <br>
-                        
+                            <?= $review->description ?>
                         </div>
                     </article>
                     <?php

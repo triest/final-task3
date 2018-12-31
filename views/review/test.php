@@ -106,24 +106,27 @@ $this->title = $city->name;
     function showAuthor(id) {
         //console.log(id);
         getAuthorData(id);
-      //  $(".modal-content #fio").text(id.toString());
+        //  $(".modal-content #fio").text(id.toString());
         modal.style.display = "block";
     }
+
     function getAuthorData(id) {
         console.log('het ' + id);
-        var id2=id;
-        $.get("authordata",
+        var id2 = id;
+        $.get("review/authordata",
             {id: id},
             function (data, status) {
-            console.log(data)
+                console.log(data)
                 $(".modal-content #fio").text(data.fio);
-                $(".modal-content #email").text("Email: "+data.email);
-                $(".modal-content #phone").text("Телефон:"+data.phone);
-                 var id2=data.id;
-                console.log('id '+id2);
+                $(".modal-content #email").text("Email: " + data.email);
+                $(".modal-content #phone").text("Телефон:" + data.phone);
+                var id2 = data.id;
+                console.log('id ' + id2);
                 $(".modal-content #link").attr("href",
-                    "<?= Url::toRoute(['review/getreviewsbyautor']);?>" + "?id=" + id2);      });
+                    "<?= Url::toRoute(['review/getreviewsbyautor']);?>" + "?id=" + id2);
+            });
     }
+
     // Get the modal
     var modal = document.getElementById('myModal');
     // Get the button that opens the modal

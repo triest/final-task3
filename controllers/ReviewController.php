@@ -78,7 +78,6 @@ class ReviewController extends \yii\web\Controller
         $model = new Reviews();
         $request = Yii::$app->request;
         $radio = $request->post("optradio");
-
         if ($model->load($request->post()) && $model->saveReview()) {
             $file = UploadedFile::getInstance($model, 'img');
             if ($file != null) {
@@ -96,7 +95,6 @@ class ReviewController extends \yii\web\Controller
                 $city = City::find()
                     ->where(['=', 'name', $new_city])
                     ->one();;
-                $this->vardump($city);
                 if ($city == null) {
                     $city = new City;
                     $city->name = $new_city;
@@ -133,11 +131,14 @@ class ReviewController extends \yii\web\Controller
 
     public function actionConfurm($city)
     {
+        $session = Yii::$app->session; // получаем сессию
+        $session['city']['name'] = $city;
         $city2 = City::find()->where(['name' => $city])->one();
         if ($city2 != null) {
             $reviews = $city2->getReviews()->all();
             return $this->render('test', ['reviews' => $reviews, 'city' => $city2]);
         }
+
         return $this->render('test');
     }
 
@@ -175,6 +176,18 @@ class ReviewController extends \yii\web\Controller
             return $this->render('test', ['reviews' => $reviews]);
         }
         throw new \yii\web\NotFoundHttpException("Your Error Message.");
+    }
+
+    public function actionEdit($id)
+    {
+        $review = Reviews::find($id)->one();
+        $this->vardump($review);
+        if ($review == null) {
+            return $this->redirect(Yii::$app->request->referrer ?: Yii::$app->homeUrl);
+        } else {
+            $this->render('edit', ['review' => $review]);
+        }
+
     }
 
 }
