@@ -6,6 +6,7 @@ use Yii;
 use Yii\base\Model;
 use yii\web\UploadedFile;
 use yii\helpers\ArrayHelper;
+use app\models\CityReview;
 
 /**
  * This is the model class for table "reviews".
@@ -202,6 +203,7 @@ class Reviews extends \yii\db\ActiveRecord
     public function saveCities($cities)
     {
         if (is_array($cities)) { //ишим города по запросу
+            $this->clearCurrentCities();
             foreach ($cities as $city_id) {
                 $city = City::findOne($city_id);
                 $this->link('city', $city); //соединяем
@@ -209,7 +211,14 @@ class Reviews extends \yii\db\ActiveRecord
         }
     }
 
-    //
+    //Cleare all cities for review
+    function clearCurrentCities()
+    {
+        CityReview::deleteAll(['review_id' => $this->id]);
+        //  $model = $connection->createCommand('DELETE FROM city_review WHERE review_id=$this->id');
+        //  $model->execute();
+
+    }
 
 
     function vardump($var)

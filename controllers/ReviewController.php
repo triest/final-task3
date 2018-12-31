@@ -91,7 +91,6 @@ class ReviewController extends \yii\web\Controller
 
             if ($request->post() and $radio == "new") {
                 $new_city = $request->post("new_city_select");
-                $this->vardump($new_city);
                 $city = City::find()
                     ->where(['=', 'name', $new_city])
                     ->one();;
@@ -181,15 +180,15 @@ class ReviewController extends \yii\web\Controller
     public function actionEdit($id)
     {
         $review = Reviews::find($id)->one();
-
         //если отправка формы
-        $post  = Yii::$app->request->post();
-
-        if ($review->load($post))
-        {
-            //die("is post");
+        $post = Yii::$app->request->post();
+        if ($review->load($post)) {
             if ($review->load($post) && $review->saveReview()) {
-               
+                //получаем новый свисок городов
+                $cities = Yii::$app->request->post('cities'); //забирем города из запроса
+                if ($cities != null) {
+                    $review->saveCities($cities);
+                }
             }
         }
 
@@ -198,9 +197,6 @@ class ReviewController extends \yii\web\Controller
         } else {
             return $this->render('edit', ['model' => $review]);
         }
-
-
-
     }
 
 }
