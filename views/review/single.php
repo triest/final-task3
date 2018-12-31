@@ -29,9 +29,10 @@ $this->title = $review->title;
                                 </div>
                             </header>
 
-                            <div class="entry-content">
-                                <img src="<?= $review->getImage(); ?>" alt=""></a>
-                            </div>
+                            <?php if ($review->getImage() != null) { ?>
+                                <img src="<?= Yii::$app->request->baseUrl . $review->getImage() ?>"
+                                     class=" img-responsive">
+                            <?php } ?>
 
                         </div>
                     </article>

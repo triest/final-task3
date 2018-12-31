@@ -143,7 +143,9 @@ class ReviewController extends \yii\web\Controller
 
     public function actionView($id)
     {
-        $review = Reviews::find($id)->one();
+     //   $review = Reviews::find($id)->one();
+        $review=Reviews::find()->where(['id' => $id])->one();
+
         return $this->render('single', ['review' => $review]);
     }
 

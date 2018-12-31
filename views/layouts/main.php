@@ -1,12 +1,15 @@
 <?php
 /* @var $this \yii\web\View */
+
 /* @var $content string */
+
 use app\widgets\Alert;
 use yii\helpers\Html;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
+
 AppAsset::register($this);
 ?>
 <?php $this->beginPage() ?>
@@ -38,7 +41,6 @@ AppAsset::register($this);
             'options' => ['class' => 'navbar-nav navbar-right'],
             'items' => [
                 ['label' => 'Home', 'url' => ['/site/index']],
-                ['label' => 'Admin', 'url' => ['/admin/post/index']],
                 ['label' => 'Мои отзывы', 'url' => ['/review/myreview']],
                 Yii::$app->user->isGuest ? (
                 ['label' => 'Login', 'url' => ['/site/login']]
@@ -77,9 +79,9 @@ AppAsset::register($this);
 
             </div>
             <div class="col-xs-1">
-                <?php if (Yii::$app->user->isGuest==false): ?>
-                    <?= Html::a('Создать отзыв', ['/review/create'], ['class'=>'btn btn-primary']) ?>
-                 <?php endif; ?>
+                <?php if (Yii::$app->user->isGuest == false): ?>
+                    <?= Html::a('Создать отзыв', ['/review/create'], ['class' => 'btn btn-primary']) ?>
+                <?php endif; ?>
             </div>
         </div>
 
@@ -89,8 +91,6 @@ AppAsset::register($this);
     <footer class="footer">
         <div class="container">
             <p class="pull-left">&copy; My Company <?= date('Y') ?></p>
-
-            <p class="pull-right"><?= Yii::powered() ?></p>
         </div>
     </footer>
 
