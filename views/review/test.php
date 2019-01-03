@@ -4,7 +4,8 @@ use yii\helpers\Url;
 use yii\widgets\LinkPager;
 use yii\helpers\Html;
 
-$this->title = $city->name;
+    $this->title = $city;
+
 ?>
 
 

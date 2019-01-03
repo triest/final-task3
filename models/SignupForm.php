@@ -64,11 +64,11 @@ class SignupForm extends Model
     {
       //  echo $email;
      //   echo $token;
-        Yii::$app->mailer->compose()
+     /*   Yii::$app->mailer->compose()
             ->setFrom('sakura-testmail@sakura-city.info')
             ->setTo($email)
             ->setSubject('Email sent from Yii2-Swiftmailer')
-            ->send();
+            ->send();*/
 
         echo 'send';
 

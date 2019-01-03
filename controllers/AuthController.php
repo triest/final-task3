@@ -2,12 +2,8 @@
 
 namespace app\controllers;
 
-use app\models\Post;
-use app\models\Tag;
-use app\models\Comment;
-use app\models\CommentForm;
+
 use app\models\ResentForm;
-//use Codeception\Step\Comment;
 use Yii;
 use yii\data\Pagination;
 use yii\filters\AccessControl;
@@ -15,10 +11,19 @@ use yii\web\Controller;
 use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
-use app\models\ContactForm;
+
 use app\models\SignupForm;
 use app\models\User;
+use yii\helpers\Url;
 
+//use Codeception\Step\Comment;
+//use Symfony\Component\HttpFoundation\File\UploadedFile;
+use yii\db\Exception;
+use yii\db\Query;
+
+use yii\web\UploadedFile;
+use yii\helpers\VarDumper;
+use yii\httpclient\Client;
 
 class AuthController extends Controller
 {
@@ -84,7 +89,6 @@ class AuthController extends Controller
     public function sentEmailConfirm($user)
     {
         $email = $user->email;
-        $this->vardump($user);
         $sent = Yii::$app->mailer
             /*   ->compose(
                    ['html' => 'user-signup-comfirm-html', 'text' => 'user-signup-comfirm-text'],
@@ -140,5 +144,41 @@ class AuthController extends Controller
         $this->redirect('site/login', 302);
     }
 
+
+    function actionReset()
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->render('/auth/resetPass');
+        } else {
+            $this->redirect('site/index');
+        }
+    }
+
+    function actionReset2()
+    {
+        $request = Yii::$app->request;
+        $email = $request->post('email'); //получаем email
+        $user = User::find()->where(['email' => $email])->one();
+        $user->resetToken = Yii::$app->security->generateRandomString(32);
+        $user->save();
+        $this->sendResetEmail($user->email,$user->resetToken);
+    }
+
+    function sendResetEmail($email,$token){
+
+        Yii::$app->mailer->compose(['html' => '@app/mail/reset'], ['token'=>$token])
+            ->setFrom('sakura-testmail@sakura-city.info')
+            ->setTo($email)
+            ->setSubject('ResetPassword')
+            ->send();
+    }
+
+    function actionResettoken(){
+        $request = Yii::$app->request;
+        $token = $request->get('token');
+        $this->vardump($token);
+        $user=User::find()->where(['resetToken'=>$token])->one();
+        $this->vardump($user);
+    }
 
 }

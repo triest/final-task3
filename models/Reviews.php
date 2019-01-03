@@ -211,6 +211,11 @@ class Reviews extends \yii\db\ActiveRecord
         }
     }
 
+    public function saveCity($cities){
+        $this->link('city', $cities); //соединяем
+    }
+
+
     //Cleare all cities for review
     function clearCurrentCities()
     {

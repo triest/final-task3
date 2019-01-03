@@ -34,6 +34,7 @@ use yii\web\IdentityInterface;
  * @property string $create_time
  * @property int $emailConfurm
  * @property string $emailToken
+ * @property string $resetToken
  *
  * @property Post[] $posts
  * @property Reviews[] $reviews

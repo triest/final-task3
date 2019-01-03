@@ -97,11 +97,14 @@ class ReviewController extends \yii\web\Controller
                 if ($city == null) {
                     $city = new City;
                     $city->name = $new_city;
-                    $city->save(false);
-                    $model->id_city = $city->id;
-                    $model->save(false);
+                    $city->save();
+                    $model->saveCity($city);
                 }
+                $model->saveCities($city);
+                $model->save(false);
+
             }
+
             return $this->actionConfurm($model->city);
         }
         $cities = ArrayHelper::map(City::find()->all(), 'id', 'name');
@@ -133,18 +136,21 @@ class ReviewController extends \yii\web\Controller
         $session = Yii::$app->session; // получаем сессию
         $session['city']['name'] = $city;
         $city2 = City::find()->where(['name' => $city])->one();
-        if ($city2 != null) {
-            $reviews = $city2->getReviews()->all();
-            return $this->render('test', ['reviews' => $reviews, 'city' => $city2]);
-        }
 
-        return $this->render('test');
+        if ($city2 != null) {
+            $reviews = $city2->getReviews()->all(); //получаем отзывы для этого города
+            $this->vardump($reviews);
+
+            return $this->render('test', ['reviews' => $reviews, 'city' => $city2->name]);
+        } else {
+            return $this->render('test', ['city' => $city]);
+        }
     }
 
     public function actionView($id)
     {
-     //   $review = Reviews::find($id)->one();
-        $review=Reviews::find()->where(['id' => $id])->one();
+        //   $review = Reviews::find($id)->one();
+        $review = Reviews::find()->where(['id' => $id])->one();
 
         return $this->render('single', ['review' => $review]);
     }
