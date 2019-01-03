@@ -40,25 +40,25 @@ AppAsset::register($this);
         echo Nav::widget([
             'options' => ['class' => 'navbar-nav navbar-right'],
             'items' => [
-                ['label' => 'Home', 'url' => ['/site/index']],
+                ['label' => 'Главная страница', 'url' => ['/site/index']],
                 ['label' => 'Мои отзывы', 'url' => ['/review/myreview']],
                 Yii::$app->user->isGuest ? (
-                ['label' => 'Login', 'url' => ['/site/login']]
+                ['label' => 'Войти', 'url' => ['/auth/login']]
                 ) : (
                     '<li>'
-                    . Html::beginForm(['/site/logout'], 'post')
+                    . Html::beginForm(['/auth/logout'], 'post')
                     . Html::submitButton(
-                        'Logout (' . Yii::$app->user->identity->username . ')',
+                        'Выйти (' . Yii::$app->user->identity->username . ')',
                         ['class' => 'btn btn-link logout']
                     )
                     . Html::endForm()
                     . '</li>'
                 ),
                 Yii::$app->user->isGuest ? (
-                ['label' => 'Registr', 'url' => ['/auth/singup']]
+                ['label' => 'Зарегистрироваться', 'url' => ['/auth/singup']]
                 ) : (
                     '<li>'
-                    . Html::beginForm(['/site/logout'], 'post')
+                    . Html::beginForm(['/auth/logout'], 'post')
                     . Html::endForm()
                     . '</li>'
                 )

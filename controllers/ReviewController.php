@@ -159,9 +159,9 @@ class ReviewController extends \yii\web\Controller
         return $this->redirect(Yii::$app->request->referrer ?: Yii::$app->homeUrl);
     }
 
+    //получает даные автора.
     public function actionAuthordata($id)
     {
-        \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
         $user = User::find()->where(['id' => $id])->one();
         $id = $user->id;
         $fio = $user->fio;
