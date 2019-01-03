@@ -62,7 +62,7 @@ use yii\helpers\Html;
                             <div class="post-content">
                                 <header class="entry-header text-center text-uppercase">
                                     <h4><b> <?= $review->title ?></b></h6>
-                                        <h5><?= $review->getCityName() ?> +</h5>
+                                        <h5><?= $review->getCityName() ?></h5>
                                         <h6>Рейтинг: <?= $review->rating ?></h4>
                                     Картинка: <img src="<?= $review->getImage(); ?>" alt="">
                                     <?php if ($review->getImage() != null) { ?>

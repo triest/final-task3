@@ -139,8 +139,6 @@ class ReviewController extends \yii\web\Controller
 
         if ($city2 != null) {
             $reviews = $city2->getReviews()->all(); //получаем отзывы для этого города
-            $this->vardump($reviews);
-
             return $this->render('test', ['reviews' => $reviews, 'city' => $city2->name]);
         } else {
             return $this->render('test', ['city' => $city]);
@@ -164,7 +162,7 @@ class ReviewController extends \yii\web\Controller
     public function actionAuthordata($id)
     {
         \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-        $user = User::find($id)->one();
+        $user = User::find()->where(['id' => $id])->one();
         $id = $user->id;
         $fio = $user->fio;
         $email = $user->email;

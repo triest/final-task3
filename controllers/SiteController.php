@@ -94,7 +94,6 @@ class SiteController extends Controller
         $session = Yii::$app->session; // получаем сессию
         if ($session->has('city')) {  //если есть переменая города, то сразу вонзращаем страницу с отзывами для него
             $city = $session['city'];
-
             return Yii::$app->runAction('review/confurm', ['city' => $city]);
         } else {
             $headers = Yii::$app->request->headers; //получем заголовки
@@ -169,7 +168,6 @@ class SiteController extends Controller
     public function actionDenide($city)
     {
         $city = City::find()->where(['name' => $city])->one();
-        //  $this->vardump($city);
         $query = new Query;
         $query->select([
                 'city.name AS name'
@@ -215,32 +213,9 @@ class SiteController extends Controller
     public function actionLogout()
     {
         Yii::$app->user->logout();
-        return $this->goHome();
+        $this->redirect('index', 302);
     }
 
-    public function actionList()
-    {
-
-        \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-
-        return $name;
-    }
-
-    public function actionTest()
-    {
-        Yii::$app->mailer->compose()
-            ->setFrom('sakura-testmail@sakura-city.info')
-            ->setTo('triest21@gmail.com')
-            ->setSubject('Email sent from Yii2-Swiftmailer')
-            ->send();
-
-        /*  Yii::$app->mailer->compose(['html' => '@app/mail/html'], ['token'=>'token'])
-              ->setFrom('sakura-testmail@sakura-city.info')
-              ->setTo('6ded6@rambler.ru')
-              ->setSubject('Please confurm you email')
-              ->send();*/
-        echo 'send';
-    }
 
     function vardump($var)
     {
