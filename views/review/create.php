@@ -7,7 +7,7 @@
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 
-$this->title = 'Create rewi';
+$this->title = 'Create review';
 
 ?>
 
@@ -16,6 +16,7 @@ $this->title = 'Create rewi';
         <?= $this->render('_form', [
             'model' => $model,
         ]) ?>
+        <?= Html::a('Назад', ['/site'], ['class' => 'btn btn-primary']) ?>
     </div>
 </div>
 

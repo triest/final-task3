@@ -1,9 +1,7 @@
 <?php
-
 use yii\helpers\Url;
 use yii\widgets\LinkPager;
 use yii\helpers\Html;
-
 $this->title = $review->title;
 ?>
 
@@ -104,7 +102,6 @@ $this->title = $review->title;
         //  $(".modal-content #fio").text(id.toString());
         modal.style.display = "block";
     }
-
     function getAuthorData(id) {
         console.log('het ' + id);
         var id2 = id;
@@ -121,7 +118,6 @@ $this->title = $review->title;
                     "<?= Url::toRoute(['review/getreviewsbyautor']);?>" + "?id=" + id2);
             });
     }
-
     // Get the modal
     var modal = document.getElementById('myModal');
     // Get the button that opens the modal

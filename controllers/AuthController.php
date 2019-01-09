@@ -76,17 +76,7 @@ class AuthController extends Controller
         return $this->redirect(['site/index']);
     }
 
-    public function sendConfurmEmail($user)
-    {
 
-        Yii::$app->mailer->compose(['html' => '@app/mail/html'], ['token' => $user->emailToken])
-            ->setFrom('sakura-testmail@sakura-city.info')
-            ->setTo($user->email)
-            ->setSubject('Please confurm you email')
-            ->send();
-
-        // die();
-    }
 
     public function actionEmail($user)
     {

@@ -17,6 +17,8 @@ $this->title = 'Update rewi';
         <?= $this->render('_form', [
             'model' => $model,
         ]) ?>
+
+        <?= Html::a('Назад', ['/review/create'], ['class' => 'btn btn-primary']) ?>
     </div>
 </div>
 

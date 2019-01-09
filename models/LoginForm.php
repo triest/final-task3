@@ -102,7 +102,7 @@ class LoginForm extends Model
                 if ($rez) {
                     Yii::$app->response->redirect(Url::to('sended'));
                 } else {
-                    Yii::$app->response->redirect(Url::to('sended'));
+                    Yii::$app->response->redirect(Url::to('nosended'));
                 }
 
 
