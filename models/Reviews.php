@@ -211,7 +211,8 @@ class Reviews extends \yii\db\ActiveRecord
         }
     }
 
-    public function saveCity($cities){
+    public function saveCity($cities)
+    {
         $this->link('city', $cities); //соединяем
     }
 
@@ -220,20 +221,7 @@ class Reviews extends \yii\db\ActiveRecord
     function clearCurrentCities()
     {
         CityReview::deleteAll(['review_id' => $this->id]);
-        //  $model = $connection->createCommand('DELETE FROM city_review WHERE review_id=$this->id');
-        //  $model->execute();
-
     }
 
-
-    function vardump($var)
-    {
-        echo '<br>';
-        echo '<br>';
-        echo '<br>';
-        echo '<pre>';
-        var_dump($var);
-        echo '</pre>';
-    }
 
 }

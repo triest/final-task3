@@ -78,6 +78,7 @@ class AuthController extends Controller
 
 
 
+    //send mail for confurm email adress
     public function actionEmail($user)
     {
         $mail = $user->email;
@@ -94,7 +95,7 @@ class AuthController extends Controller
         // die();
         return true;
     }
-
+    //send mail for confurm email adress
     public function sentEmailConfirm($user)
     {
         $email = $user->email;
@@ -112,15 +113,6 @@ class AuthController extends Controller
 
     }
 
-    public function vardump($var)
-    {
-        echo '<br>';
-        echo '<br>';
-        echo '<br>';
-        echo '<pre>';
-        var_dump($var);
-        echo '</pre>';
-    }
 
 
     public function actionResent()
@@ -139,11 +131,8 @@ class AuthController extends Controller
 
     function actionConfurm2($token)
     {
-        // echo $token;
-
-        $user = User::find()->where(['emailToken' => $token])->one();
+      $user = User::find()->where(['emailToken' => $token])->one();
         if ($user != null) {
-            //  $this->vardump($user);
             $user->emailConfurm = 1;
             $user->save();
             $this->redirect('login');
@@ -152,7 +141,7 @@ class AuthController extends Controller
         }
     }
 
-
+    //method Get
     function actionReset()
     {
         if (Yii::$app->user->isGuest) {
@@ -162,7 +151,8 @@ class AuthController extends Controller
         }
     }
 
-    function actionReset2()
+    //send email for reset Password method POST
+    function actionResetPassMail()
     {
         $request = Yii::$app->request;
         $email = $request->post('email'); //получаем email
@@ -170,24 +160,17 @@ class AuthController extends Controller
         $user->resetToken = Yii::$app->security->generateRandomString(32);
         $user->save();
         $this->sendResetEmail($user->email, $user->resetToken);
-    }
 
-    function sendResetEmail($email, $token)
-    {
-
-        Yii::$app->mailer->compose(['html' => '@app/mail/reset'], ['token' => $token])
+        Yii::$app->mailer->compose(['html' => '@app/mail/reset'], ['token' => $user->resetToken])
             ->setFrom('sakura-testmail@sakura-city.info')
-            ->setTo($email)
+            ->setTo($user->email)
             ->setSubject('ResetPassword')
             ->send();
     }
 
-    function actionResettoken()
-    {
-        $request = Yii::$app->request;
-        $token = $request->get('token');
-        $user = User::find()->where(['resetToken' => $token])->one();
-    }
+
+
+
 
     function actionSended()
     {

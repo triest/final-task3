@@ -151,23 +151,9 @@ class SiteController extends Controller
     }
 
 
-    public function actionConfurm($city)
-    {
-        /*
-        $this->vardump($city);
-        $city2 = City::find()->where(['name' => $city])->one();
-        $this->vardump($city2);
-        if ($city2 != null) {
-            $reviews = $city2->getReviews()->all();
-        }
-        return $this->render('test', ['reviews' => $reviews, 'city' => $city2]);
-        */
-    }
-
     //
     public function actionDenide($city)
     {
-        $city = City::find()->where(['name' => $city])->one();
         $query = new Query;
         $query->select([
                 'city.name AS name'
@@ -179,22 +165,10 @@ class SiteController extends Controller
             ->distinct()
             ->orderBy('name', 'ASC')
             ->LIMIT(5);
-        //  $reviews = Reviews::find()->all();
+
         $command = $query->createCommand();
         $data = $command->queryAll();
         return $this->render('cityList', ['cityes' => $data]);
-    }
-
-
-
-    function vardump($var)
-    {
-        echo '<br>';
-        echo '<br>';
-        echo '<br>';
-        echo '<pre>';
-        var_dump($var);
-        echo '</pre>';
     }
 
 
