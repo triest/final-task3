@@ -100,9 +100,9 @@ class LoginForm extends Model
                 //Если Email не подтвердден, то вызываем функцию другого контроллера
                 $rez = Yii::$app->runAction('auth/email', ['user' => $user]);
                 if ($rez) {
-                    return Yii::$app->runAction('auch/sended', ['rez' => true]);
+                    Yii::$app->response->redirect(Url::to('sended'));
                 } else {
-                    return Yii::$app->runAction('auch/sended', ['rez' => false]);
+                    Yii::$app->response->redirect(Url::to('sended'));
                 }
 
 

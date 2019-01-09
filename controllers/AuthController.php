@@ -199,10 +199,9 @@ class AuthController extends Controller
         $user = User::find()->where(['resetToken' => $token])->one();
     }
 
-    function actionSended($rez){
-        return $this->render('sended', [
-            'rez' => $rez,
-        ]);
+    function actionSended()
+    {
+        return $this->render('sended');
     }
 
 
