@@ -35,7 +35,7 @@ class AuthController extends Controller
             $model->load(Yii::$app->request->post());
             if ($user = $model->signup()) {
                 $this->sendConfurmEmail($user);
-                return $this->redirect(['site/login']);
+                return $this->redirect(['site/index']);
             }
         }
 
@@ -86,22 +86,38 @@ class AuthController extends Controller
         // die();
     }
 
+    public function actionEmail($user)
+    {
+        $mail=$user->email;
+        try {
+            Yii::$app->mailer->compose(['html' => '@app/mail/html'], ['token' => $user->emailToken ])
+                ->setFrom('sakura-testmail@sakura-city.info')
+                ->setTo($mail)
+                ->setSubject('Please confurm you email')
+                ->send();
+        } catch (\Exception $exception) {
+            return false;
+        }
+
+        // die();
+        return true;
+    }
+
     public function sentEmailConfirm($user)
     {
         $email = $user->email;
-        $sent = Yii::$app->mailer
-            /*   ->compose(
-                   ['html' => 'user-signup-comfirm-html', 'text' => 'user-signup-comfirm-text'],
-                   ['user' => $user])*/
-            ->compose(['html' => '@app/mail/html'], ['token' => $user->emailToken])
-            ->setFrom('sakura-testmail@sakura-city.info')
-            ->setTo($email)
-            ->setSubject('Email sent from Yii2-Swiftmailer')
-            ->send();
-
-        if (!$sent) {
-            throw new \RuntimeException('Sending error.');
+        try {
+            Yii::$app->mailer->compose(['html' => '@app/mail/html'], ['token' => $user->emailToken])
+                ->setFrom('sakura-testmail@sakura-city.info')
+                ->setTo($email)
+                ->setSubject('Confurm email')
+                ->send();
+        } catch (\Exception $exception) {
+            echo $exception->getMessage();
         }
+
+        $this->redirect(['site/index']);
+
     }
 
     public function vardump($var)
@@ -114,19 +130,15 @@ class AuthController extends Controller
         echo '</pre>';
     }
 
-    public function actionEmail($token)
-    {
-        $this->vardump($token);
-    }
+
 
     public function actionResent()
     {
         $model = new ResentForm();
         if ($model->load(Yii::$app->request->post())) {
             $result = Yii::$app->request->post();
-            $this->vardump($result);
+
             $user = User::find()->where(['email' => $result->email])->one();
-            $this->vardump($user);
             $this->sentEmailConfirm($user);
         }
         return $this->render('resent', [
@@ -161,23 +173,25 @@ class AuthController extends Controller
         $user = User::find()->where(['email' => $email])->one();
         $user->resetToken = Yii::$app->security->generateRandomString(32);
         $user->save();
-        $this->sendResetEmail($user->email,$user->resetToken);
+        $this->sendResetEmail($user->email, $user->resetToken);
     }
 
-    function sendResetEmail($email,$token){
+    function sendResetEmail($email, $token)
+    {
 
-        Yii::$app->mailer->compose(['html' => '@app/mail/reset'], ['token'=>$token])
+        Yii::$app->mailer->compose(['html' => '@app/mail/reset'], ['token' => $token])
             ->setFrom('sakura-testmail@sakura-city.info')
             ->setTo($email)
             ->setSubject('ResetPassword')
             ->send();
     }
 
-    function actionResettoken(){
+    function actionResettoken()
+    {
         $request = Yii::$app->request;
         $token = $request->get('token');
         $this->vardump($token);
-        $user=User::find()->where(['resetToken'=>$token])->one();
+        $user = User::find()->where(['resetToken' => $token])->one();
         $this->vardump($user);
     }
 

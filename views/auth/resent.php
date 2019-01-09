@@ -12,7 +12,7 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="leave-comment mr0"><!--leave comment-->
     <div class="row">
-        <div class="col-md-8 col-md-offset-2">
+        <div class="col-md-25 col-md-offset-2">
             <div class="site-login">
                 <h1><?= Html::encode($this->title) ?></h1>
 

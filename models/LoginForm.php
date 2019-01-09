@@ -19,7 +19,7 @@ use yii\db\Query;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
-use app\models\LoginForm;
+
 use app\models\ContactForm;
 use yii\web\UploadedFile;
 use yii\helpers\VarDumper;
@@ -67,7 +67,6 @@ class LoginForm extends Model
     {
         if (!$this->hasErrors()) {
             $user = $this->getUser();
-            $this->vardump($this->password);
             if (!$user || !$user->validatePassword($this->password)) {
                 $this->addError($attribute, 'Incorrect email or password.');
             }
@@ -96,7 +95,16 @@ class LoginForm extends Model
             if ($user->emailConfurm == 1) {  //проверка, что электронная почт подтвержденап, если нет, то перенаправляем на страницу ошибки
                 return Yii::$app->user->login($this->getUser(), $this->rememberMe ? 3600 * 24 * 30 : 0);
             } else {
-               return  Yii::$app->response->redirect(['auth/resent'])->send(); //онтроллер еще раз отправляет письмо
+                //Если Email не подтвердден, то вызываем функцию другого контроллера
+                $rez = Yii::$app->runAction('auth/email', ['user' => $user]);
+                if ($rez) {
+                    return $this->render('auch/sended', ['rez' => true]);
+                } else {
+                    return $this->render('auch/sended', ['rez' => false]);
+                }
+
+
+                //  return Yii::$app->response->redirect(['auth/resent'])->send(); //онтроллер еще раз отправляет письмо
             }
         }
         return false;
