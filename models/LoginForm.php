@@ -20,6 +20,8 @@ use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 
+use yii\base\View;
+use yii\base\View\render;
 use app\models\ContactForm;
 use yii\web\UploadedFile;
 use yii\helpers\VarDumper;
@@ -98,9 +100,9 @@ class LoginForm extends Model
                 //Если Email не подтвердден, то вызываем функцию другого контроллера
                 $rez = Yii::$app->runAction('auth/email', ['user' => $user]);
                 if ($rez) {
-                    return $this->render('auch/sended', ['rez' => true]);
+                    return Yii::$app->runAction('auch/sended', ['rez' => true]);
                 } else {
-                    return $this->render('auch/sended', ['rez' => false]);
+                    return Yii::$app->runAction('auch/sended', ['rez' => false]);
                 }
 
 

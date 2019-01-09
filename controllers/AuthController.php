@@ -10,7 +10,9 @@ use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\Response;
 use yii\filters\VerbFilter;
+
 use app\models\LoginForm;
+
 
 use app\models\SignupForm;
 use app\models\User;
@@ -88,9 +90,9 @@ class AuthController extends Controller
 
     public function actionEmail($user)
     {
-        $mail=$user->email;
+        $mail = $user->email;
         try {
-            Yii::$app->mailer->compose(['html' => '@app/mail/html'], ['token' => $user->emailToken ])
+            Yii::$app->mailer->compose(['html' => '@app/mail/html'], ['token' => $user->emailToken])
                 ->setFrom('sakura-testmail@sakura-city.info')
                 ->setTo($mail)
                 ->setSubject('Please confurm you email')
@@ -131,7 +133,6 @@ class AuthController extends Controller
     }
 
 
-
     public function actionResent()
     {
         $model = new ResentForm();
@@ -149,11 +150,16 @@ class AuthController extends Controller
     function actionConfurm2($token)
     {
         // echo $token;
+
         $user = User::find()->where(['emailToken' => $token])->one();
-        //  $this->vardump($user);
-        $user->emailConfurm = 1;
-        $user->save();
-        $this->redirect('site/login', 302);
+        if ($user != null) {
+            //  $this->vardump($user);
+            $user->emailConfurm = 1;
+            $user->save();
+            $this->redirect('login');
+        } else {
+            echo "Ошибка! Неверная ссылка!";
+        }
     }
 
 
@@ -190,9 +196,14 @@ class AuthController extends Controller
     {
         $request = Yii::$app->request;
         $token = $request->get('token');
-        $this->vardump($token);
         $user = User::find()->where(['resetToken' => $token])->one();
-        $this->vardump($user);
     }
+
+    function actionSended($rez){
+        return $this->render('sended', [
+            'rez' => $rez,
+        ]);
+    }
+
 
 }
