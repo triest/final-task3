@@ -37,32 +37,27 @@ AppAsset::register($this);
                 'class' => 'navbar-inverse navbar-fixed-top',
             ],
         ]);
+        $menuItems = [
+            ['label' => 'Главная страница', 'url' => ['/site/index']],
+        ];
+        if (Yii::$app->user->isGuest) {
+            $menuItems[] = ['label' => 'Signup', 'url' => ['/auth/singup']];
+            $menuItems[] = ['label' => 'Login', 'url' => ['/auth/login']];
+        } else {
+            $menuItems[] = ['label' => 'Мои отзывы', 'url' => ['/review/myreview']];
+            $menuItems[] = '<li>'
+                . Html::beginForm(['/site/logout'], 'post')
+                . Html::submitButton(
+                    'Logout (' . Yii::$app->user->identity->username . ')',
+                    ['class' => 'btn btn-link logout']
+                )
+                . Html::endForm()
+                . '</li>';
+
+        }
         echo Nav::widget([
             'options' => ['class' => 'navbar-nav navbar-right'],
-            'items' => [
-                ['label' => 'Главная страница', 'url' => ['/site/index']],
-                ['label' => 'Мои отзывы', 'url' => ['/review/myreview']],
-                Yii::$app->user->isGuest ? (
-                ['label' => 'Войти', 'url' => ['/auth/login']]
-                ) : (
-                    '<li>'
-                    . Html::beginForm(['/auth/logout'], 'post')
-                    . Html::submitButton(
-                        'Выйти (' . Yii::$app->user->identity->username . ')',
-                        ['class' => 'btn btn-link logout']
-                    )
-                    . Html::endForm()
-                    . '</li>'
-                ),
-                Yii::$app->user->isGuest ? (
-                ['label' => 'Зарегистрироваться', 'url' => ['/auth/singup']]
-                ) : (
-                    '<li>'
-                    . Html::beginForm(['/auth/logout'], 'post')
-                    . Html::endForm()
-                    . '</li>'
-                )
-            ],
+            'items' => $menuItems,
         ]);
         NavBar::end();
         ?>

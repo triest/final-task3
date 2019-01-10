@@ -94,7 +94,7 @@ class AuthController extends Controller
         return true;
     }
 
-
+    //active user by link
     function actionConfurm($token)
     {
       $user = User::find()->where(['emailToken' => $token])->one();
