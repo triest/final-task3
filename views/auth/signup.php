@@ -2,6 +2,7 @@
 
 /* @var $this yii\web\View */
 /* @var $form yii\bootstrap\ActiveForm */
+
 /* @var $model app\models\LoginForm */
 
 use yii\helpers\Html;
@@ -13,50 +14,48 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="leave-comment mr0"><!--leave comment-->
 
-        <div class="col-md-20 ">
-            <div class="site-login">
-                <h1><?= Html::encode($this->title) ?></h1>
+    <div class="col-md-20 ">
+        <div class="site-login">
+            <h1>Зарегистрироваться</h1>
 
 
-                <?php $form = ActiveForm::begin([
-                    'id' => 'login-form',
-                    'layout' => 'horizontal',
-                    'fieldConfig' => [
-                        'template' => "{label}\n<div class=\"col-lg-7\">{input}</div>\n<div class=\"col-lg-8\">{error}</div>",
-                        'labelOptions' => ['class' => 'col-lg-1 control-label'],
-                    ],
-                ]); ?>
+            <?php $form = ActiveForm::begin([
+                'id' => 'login-form',
+                'layout' => 'horizontal',
+                'fieldConfig' => [
+                    'template' => "{label}\n<div class=\"col-lg-7\">{input}</div>\n<div class=\"col-lg-8\">{error}</div>",
+                    'labelOptions' => ['class' => 'col-lg-1 control-label'],
+                ],
+            ]); ?>
 
-                <?= $form->field($model, 'username')->textInput(['autofocus' => true])->label("name") ?>
+            <?= $form->field($model, 'username')->textInput(['autofocus' => true])->label("Login") ?>
 
-                <?= $form->field($model, 'email')->textInput() ?>
+            <?= $form->field($model, 'email')->textInput() ?>
 
-                <?= $form->field($model, 'password')->passwordInput()->label("pass") ?>
+            <?= $form->field($model, 'password')->passwordInput()->label("Пароль") ?>
 
-                <?= $form->field($model, 'password_repeat')->passwordInput()->label("pass") ?>
+            <?= $form->field($model, 'password_repeat')->passwordInput()->label("Повтор пароля") ?>
 
-                <?= $form->field($model, 'fio')->textInput() ?>
+            <?= $form->field($model, 'fio')->textInput()->label("Фамилия, имя, отчество") ?>
 
-                <?= $form->field($model, 'phone')->textInput() ?>
+            <?= $form->field($model, 'phone')->textInput()->label("Телефон") ?>
 
-                <?= $form->field($model, 'verifyCode')->widget(Captcha::className(), [
-                    'template' => '<div class="row"><div class="col-lg-3">{image}</div><div class="col-lg-6">{input}</div></div>',
-                ]) ?>
+            <?= $form->field($model, 'verifyCode')->widget(Captcha::className(), [
+                'template' => '<div class="row"><div class="col-lg-3">{image}</div><div class="col-lg-6">{input}</div></div>',
+            ])->label("Код подтверждения") ?>
 
-                <div class="form-group">
-                    <div class="col-lg-offset-1 col-lg-11">
-                        <?= Html::submitButton('Reristr', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
-                    </div>
-                </div>
-
-                <?php ActiveForm::end(); ?>
-
-                <div class="col-lg-offset-1" style="color:#999;">
-                    You may login with <strong>admin/admin</strong> or <strong>demo/demo</strong>.<br>
-                    To modify the username/password, please check out the code <code>app\models\User::$users</code>.
+            <div class="form-group">
+                <div class="col-lg-offset-1 col-lg-11">
+                    <?= Html::submitButton('Зарегистрироваться',
+                        ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
                 </div>
             </div>
+
+            <?php ActiveForm::end(); ?>
+
+
         </div>
+    </div>
 
 </div>
 
