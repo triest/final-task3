@@ -88,7 +88,7 @@ use yii\helpers\Html;
     </div>
 </div>
 
-
+<!-- The Modal -->
 <div id="myModal" class="modal">
     <!-- Modal content -->
     <div class="modal-content">
@@ -111,7 +111,9 @@ use yii\helpers\Html;
         //  $(".modal-content #fio").text(id.toString());
         modal.style.display = "block";
     }
+
     function getAuthorData(id) {
+        console.log('het ' + id);
         var id2 = id;
         $.get("/web/review/authordata",
             {id: id},
@@ -126,6 +128,7 @@ use yii\helpers\Html;
                     "<?= Url::toRoute(['review/getreviewsbyautor']);?>" + "?id=" + id2);
             });
     }
+
     // Get the modal
     var modal = document.getElementById('myModal');
     // Get the button that opens the modal

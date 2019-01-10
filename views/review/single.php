@@ -105,7 +105,7 @@ $this->title = $review->title;
     function getAuthorData(id) {
         console.log('het ' + id);
         var id2 = id;
-        $.get("authordata",
+        $.get("/web/review/authordata",
             {id: id},
             function (data, status) {
                 console.log(data)
