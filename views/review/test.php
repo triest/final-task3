@@ -1,11 +1,8 @@
 <?php
-
 use yii\helpers\Url;
 use yii\widgets\LinkPager;
 use yii\helpers\Html;
-
-    $this->title = $city;
-
+$this->title = $city;
 ?>
 
 
@@ -111,7 +108,6 @@ use yii\helpers\Html;
         //  $(".modal-content #fio").text(id.toString());
         modal.style.display = "block";
     }
-
     function getAuthorData(id) {
         console.log('het ' + id);
         var id2 = id;
@@ -128,7 +124,6 @@ use yii\helpers\Html;
                     "<?= Url::toRoute(['review/getreviewsbyautor']);?>" + "?id=" + id2);
             });
     }
-
     // Get the modal
     var modal = document.getElementById('myModal');
     // Get the button that opens the modal

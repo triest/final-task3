@@ -77,6 +77,7 @@ $this->title = $review->title;
             </div>
         </div>
     </div>
+    <?= Html::a('Назад', ['/site'], ['class' => 'btn btn-primary']) ?>
 </div>
 
 <!-- The Modal -->
@@ -105,17 +106,14 @@ $this->title = $review->title;
     function getAuthorData(id) {
         console.log('het ' + id);
         var id2 = id;
-        $.get("/web/review/authordata",
+        $.get("authordata",
             {id: id},
             function (data, status) {
-                console.log(data)
                 $(".modal-content #fio").text(data.fio);
                 $(".modal-content #email").text("Email: " + data.email);
                 $(".modal-content #phone").text("Телефон:" + data.phone);
-                var id2 = data.id;
-                console.log('id ' + id2);
                 $(".modal-content #link").attr("href",
-                    "<?= Url::toRoute(['review/getreviewsbyautor']);?>" + "?id=" + id2);
+                    "<?= Url::toRoute(['review/getreviewsbyautor']);?>" + "?id=" + id);
             });
     }
     // Get the modal

@@ -9,12 +9,12 @@ function getAuthorData(id) {
     $.get("/web/review/authordata",
         {id: id},
         function (data, status) {
-            console.log(data)
             $(".modal-content #fio").text(data.fio);
-            $(".modal-content #email").text("Email: " + data.email);
             $(".modal-content #phone").text("Телефон:" + data.phone);
-            var id2 = data.id;
             $(".modal-content #link").text("Телефон:" + data.phone);
+            $(".modal-content #link").text("href",
+                "<?= Url::toRoute(['/review/getreviewsbyautor']);?>" +  id2);
+         //   $(".modal-content #link").attr("href", );
         });
 }
 // Get the modal
@@ -26,7 +26,7 @@ var span = document.getElementById("close1");
 // When the user clicks the button, open the modal
 // When the user clicks on <span> (x), close the modal
 span.onclick = function () {
-    console.log("clouse");
+
     modal.style.display = "none";
 }
 // When the user clicks anywhere outside of the modal, close it
