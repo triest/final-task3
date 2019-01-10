@@ -150,8 +150,7 @@ class SiteController extends Controller
             ->join('RIGHT  JOIN', 'city_review',
                 'city_review.city_id =city.id')
             ->distinct()
-            ->orderBy('name', 'ASC')
-            ->LIMIT(5);
+            ->orderBy('name', 'ASC');
 
         $command = $query->createCommand();
         $data = $command->queryAll();

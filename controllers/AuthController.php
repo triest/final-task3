@@ -91,8 +91,6 @@ class AuthController extends Controller
         } catch (\Exception $exception) {
             return false;
         }
-
-        // die();
         return true;
     }
     //send mail for confurm email adress
@@ -108,9 +106,7 @@ class AuthController extends Controller
         } catch (\Exception $exception) {
             echo $exception->getMessage();
         }
-
         $this->redirect(['site/index']);
-
     }
 
 

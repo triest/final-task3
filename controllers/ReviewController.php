@@ -121,15 +121,7 @@ class ReviewController extends \yii\web\Controller
         return $this->asJson($name);
     }
 
-    function vardump($var)
-    {
-        echo '<br>';
-        echo '<br>';
-        echo '<br>';
-        echo '<pre>';
-        var_dump($var);
-        echo '</pre>';
-    }
+
 
     public function actionConfurm($city)
     {
