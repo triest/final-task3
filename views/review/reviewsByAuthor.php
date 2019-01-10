@@ -4,7 +4,7 @@ use yii\helpers\Url;
 use yii\widgets\LinkPager;
 use yii\helpers\Html;
 
-$this->title = $user->username;
+$this->title = $title;
 ?>
 
 
@@ -60,8 +60,8 @@ $this->title = $user->username;
                                     <h4><b> <?= $review->title ?></b></h6>
                                         <h5><?= $review->getCityName() ?> +</h5>
                                         <h6>Рейтинг: <?= $review->rating ?></h4>
-                                    Картинка: <img src="<?= $review->getImage(); ?>" alt="">
-                                    <?php if ($review->getImage() != null) { ?>
+
+                                    Картинка: <?php if ($review->getImage() != null) { ?>
                                         <img src="<?= Yii::$app->request->baseUrl . $review->getImage() ?>"
                                              class=" img-responsive">
                                     <?php } ?>

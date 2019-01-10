@@ -3,6 +3,7 @@
 use yii\helpers\Url;
 use yii\widgets\LinkPager;
 
+$this->title = 'Email';
 ?>
 
 <div class="main-content">

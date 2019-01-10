@@ -86,46 +86,16 @@ class AuthController extends Controller
             Yii::$app->mailer->compose(['html' => '@app/mail/html'], ['token' => $user->emailToken])
                 ->setFrom('sakura-testmail@sakura-city.info')
                 ->setTo($mail)
-                ->setSubject('Please confurm you email')
+                ->setSubject('Please, confurm you email')
                 ->send();
         } catch (\Exception $exception) {
             return false;
         }
         return true;
     }
-    //send mail for confurm email adress
-    public function sentEmailConfirm($user)
-    {
-        $email = $user->email;
-        try {
-            Yii::$app->mailer->compose(['html' => '@app/mail/html'], ['token' => $user->emailToken])
-                ->setFrom('sakura-testmail@sakura-city.info')
-                ->setTo($email)
-                ->setSubject('Confurm email')
-                ->send();
-        } catch (\Exception $exception) {
-            echo $exception->getMessage();
-        }
-        $this->redirect(['site/index']);
-    }
 
 
-
-    public function actionResent()
-    {
-        $model = new ResentForm();
-        if ($model->load(Yii::$app->request->post())) {
-            $result = Yii::$app->request->post();
-
-            $user = User::find()->where(['email' => $result->email])->one();
-            $this->sentEmailConfirm($user);
-        }
-        return $this->render('resent', [
-            'model' => $model,
-        ]);
-    }
-
-    function actionConfurm2($token)
+    function actionConfurm($token)
     {
       $user = User::find()->where(['emailToken' => $token])->one();
         if ($user != null) {
@@ -137,7 +107,7 @@ class AuthController extends Controller
         }
     }
 
-    //method Get
+    //method Get, return view for reset pass
     function actionReset()
     {
         if (Yii::$app->user->isGuest) {
@@ -163,9 +133,6 @@ class AuthController extends Controller
             ->setSubject('ResetPassword')
             ->send();
     }
-
-
-
 
 
     function actionSended()

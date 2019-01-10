@@ -1,8 +1,10 @@
 <?php
+
 use yii\helpers\Url;
 use yii\widgets\LinkPager;
 use yii\helpers\Html;
-$this->title = $city;
+
+$this->title = $title
 ?>
 
 
@@ -33,7 +35,7 @@ $this->title = $city;
                                     <h4><b> <?= $review->title ?></b></h6>
                                         <h5><?= $review->getCityName() ?> </h5>
                                         <h6>Рейтинг: <?= $review->rating ?></h4>
-                                    Картинка:     <?php if ($review->getImage() != null) { ?>
+                                    Картинка: <?php if ($review->getImage() != null) { ?>
                                         <img src="<?= Yii::$app->request->baseUrl . $review->getImage() ?>"
                                              class=" img-responsive">
                                     <?php } ?>
@@ -61,11 +63,9 @@ $this->title = $city;
                                     <h4><b> <?= $review->title ?></b></h6>
                                         <h5><?= $review->getCityName() ?></h5>
                                         <h6>Рейтинг: <?= $review->rating ?></h4>
-                                    Картинка: <img src="<?= $review->getImage(); ?>" alt="">
-                                    <?php if ($review->getImage() != null) { ?>
-                                        <img src="<?= Yii::$app->request->baseUrl . $review->getImage() ?>"
-                                             class=" img-responsive">
-                                    <?php } ?>
+                                    Картинка: <img src="<?= Yii::$app->request->baseUrl . $review->getImage(); ?>"
+                                                   alt="">
+                               
                                     <div class="entry-content">
 
                                     </div>
@@ -108,6 +108,7 @@ $this->title = $city;
         //  $(".modal-content #fio").text(id.toString());
         modal.style.display = "block";
     }
+
     function getAuthorData(id) {
         console.log('het ' + id);
         var id2 = id;
@@ -124,6 +125,7 @@ $this->title = $city;
                     "<?= Url::toRoute(['review/getreviewsbyautor']);?>" + "?id=" + id2);
             });
     }
+
     // Get the modal
     var modal = document.getElementById('myModal');
     // Get the button that opens the modal

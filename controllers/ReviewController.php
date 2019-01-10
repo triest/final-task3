@@ -131,9 +131,9 @@ class ReviewController extends \yii\web\Controller
 
         if ($city2 != null) {
             $reviews = $city2->getReviews()->all(); //получаем отзывы для этого города
-            return $this->render('test', ['reviews' => $reviews, 'city' => $city2->name]);
+            return $this->render('test', ['reviews' => $reviews, 'city' => $city2->name,'title'=>$city2->name]);
         } else {
-            return $this->render('test', ['city' => $city]);
+            return $this->render('test', ['city' => $city,'title'=>$city->name]);
         }
     }
 
@@ -170,7 +170,7 @@ class ReviewController extends \yii\web\Controller
         $user = User::find()->where(['id' => $id])->one();
         if ($user != null) {
             $reviews = $user->getReviews()->all();
-            return $this->render('test', ['reviews' => $reviews]);
+            return $this->render('test', ['reviews' => $reviews,'title'=>$user->fio]);
         }
         throw new \yii\web\NotFoundHttpException("Your Error Message.");
     }
@@ -204,7 +204,7 @@ class ReviewController extends \yii\web\Controller
             return $this->redirect(['auth/login']);
         } else {
             $reviews = $user->getReviews()->all();
-            return $this->render('reviewsByAuthor', ['reviews' => $reviews, 'user' => $user]);
+            return $this->render('reviewsByAuthor', ['reviews' => $reviews, 'title' => $user->username]);
         }
     }
 
