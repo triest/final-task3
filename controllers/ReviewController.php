@@ -122,28 +122,21 @@ class ReviewController extends \yii\web\Controller
     }
 
 
-
     public function actionConfurm($city)
     {
         $session = Yii::$app->session; // получаем сессию
         $session['city']['name'] = $city;
         $city2 = City::find()->where(['name' => $city])->one();
-        $this->vardump($city2);
         if ($city2 != null) {
-            $reviews = $city2->getReviews()->all(); //получаем отзывы для этого города
             $reviews = Reviews::find()
                 ->select('reviews.*')
                 ->leftJoin('city_review', '`city_review`.`review_id` = `reviews`.`id`')
-                ->where(['city_review.city_id' => NULL])
-                ->orWhere(['city_review.city_id'=>$city2->id])
-               // ->with('city_review')
+                ->where(['city_review.city_id' => null])
+                ->orWhere(['city_review.city_id' => $city2->id])
                 ->all();
-            $this->vardump($reviews);
-            die();
-
-            return $this->render('test', ['reviews' => $reviews, 'city' => $city2->name,'title'=>$city2->name]);
+            return $this->render('test', ['reviews' => $reviews, 'city' => $city2->name, 'title' => $city2->name]);
         } else {
-            return $this->render('test', ['city' => $city,'title'=>$city->name]);
+            return $this->render('test', ['city' => $city, 'title' => $city]);
         }
     }
 
@@ -190,7 +183,7 @@ class ReviewController extends \yii\web\Controller
         $user = User::find()->where(['id' => $id])->one();
         if ($user != null) {
             $reviews = $user->getReviews()->all();
-            return $this->render('test', ['reviews' => $reviews,'title'=>$user->fio]);
+            return $this->render('test', ['reviews' => $reviews, 'title' => $user->fio]);
         }
         throw new \yii\web\NotFoundHttpException("Your Error Message.");
     }
