@@ -217,7 +217,7 @@ class ReviewController extends \yii\web\Controller
             return $this->redirect(['auth/login']);
         } else {
             $reviews = $user->getReviews()->all();
-            return $this->render('reviewsByAuthor', ['reviews' => $reviews, 'title' => $user->username]);
+            return $this->render('test', ['reviews' => $reviews, 'title' => $user->username]);
         }
     }
 

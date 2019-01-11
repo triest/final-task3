@@ -44,7 +44,7 @@ AppAsset::register($this);
             $menuItems[] = ['label' => 'Зарегистрироваться', 'url' => ['/auth/singup']];
             $menuItems[] = ['label' => 'Войти', 'url' => ['/auth/login']];
         } else {
-            $menuItems[] = ['label' => 'Мои отзовы', 'url' => ['/review/myreview']];
+            $menuItems[] = ['label' => 'Мои отзывы', 'url' => ['/review/myreview']];
             $menuItems[] = '<li>'
                 . Html::beginForm(['/auth/logout'], 'post')
                 . Html::submitButton(

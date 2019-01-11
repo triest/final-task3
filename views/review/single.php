@@ -24,13 +24,13 @@ $this->title = $review->title;
                                 <h4><b> <?= $review->title ?></b></h6>
                                     <h5><?= $review->getCityName() ?> </h5>
                                     <h6>Рейтинг: <?= $review->rating ?></h4>
-                            
+
                                 <div class="entry-content">
                                 </div>
                             </header>
-
+                            <br>
                             <?php if ($review->getImage() != null) { ?>
-                                <img src="<?= Yii::$app->request->baseUrl . $review->getImage() ?>"
+                                <img src="<?= Yii::$app->request->baseUrl . $review->getImage() ?> " width="600"
                                      class=" img-responsive">
                             <?php } ?>
 
@@ -59,9 +59,10 @@ $this->title = $review->title;
                                 <? } ?>
 
                                 <?php if ($review->getImage() != null) { ?>
+                                    <br>
                                     Картинка:
                                     <img src="<?= Yii::$app->request->baseUrl . $review->getImage() ?>"
-                                         class=" img-responsive">
+                                         class=" img-responsive" width="600">
                                 <?php } ?>
                                 <div class="entry-content">
 
