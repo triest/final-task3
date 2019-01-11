@@ -36,7 +36,7 @@ class AuthController extends Controller
         if (Yii::$app->request->isPost) {
             $model->load(Yii::$app->request->post());
             if ($user = $model->signup()) {
-                $this->sendConfurmEmail($user);
+                $this->sentEmailConfirm($user);
                 return $this->redirect(['site/index']);
             }
         }
@@ -139,6 +139,24 @@ class AuthController extends Controller
     {
         return $this->render('sended');
     }
+
+
+    public function sentEmailConfirm($user)
+    {
+        $email = $user->email;
+        try {
+            Yii::$app->mailer->compose(['html' => '@app/mail/html'], ['token' => $user->emailToken])
+                ->setFrom('sakura-testmail@sakura-city.info')
+                ->setTo($email)
+                ->setSubject('Confurm email')
+                ->send();
+        } catch (\Exception $exception) {
+            echo $exception->getMessage();
+        }
+        $this->redirect(['site/index']);
+    }
+
+
 
 
 }

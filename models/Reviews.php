@@ -109,11 +109,9 @@ class Reviews extends \yii\db\ActiveRecord
      */
     public function getCity()
     {
-        //  return $this->hasMany(City::className(), ['review_id'=>'id']);
         $city = $this->hasMany(City::className(), ['id' => 'city_id'])
             ->select(['id', 'name'])
             ->viaTable('city_review', ['review_id' => 'id']);
-        //   $this->vardump($city);
         return $city;
     }
 
