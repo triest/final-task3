@@ -140,15 +140,7 @@ class ReviewController extends \yii\web\Controller
         }
     }
 
-    function vardump($var)
-    {
-        echo '<br>';
-        echo '<br>';
-        echo '<br>';
-        echo '<pre>';
-        var_dump($var);
-        echo '</pre>';
-    }
+  
 
     public function actionView($id)
     {

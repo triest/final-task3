@@ -23,65 +23,35 @@ $this->title = $title
                     <?
                 }
                 ?>
-                <?php
-                if (Yii::$app->user->isGuest) { ?>
-                    <?php foreach ($reviews as $review): ?>
-                        <article class="post">
-                            <div class="post-thumb">
 
-                            </div>
-                            <div class="post-content">
-                                <header class="entry-header text-center text-uppercase">
-                                    <h4><b> <?= $review->title ?></b></h6>
-                                        <h5><?= $review->getCityName() ?> </h5>
-                                        <h6>Рейтинг: <?= $review->rating ?></h4>
-                                    <br>
-                                    Картинка: <?php if ($review->getImage() != null) { ?>
-                                        <img src="<?= Yii::$app->request->baseUrl . $review->getImage() ?>"
-                                             class=" img-responsive" width="600">
-                                    <?php } ?>
-                                    <div class="entry-content">
-                                    </div>
-                                </header>
+                <?php foreach ($reviews as $review): ?>
+                    <article class="post">
+                        <div class="post-thumb">
 
-                                <div class="entry-content">
-                                    <img src="<?= $review->getImage(); ?>" alt=""></a>
-                                </div>
-
-                            </div>
-                        </article>
-                    <?php endforeach; ?>
-
-                    <?php
-                } else { ?>
-                    <?php foreach ($reviews as $review): ?>
-                        <article class="post">
-                            <div class="post-thumb">
-
-                            </div>
-                            <div class="post-content">
-                                <header class="entry-header text-center text-uppercase">
-                                    <h4><b> <?= $review->title ?></b></h6>
-                                        <h5><?= $review->getCityName() ?></h5>
-                                        <h6>Рейтинг: <?= $review->rating ?></h4>
-                                    <br>
-                                    Картинка: <img src="<?= Yii::$app->request->baseUrl . $review->getImage(); ?>"
-                                                   alt="" width="600">
-
-                                    <div class="entry-content">
-
-                                    </div>
-                                </header>
+                        </div>
+                        <div class="post-content">
+                            <header class="entry-header text-center text-uppercase">
+                                <h4><b> <?= $review->title ?></b></h6>
+                                    <h5><?= $review->getCityName() ?></h5>
+                                    <h6>Рейтинг: <?= $review->rating ?></h4>
+                            </header>
+                            <?php if ($review->getImage() != null) { ?>
+                               <br>
+                                <img src="<?= Yii::$app->request->baseUrl . $review->getImage(); ?>"
+                                     alt="" width="600">
+                            <? } ?>
+                            <br>
+                            <?php if (!Yii::$app->user->isGuest) { ?>
                                 Автор: <b><a id="open-button"
                                              onclick="showAuthor(<?= $review->id_autor ?>)"> <?= $review->getAuthor() ?></a></b>
                                 <br>
-                                <a href="<?= Url::toRoute(['review/view', 'id' => $review->id]); ?>" class="more-link">Отзыв</a>
-                            </div>
-                        </article>
-                    <?php endforeach; ?>
-                    <?php
-                }
-                ?>
+                                <a href="<?= Url::toRoute(['review/view', 'id' => $review->id]); ?>"
+                                   class="more-link">Отзыв</a>
+                            <?php } ?>
+                        </div>
+                    </article>
+                <?php endforeach; ?>
+
             </div>
         </div>
     </div>
