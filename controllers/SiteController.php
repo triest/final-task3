@@ -83,9 +83,12 @@ class SiteController extends Controller
             return Yii::$app->runAction('review/confurm', ['city' => $city]);
         } else {
             $headers = Yii::$app->request->headers; //получем заголовки
+            $this->vardump($headers);
             $ip = $headers["forwarded"];
-
-            $ip = substr($ip, 4, strlen($ip)); //обрезаем ip
+            if ($ip == null) {
+                $ip = $headers["x-real-ip"];
+        }
+            $ip=preg_replace("/[a-zA-Z=]/","",$ip);
             $request = file_get_contents("http://api.sypexgeo.net/json/" . $ip); //запрашиваем местоположение
             $array = json_decode($request);
             $session['city'] = $array->city->name_ru;
@@ -154,6 +157,16 @@ class SiteController extends Controller
         $command = $query->createCommand();
         $data = $command->queryAll();
         return $this->render('cityList', ['cityes' => $data]);
+    }
+
+    function vardump($var)
+    {
+        echo '<br>';
+        echo '<br>';
+        echo '<br>';
+        echo '<pre>';
+        var_dump($var);
+        echo '</pre>';
     }
 
 

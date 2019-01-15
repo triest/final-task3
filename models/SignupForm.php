@@ -62,15 +62,8 @@ class SignupForm extends Model
 
     public function sendConfurmEmail($email, $token)
     {
-      //  echo $email;
-     //   echo $token;
-     /*   Yii::$app->mailer->compose()
-            ->setFrom('sakura-testmail@sakura-city.info')
-            ->setTo($email)
-            ->setSubject('Email sent from Yii2-Swiftmailer')
-            ->send();*/
 
-        echo 'send';
+
 
         Yii::$app->mailer->compose(['html' => '@app/mail/html'], ['token'=>$token])
             ->setFrom('sakura-testmail@sakura-city.info')

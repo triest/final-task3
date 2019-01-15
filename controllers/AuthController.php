@@ -40,7 +40,6 @@ class AuthController extends Controller
                 return $this->redirect(['site/index']);
             }
         }
-
         return $this->render('signup', ['model' => $model]);
     }
 
@@ -77,7 +76,6 @@ class AuthController extends Controller
     }
 
 
-
     //send mail for confurm email adress
     public function actionEmail($user)
     {
@@ -97,7 +95,7 @@ class AuthController extends Controller
     //active user by link
     function actionConfurm($token)
     {
-      $user = User::find()->where(['emailToken' => $token])->one();
+        $user = User::find()->where(['emailToken' => $token])->one();
         if ($user != null) {
             $user->emailConfurm = 1;
             $user->save();
@@ -155,8 +153,6 @@ class AuthController extends Controller
         }
         $this->redirect(['site/index']);
     }
-
-
 
 
 }
