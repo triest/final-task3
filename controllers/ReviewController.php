@@ -182,7 +182,7 @@ class ReviewController extends \yii\web\Controller
 
     public function actionEdit($id)
     {
-        $review = Reviews::find($id)->one();
+        $review = Reviews::find()->where(['id' => $id])->one();
         //если отправка формы
         $post = Yii::$app->request->post();
         if ($review->load($post)) {
@@ -192,6 +192,7 @@ class ReviewController extends \yii\web\Controller
                 if ($cities != null) {
                     $review->saveCities($cities);
                 }
+                return $this->actionView($id);
             }
         }
 
