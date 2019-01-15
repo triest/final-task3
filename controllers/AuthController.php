@@ -72,6 +72,7 @@ class AuthController extends Controller
     public function actionLogout()
     {
         Yii::$app->user->logout();
+        die();
         return $this->redirect(['site/index']);
     }
 

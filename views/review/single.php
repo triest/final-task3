@@ -80,6 +80,7 @@ $this->title = $review->title;
             </div>
         </div>
     </div>
+    <br>
     <?= Html::a('Назад', ['/site'], ['class' => 'btn btn-primary']) ?>
 </div>
 
