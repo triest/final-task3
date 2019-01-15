@@ -127,7 +127,7 @@ class ReviewController extends \yii\web\Controller
         $session = Yii::$app->session; // получаем сессию
         $session['city'] =[
             'name'=>$city,
-            'lietime'=>2*60*60
+            'lifetime'=>2*60*60
         ];
         $city2 = City::find()->where(['name' => $city])->one();
         if ($city2 != null) {
@@ -142,6 +142,9 @@ class ReviewController extends \yii\web\Controller
             return $this->render('test', ['city' => $city, 'title' => $city]);
         }
     }
+
+
+
 
 
 

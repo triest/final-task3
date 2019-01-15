@@ -80,7 +80,12 @@ class SiteController extends Controller
         $session = Yii::$app->session; // получаем сессию
         if ($session->has('city')) {  //если есть переменая города, то сразу вонзращаем страницу с отзывами для него
             $city = $session['city'];
-            return Yii::$app->runAction('review/confurm', ['city' => $city]);
+            $city2 = City::find()->where(['name' => $city])->one();
+            if ($city2 != null) {
+                return $this->redirect(['review/confurm', 'city' => $city2->name]);
+            } else {
+                return $this->actionDenide();
+            }
         } else {
             $headers = Yii::$app->request->headers; //получем заголовки
             $ip = $headers["forwarded"];
@@ -136,7 +141,7 @@ class SiteController extends Controller
 
 
     //
-    public function actionDenide($city)
+    public function actionDenide($city = '')
     {
         $query = new Query;
         $query->select([
