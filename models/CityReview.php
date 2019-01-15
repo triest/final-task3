@@ -31,8 +31,20 @@ class CityReview extends \yii\db\ActiveRecord
     {
         return [
             [['city_id', 'review_id'], 'integer'],
-            [['city_id'], 'exist', 'skipOnError' => true, 'targetClass' => City::className(), 'targetAttribute' => ['city_id' => 'id']],
-            [['review_id'], 'exist', 'skipOnError' => true, 'targetClass' => Reviews::className(), 'targetAttribute' => ['review_id' => 'id']],
+            [
+                ['city_id'],
+                'exist',
+                'skipOnError' => true,
+                'targetClass' => City::className(),
+                'targetAttribute' => ['city_id' => 'id']
+            ],
+            [
+                ['review_id'],
+                'exist',
+                'skipOnError' => true,
+                'targetClass' => Reviews::className(),
+                'targetAttribute' => ['review_id' => 'id']
+            ],
         ];
     }
 

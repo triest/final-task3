@@ -125,9 +125,9 @@ class ReviewController extends \yii\web\Controller
     public function actionConfurm($city)
     {
         $session = Yii::$app->session; // получаем сессию
-        $session['city'] =[
-            'name'=>$city,
-            'lifetime'=>2*60*60
+        $session['city'] = [
+            'name' => $city,
+            'lifetime' => 2 * 60 * 60
         ];
         $city2 = City::find()->where(['name' => $city])->one();
         if ($city2 != null) {
@@ -142,10 +142,6 @@ class ReviewController extends \yii\web\Controller
             return $this->render('index', ['city' => $city, 'title' => $city]);
         }
     }
-
-
-
-
 
 
     public function actionView($id)

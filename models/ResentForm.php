@@ -38,14 +38,8 @@ class ResentForm extends Model
     public function rules()
     {
         return [
-            // email and password are both required
-           // [['username', 'password'], 'required'],
-            //[['email'], 'email'],
-            // rememberMe must be a boolean value
             [['email'], 'email'],
             [['email'], 'unique', 'targetClass' => 'app\models\User', 'targetAttribute' => 'email'],
-            // password is validated by validatePassword()
-
         ];
     }
 

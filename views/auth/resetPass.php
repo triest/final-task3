@@ -13,23 +13,30 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 
 
-    <div class="form-group">
-        <label for="name">Email:</label>
-        <input type="text" class="form-control" id="email" name="email" required="required" placeholder="Введите email"
-               required>
-    </div>
- <input type="button" onclick="reset()" value="Сбросить">
+<div class="form-group">
+    <label for="name">Email:</label>
+    <input type="text" class="form-control" id="email" name="email" required="required" placeholder="Введите email"
+           required>
+</div>
+<input type="button" onclick="reset()" value="Сбросить">
 
 <script type="text/javascript">
 
-function reset(){
-    var email = $("#email").val();
-    $.post("ResetPassMail",
-        {
-            email: email,
-        },
-        function(data, status){
-            alert("Data: " + data + "\nStatus: " + status);
-        });
-}
+    function reset() {
+        var email = $("#email").val();
+        data2 = "";
+        $.post("resetpassmail",
+            {
+                email: email,
+            },
+            function (data, status) {
+                if (status = "success") {
+                    alert("Письмо отправленно");
+                }
+                else {
+                    alert("Ошибка.")
+                }
+
+            });
+    }
 </script>

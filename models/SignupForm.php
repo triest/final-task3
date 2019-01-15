@@ -51,12 +51,12 @@ class SignupForm extends Model
             $user = new User();
             $user->attributes = $this->attributes;
             $hash = Yii::$app->getSecurity()->generatePasswordHash($user->password);
-            $user->password=$hash;
+            $user->password = $hash;
             $user->emailToken = Yii::$app->security->generateRandomString(32);
-           // $this->endConfurmEmail($user->mail, $user->emailToken);
+            // $this->endConfurmEmail($user->mail, $user->emailToken);
 
-             $user->create();
-             return $user;
+            $user->create();
+            return $user;
         }
     }
 
@@ -64,13 +64,12 @@ class SignupForm extends Model
     {
 
 
-
-        Yii::$app->mailer->compose(['html' => '@app/mail/html'], ['token'=>$token])
+        Yii::$app->mailer->compose(['html' => '@app/mail/html'], ['token' => $token])
             ->setFrom('sakura-testmail@sakura-city.info')
             ->setTo($email)
             ->setSubject('Please confurm you email')
             ->send();
-     //   die();
+        //   die();
     }
 
 }

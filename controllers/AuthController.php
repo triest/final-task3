@@ -72,7 +72,7 @@ class AuthController extends Controller
     public function actionLogout()
     {
         Yii::$app->user->logout();
-        die();
+
         return $this->redirect(['site/index']);
     }
 
@@ -117,20 +117,29 @@ class AuthController extends Controller
     }
 
     //send email for reset Password method POST
-    function actionResetPassMail()
+    function actionResetpassmail()
     {
         $request = Yii::$app->request;
         $email = $request->post('email'); //получаем email
         $user = User::find()->where(['email' => $email])->one();
         $user->resetToken = Yii::$app->security->generateRandomString(32);
         $user->save();
-        $this->sendResetEmail($user->email, $user->resetToken);
 
-        Yii::$app->mailer->compose(['html' => '@app/mail/reset'], ['token' => $user->resetToken])
-            ->setFrom('sakura-testmail@sakura-city.info')
-            ->setTo($user->email)
-            ->setSubject('ResetPassword')
-            ->send();
+        try {
+            $send = Yii::$app->mailer->compose(['html' => '@app/mail/reset'], ['token' => $user->resetToken])
+                ->setFrom('sakura-testmail@sakura-city.info')
+                ->setTo($user->email)
+                ->setSubject('ResetPassword')
+                ->send();
+        } catch (\Exception $exception) {
+            echo $exception->getMessage();
+        }
+        if ($send) {
+            return Yii::$app->response->statusCode = 200;
+        }
+        else{
+            return Yii::$app->response->statusCode = 503;
+        }
     }
 
 
