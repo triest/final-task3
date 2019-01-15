@@ -125,7 +125,10 @@ class ReviewController extends \yii\web\Controller
     public function actionConfurm($city)
     {
         $session = Yii::$app->session; // получаем сессию
-        $session['city']['name'] = $city;
+        $session['city'] =[
+            'name'=>$city,
+            'lietime'=>2*60*60
+        ];
         $city2 = City::find()->where(['name' => $city])->one();
         if ($city2 != null) {
             $reviews = Reviews::find()

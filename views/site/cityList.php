@@ -3,6 +3,7 @@
 use yii\helpers\Url;
 use yii\widgets\LinkPager;
 use yii\helpers\Html;
+$this->title = 'Выберите город';
 
 ?>
 <!--main content start-->

@@ -83,18 +83,13 @@ class SiteController extends Controller
             return Yii::$app->runAction('review/confurm', ['city' => $city]);
         } else {
             $headers = Yii::$app->request->headers; //получем заголовки
-            $this->vardump($headers);
             $ip = $headers["forwarded"];
-            if ($ip == null) {
-                $ip = $headers["x-real-ip"];
-        }
-            $ip=preg_replace("/[a-zA-Z=]/","",$ip);
+            $ip = substr($ip, 4, strlen($ip)); //обрезаем ip
             $request = file_get_contents("http://api.sypexgeo.net/json/" . $ip); //запрашиваем местоположение
             $array = json_decode($request);
             $session['city'] = $array->city->name_ru;
             return $this->render('confirm_city', ['city' => $array->city->name_ru]);
         }
-
     }
 
 
