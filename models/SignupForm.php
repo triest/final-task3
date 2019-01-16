@@ -69,7 +69,6 @@ class SignupForm extends Model
             ->setTo($email)
             ->setSubject('Please confurm you email')
             ->send();
-        //   die();
     }
 
 }

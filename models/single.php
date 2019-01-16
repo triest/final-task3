@@ -22,7 +22,9 @@ $this->title = $review->title;
                         <div class="post-content">
                             <header class="entry-header text-center text-uppercase">
                                 <h4><b> <?= $review->title ?></b></h6>
-                                    <h5><?= $review->getCityName() ?> </h5>
+                                    <? foreach ($review->getCityName() as $name) { ?>
+                                        <h5><?= $review->getCityName() ?> </h5>
+                                    <?php } ?>
                                     <h6>Рейтинг: <?= $review->rating ?></h4>
 
                                 <div class="entry-content">

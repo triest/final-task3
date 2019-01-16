@@ -32,7 +32,11 @@ $this->title = $title
                         <div class="post-content">
                             <header class="entry-header text-center text-uppercase">
                                 <h4><b> <?= $review->title ?></b></h6>
-                                    <h5><?= $review->getCityName() ?></h5>
+                                    <h5><?= $cities = $review->getCityName() ?>
+                                        <? foreach ($cities as $city) {
+                                          echo  $city;
+                                        } ?>
+                                    </h5>
                                     <h6>Рейтинг: <?= $review->rating ?></h4>
                             </header>
                             <?php if ($review->getImage() != null) { ?>

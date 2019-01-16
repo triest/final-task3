@@ -58,9 +58,4 @@ class City extends \yii\db\ActiveRecord
             ->viaTable('city_review', ['city_id' => 'id']);
     }
 
-    /*  public function save($name)
-      {
-          $this->name = $name;
-        //  return $this->save(false);
-      }*/
 }

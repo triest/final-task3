@@ -136,8 +136,7 @@ class AuthController extends Controller
         }
         if ($send) {
             return Yii::$app->response->statusCode = 200;
-        }
-        else{
+        } else {
             return Yii::$app->response->statusCode = 503;
         }
     }
@@ -148,7 +147,7 @@ class AuthController extends Controller
         return $this->render('sended');
     }
 
-
+//send mail to confurm
     public function sentEmailConfirm($user)
     {
         $email = $user->email;

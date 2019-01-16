@@ -127,11 +127,11 @@ class ReviewController extends \yii\web\Controller
         $session = Yii::$app->session; // получаем сессию
         $session['city'] = [
             'name' => $city,
-            'lifetime' => 2 * 60 * 60
+            'lifetime' => 2 * 60 * 60 //запомнить на 2 часа
         ];
         $city2 = City::find()->where(['name' => $city])->one();
         if ($city2 != null) {
-            $reviews = Reviews::find()
+            $reviews = Reviews::find()   //add reviews visout city
                 ->select('reviews.*')
                 ->leftJoin('city_review', '`city_review`.`review_id` = `reviews`.`id`')
                 ->where(['city_review.city_id' => null])

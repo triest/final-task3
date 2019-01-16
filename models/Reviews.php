@@ -168,18 +168,16 @@ class Reviews extends \yii\db\ActiveRecord
 
     public function getCityName()
     {
-        $city = $this->getCity()->one();
-        $name = $city->name;
-        return $name;
+        $cityes = $this->getCity()->all();
+        $cityes = ArrayHelper::getColumn($cityes, 'name');
+        return $cityes;
     }
+
 
     public function getImage()
     {
-
         if ($this->img) {
-            //   return 'web/uploads/'.$this->image;
             return ($this->img) ? '/uploads/' . $this->img : '/no-image.png';
-            //  return  Yii::getAlias('@web') . 'uploads/'.$this->image;
         } else {
             return null;
         }
@@ -219,6 +217,16 @@ class Reviews extends \yii\db\ActiveRecord
     function clearCurrentCities()
     {
         CityReview::deleteAll(['review_id' => $this->id]);
+    }
+
+    function vardump($var)
+    {
+        echo '<br>';
+        echo '<br>';
+        echo '<br>';
+        echo '<pre>';
+        var_dump($var);
+        echo '</pre>';
     }
 
 
